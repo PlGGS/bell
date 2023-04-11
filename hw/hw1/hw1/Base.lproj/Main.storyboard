@@ -23,23 +23,23 @@
                                         <rect key="frame" x="0.0" y="0.0" width="430" height="839"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcF-Oi-nc2" userLabel="TopSelectionAndStartView">
-                                                <rect key="frame" x="8" y="0.0" width="414" height="70"/>
+                                                <rect key="frame" x="8" y="0.0" width="414" height="71"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Hn-QB-r65">
-                                                        <rect key="frame" x="8.0000000000000036" y="17" width="61.333333333333343" height="37"/>
+                                                        <rect key="frame" x="8.0000000000000036" y="17" width="61.333333333333343" height="38"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Sort">
                                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="10"/>
                                                         </buttonConfiguration>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N =" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRq-o0-9Ox">
-                                                        <rect key="frame" x="84.333333333333329" y="25" width="27" height="21"/>
+                                                        <rect key="frame" x="84.333333333333329" y="25" width="27" height="22"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GYi-Cu-jLD">
-                                                        <rect key="frame" x="121.33333333333334" y="20" width="284.66666666666663" height="31"/>
+                                                        <rect key="frame" x="121.33333333333334" y="20" width="284.66666666666663" height="32"/>
                                                         <segments>
                                                             <segment title="16"/>
                                                             <segment title="32"/>
@@ -52,7 +52,6 @@
                                                 <constraints>
                                                     <constraint firstItem="GYi-Cu-jLD" firstAttribute="top" secondItem="bcF-Oi-nc2" secondAttribute="top" constant="20" id="DE3-P4-jYx"/>
                                                     <constraint firstItem="GYi-Cu-jLD" firstAttribute="leading" secondItem="TRq-o0-9Ox" secondAttribute="trailing" constant="10" id="LJE-vG-1lh"/>
-                                                    <constraint firstItem="6Hn-QB-r65" firstAttribute="height" secondItem="bcF-Oi-nc2" secondAttribute="height" multiplier="0.528571" id="PVt-eN-lvw"/>
                                                     <constraint firstAttribute="bottom" secondItem="TRq-o0-9Ox" secondAttribute="bottom" constant="24" id="UMb-17-HRW"/>
                                                     <constraint firstAttribute="bottom" secondItem="6Hn-QB-r65" secondAttribute="bottom" constant="16" id="VP8-B6-gB8"/>
                                                     <constraint firstAttribute="bottom" secondItem="GYi-Cu-jLD" secondAttribute="bottom" constant="20" id="XVy-TL-oYk"/>
@@ -64,10 +63,18 @@
                                                     <constraint firstAttribute="trailing" secondItem="GYi-Cu-jLD" secondAttribute="trailing" constant="8" id="xmS-SJ-wx6"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkN-Z4-b8q" userLabel="SortingView">
+                                                <rect key="frame" x="8" y="76" width="414" height="763"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstItem="bcF-Oi-nc2" firstAttribute="trailing" secondItem="CkN-Z4-b8q" secondAttribute="trailing" id="b35-TH-gnz"/>
+                                            <constraint firstItem="CkN-Z4-b8q" firstAttribute="width" secondItem="mpB-Ua-YeV" secondAttribute="width" multiplier="0.962791" id="cDN-5k-7qJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="CkN-Z4-b8q" secondAttribute="bottom" id="eLD-jH-AaT"/>
                                             <constraint firstItem="bcF-Oi-nc2" firstAttribute="leading" secondItem="mpB-Ua-YeV" secondAttribute="leading" constant="8" id="uAl-tV-GaF"/>
+                                            <constraint firstItem="bcF-Oi-nc2" firstAttribute="height" secondItem="CkN-Z4-b8q" secondAttribute="height" multiplier="0.0930537" id="uer-P5-2Z0"/>
                                             <constraint firstItem="bcF-Oi-nc2" firstAttribute="top" secondItem="mpB-Ua-YeV" secondAttribute="top" id="vaF-ul-CeW"/>
                                             <constraint firstAttribute="trailing" secondItem="bcF-Oi-nc2" secondAttribute="trailing" constant="8" id="zfG-Ac-d8V"/>
                                         </constraints>
@@ -99,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="29.770992366412212" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="29.302325581395348" y="3.218884120171674"/>
         </scene>
     </scenes>
     <resources>
