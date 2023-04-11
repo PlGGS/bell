@@ -63,9 +63,78 @@
                                                     <constraint firstAttribute="trailing" secondItem="GYi-Cu-jLD" secondAttribute="trailing" constant="8" id="xmS-SJ-wx6"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkN-Z4-b8q" userLabel="SortingView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkN-Z4-b8q" userLabel="SortingContainersView">
                                                 <rect key="frame" x="8" y="76" width="414" height="763"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7l-qJ-r5A" userLabel="SortingContainerViewTop">
+                                                        <rect key="frame" x="8" y="8" width="393" height="370"/>
+                                                        <subviews>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TaH-BB-Rss">
+                                                                <rect key="frame" x="8" y="8" width="377" height="32"/>
+                                                                <segments>
+                                                                    <segment title="Insertion"/>
+                                                                    <segment title="Selection"/>
+                                                                    <segment title="Quick"/>
+                                                                    <segment title="Merge"/>
+                                                                </segments>
+                                                            </segmentedControl>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvJ-Mw-fho" userLabel="SortingViewTop">
+                                                                <rect key="frame" x="8" y="54" width="377" height="308"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="TaH-BB-Rss" firstAttribute="leading" secondItem="y7l-qJ-r5A" secondAttribute="leading" constant="8" id="6dc-cl-aJN"/>
+                                                            <constraint firstItem="AvJ-Mw-fho" firstAttribute="leading" secondItem="y7l-qJ-r5A" secondAttribute="leading" constant="8" id="GYj-11-9dv"/>
+                                                            <constraint firstAttribute="trailing" secondItem="TaH-BB-Rss" secondAttribute="trailing" constant="8" id="K5M-xU-AXj"/>
+                                                            <constraint firstItem="AvJ-Mw-fho" firstAttribute="height" secondItem="TaH-BB-Rss" secondAttribute="height" multiplier="9.93548" id="OnU-vs-AYx"/>
+                                                            <constraint firstAttribute="trailing" secondItem="AvJ-Mw-fho" secondAttribute="trailing" constant="8" id="XDA-Yu-SDr"/>
+                                                            <constraint firstAttribute="bottom" secondItem="AvJ-Mw-fho" secondAttribute="bottom" constant="8" id="clZ-Gc-u0S"/>
+                                                            <constraint firstItem="TaH-BB-Rss" firstAttribute="top" secondItem="y7l-qJ-r5A" secondAttribute="top" constant="8" id="vip-TC-CTh"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxS-g6-EiM" userLabel="SortingContainerViewBottom">
+                                                        <rect key="frame" x="8" y="385" width="393" height="370"/>
+                                                        <subviews>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NYQ-8Z-WRs">
+                                                                <rect key="frame" x="8" y="8" width="377" height="32"/>
+                                                                <segments>
+                                                                    <segment title="Insertion"/>
+                                                                    <segment title="Selection"/>
+                                                                    <segment title="Quick"/>
+                                                                    <segment title="Merge"/>
+                                                                </segments>
+                                                            </segmentedControl>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yb-wM-vYq" userLabel="SortingViewBottom">
+                                                                <rect key="frame" x="8" y="54" width="377" height="308"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="2yb-wM-vYq" firstAttribute="leading" secondItem="bxS-g6-EiM" secondAttribute="leading" constant="8" id="Eqm-Jz-O6i"/>
+                                                            <constraint firstItem="NYQ-8Z-WRs" firstAttribute="top" secondItem="bxS-g6-EiM" secondAttribute="top" constant="8" id="Q3M-hD-2u6"/>
+                                                            <constraint firstAttribute="bottom" secondItem="2yb-wM-vYq" secondAttribute="bottom" constant="8" id="WFO-i2-jfj"/>
+                                                            <constraint firstItem="NYQ-8Z-WRs" firstAttribute="leading" secondItem="bxS-g6-EiM" secondAttribute="leading" constant="8" id="fxo-Kh-aQp"/>
+                                                            <constraint firstAttribute="trailing" secondItem="NYQ-8Z-WRs" secondAttribute="trailing" constant="8" id="oNy-yM-n0Y"/>
+                                                            <constraint firstItem="2yb-wM-vYq" firstAttribute="height" secondItem="NYQ-8Z-WRs" secondAttribute="height" multiplier="9.93548" id="qnl-Zo-jKX"/>
+                                                            <constraint firstAttribute="trailing" secondItem="2yb-wM-vYq" secondAttribute="trailing" constant="8" id="ryu-3V-B49"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="bxS-g6-EiM" firstAttribute="height" secondItem="CkN-Z4-b8q" secondAttribute="height" multiplier="0.484928" id="1iX-dw-iKI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="y7l-qJ-r5A" secondAttribute="trailing" constant="13" id="4As-7T-87Q"/>
+                                                    <constraint firstItem="bxS-g6-EiM" firstAttribute="height" secondItem="y7l-qJ-r5A" secondAttribute="height" id="D43-4p-Rfv"/>
+                                                    <constraint firstItem="y7l-qJ-r5A" firstAttribute="height" secondItem="CkN-Z4-b8q" secondAttribute="height" multiplier="0.484928" id="Wrm-c3-k3B"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bxS-g6-EiM" secondAttribute="trailing" constant="13" id="aRQ-Bl-WSq"/>
+                                                    <constraint firstItem="bxS-g6-EiM" firstAttribute="leading" secondItem="CkN-Z4-b8q" secondAttribute="leading" constant="8" id="hfj-aj-Kwy"/>
+                                                    <constraint firstItem="y7l-qJ-r5A" firstAttribute="leading" secondItem="CkN-Z4-b8q" secondAttribute="leading" constant="8" id="iQA-Ng-beu"/>
+                                                    <constraint firstItem="y7l-qJ-r5A" firstAttribute="top" secondItem="CkN-Z4-b8q" secondAttribute="top" constant="8" id="oRy-OP-0VO"/>
+                                                    <constraint firstAttribute="bottom" secondItem="bxS-g6-EiM" secondAttribute="bottom" constant="8" id="yY0-U3-tjt"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
