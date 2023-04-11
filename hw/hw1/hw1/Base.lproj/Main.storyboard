@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,15 +13,64 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="hw1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h9s-AF-GkT">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="59" width="430" height="839"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpB-Ua-YeV">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="759"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpB-Ua-YeV" userLabel="AutoLayoutView">
+                                        <rect key="frame" x="0.0" y="0.0" width="430" height="839"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcF-Oi-nc2" userLabel="TopSelectionAndStartView">
+                                                <rect key="frame" x="8" y="0.0" width="414" height="70"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Hn-QB-r65">
+                                                        <rect key="frame" x="8.0000000000000036" y="17" width="61.333333333333343" height="37"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="filled" title="Sort">
+                                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="10"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N =" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRq-o0-9Ox">
+                                                        <rect key="frame" x="84.333333333333329" y="25" width="27" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GYi-Cu-jLD">
+                                                        <rect key="frame" x="121.33333333333334" y="20" width="284.66666666666663" height="31"/>
+                                                        <segments>
+                                                            <segment title="16"/>
+                                                            <segment title="32"/>
+                                                            <segment title="48"/>
+                                                            <segment title="64"/>
+                                                        </segments>
+                                                    </segmentedControl>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="GYi-Cu-jLD" firstAttribute="top" secondItem="bcF-Oi-nc2" secondAttribute="top" constant="20" id="DE3-P4-jYx"/>
+                                                    <constraint firstItem="GYi-Cu-jLD" firstAttribute="leading" secondItem="TRq-o0-9Ox" secondAttribute="trailing" constant="10" id="LJE-vG-1lh"/>
+                                                    <constraint firstItem="6Hn-QB-r65" firstAttribute="height" secondItem="bcF-Oi-nc2" secondAttribute="height" multiplier="0.528571" id="PVt-eN-lvw"/>
+                                                    <constraint firstAttribute="bottom" secondItem="TRq-o0-9Ox" secondAttribute="bottom" constant="24" id="UMb-17-HRW"/>
+                                                    <constraint firstAttribute="bottom" secondItem="6Hn-QB-r65" secondAttribute="bottom" constant="16" id="VP8-B6-gB8"/>
+                                                    <constraint firstAttribute="bottom" secondItem="GYi-Cu-jLD" secondAttribute="bottom" constant="20" id="XVy-TL-oYk"/>
+                                                    <constraint firstItem="6Hn-QB-r65" firstAttribute="top" secondItem="bcF-Oi-nc2" secondAttribute="top" constant="17" id="Yax-nB-zhW"/>
+                                                    <constraint firstItem="6Hn-QB-r65" firstAttribute="width" secondItem="bcF-Oi-nc2" secondAttribute="width" multiplier="0.148541" id="atA-fM-LTu"/>
+                                                    <constraint firstItem="TRq-o0-9Ox" firstAttribute="leading" secondItem="6Hn-QB-r65" secondAttribute="trailing" constant="15" id="d1L-rk-TgU"/>
+                                                    <constraint firstItem="6Hn-QB-r65" firstAttribute="leading" secondItem="bcF-Oi-nc2" secondAttribute="leading" constant="8" id="jqh-T1-RZ9"/>
+                                                    <constraint firstItem="TRq-o0-9Ox" firstAttribute="top" secondItem="bcF-Oi-nc2" secondAttribute="top" constant="25" id="xHJ-JN-RJu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="GYi-Cu-jLD" secondAttribute="trailing" constant="8" id="xmS-SJ-wx6"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="bcF-Oi-nc2" firstAttribute="leading" secondItem="mpB-Ua-YeV" secondAttribute="leading" constant="8" id="uAl-tV-GaF"/>
+                                            <constraint firstItem="bcF-Oi-nc2" firstAttribute="top" secondItem="mpB-Ua-YeV" secondAttribute="top" id="vaF-ul-CeW"/>
+                                            <constraint firstAttribute="trailing" secondItem="bcF-Oi-nc2" secondAttribute="trailing" constant="8" id="zfG-Ac-d8V"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
