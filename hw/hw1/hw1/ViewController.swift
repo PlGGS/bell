@@ -8,16 +8,47 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var lblArrayTop: UILabel!
+    @IBOutlet weak var lblArrayBottom: UILabel!
+    @IBOutlet weak var segLength: UISegmentedControl!
+    
+    var length: Int = 16;
+    let from: Int = 1;
+    let to: Int = 100;
+    
+    var array: [Int] = [Int]();
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        var ints = [6, 5, 7, 4, 7, 1, 8, 2, 2, 8, 4, 8, 7, 3, 8, 1, 8, 6, 10, 2, 3, 8, 8];
-        Sort.merge(array: &ints)
-        print(ints);
+        resetArray(length);
+    }
+    
+    @IBAction func segLengthTapped(_ sender: UISegmentedControl) {
+        length = Int(sender.titleForSegment(at: sender.selectedSegmentIndex)!) ?? length;
+        resetArray(length);
+    }
+    
+    @IBAction func segSortAlgosTopTapped(_ sender: Any) {
+        
+    }
+    
+    @IBAction func segSortAlgosBottomTapped(_ sender: Any) {
+        
+    }
+    
+    func resetArray(_ length: Int) {
+        array = getRandomIntArray(length: length, from, to);
+        lblArrayTop.text = String(array.description);
+        lblArrayBottom.text = String(array.description);
     }
 }
 
-func getRandomInt(_ from: UInt32, _ to: UInt32) -> Int {
-    return Int(arc4random_uniform(to - from + 1)) + Int(from);
+func getRandomIntArray(length: Int, _ from: Int, _ to: Int) -> [Int] {
+    return (0..<length).map( { _ in Int.random(in: from...to) } );
 }
+
+
+
+
+

@@ -38,7 +38,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GYi-Cu-jLD">
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GYi-Cu-jLD" userLabel="segLength">
                                                         <rect key="frame" x="121.33333333333334" y="20" width="284.66666666666663" height="32"/>
                                                         <segments>
                                                             <segment title="16"/>
@@ -46,6 +46,9 @@
                                                             <segment title="48"/>
                                                             <segment title="64"/>
                                                         </segments>
+                                                        <connections>
+                                                            <action selector="segLengthTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="Z1B-dW-erD"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -69,7 +72,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7l-qJ-r5A" userLabel="SortingContainerViewTop">
                                                         <rect key="frame" x="8" y="8" width="393" height="370"/>
                                                         <subviews>
-                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TaH-BB-Rss">
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TaH-BB-Rss" userLabel="segSortAlgosTop">
                                                                 <rect key="frame" x="8" y="8" width="377" height="32"/>
                                                                 <segments>
                                                                     <segment title="Insertion"/>
@@ -77,10 +80,28 @@
                                                                     <segment title="Quick"/>
                                                                     <segment title="Merge"/>
                                                                 </segments>
+                                                                <connections>
+                                                                    <action selector="segSortAlgosTopTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="X0J-AU-UW9"/>
+                                                                </connections>
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvJ-Mw-fho" userLabel="SortingViewTop">
                                                                 <rect key="frame" x="8" y="54" width="377" height="308"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihX-Mo-tco" userLabel="lblArrayTop">
+                                                                        <rect key="frame" x="8" y="8" width="361" height="292"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="ihX-Mo-tco" firstAttribute="leading" secondItem="AvJ-Mw-fho" secondAttribute="leading" constant="8" id="2Dn-hy-ARv"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="ihX-Mo-tco" secondAttribute="bottom" constant="8" id="HKy-7E-2xg"/>
+                                                                    <constraint firstItem="ihX-Mo-tco" firstAttribute="height" secondItem="AvJ-Mw-fho" secondAttribute="height" multiplier="0.948052" id="hbl-nP-ITi"/>
+                                                                    <constraint firstItem="ihX-Mo-tco" firstAttribute="top" secondItem="AvJ-Mw-fho" secondAttribute="top" constant="8" id="iaw-ZT-lnm"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="ihX-Mo-tco" secondAttribute="trailing" constant="8" id="l6l-FJ-E4F"/>
+                                                                </constraints>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -97,7 +118,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxS-g6-EiM" userLabel="SortingContainerViewBottom">
                                                         <rect key="frame" x="8" y="385" width="393" height="370"/>
                                                         <subviews>
-                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NYQ-8Z-WRs">
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NYQ-8Z-WRs" userLabel="segSortAlgosBottom">
                                                                 <rect key="frame" x="8" y="8" width="377" height="32"/>
                                                                 <segments>
                                                                     <segment title="Insertion"/>
@@ -105,10 +126,28 @@
                                                                     <segment title="Quick"/>
                                                                     <segment title="Merge"/>
                                                                 </segments>
+                                                                <connections>
+                                                                    <action selector="segSortAlgosBottomTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="kPD-rc-LXB"/>
+                                                                </connections>
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yb-wM-vYq" userLabel="SortingViewBottom">
                                                                 <rect key="frame" x="8" y="54" width="377" height="308"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgK-g3-eHB" userLabel="lblArrayBottom">
+                                                                        <rect key="frame" x="8" y="8" width="361" height="292"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="rgK-g3-eHB" firstAttribute="height" secondItem="2yb-wM-vYq" secondAttribute="height" multiplier="0.948052" id="7qm-1R-qtX"/>
+                                                                    <constraint firstItem="rgK-g3-eHB" firstAttribute="top" secondItem="2yb-wM-vYq" secondAttribute="top" constant="8" id="XtU-RH-SEp"/>
+                                                                    <constraint firstItem="rgK-g3-eHB" firstAttribute="leading" secondItem="2yb-wM-vYq" secondAttribute="leading" constant="8" id="bL9-am-bUx"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="rgK-g3-eHB" secondAttribute="bottom" constant="8" id="fv3-43-E4E"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="rgK-g3-eHB" secondAttribute="trailing" constant="8" id="iIA-cD-RlV"/>
+                                                                </constraints>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -172,6 +211,11 @@
                             <constraint firstItem="h9s-AF-GkT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cct-Z7-o9q"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="lblArrayBottom" destination="rgK-g3-eHB" id="Aem-RR-0L0"/>
+                        <outlet property="lblArrayTop" destination="ihX-Mo-tco" id="ruI-gh-86R"/>
+                        <outlet property="segLength" destination="GYi-Cu-jLD" id="GYE-O3-TLj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
