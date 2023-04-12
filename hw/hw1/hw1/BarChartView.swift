@@ -21,22 +21,40 @@ class BarChartView: UIView {
     override func draw(_ rect: CGRect) {
         if (array.count > 0) {
             let context = UIGraphicsGetCurrentContext();
+            context?.setStrokeColor(UIColor.green.cgColor);
+            context?.stroke(rect);
             
             let viewHeight = Int(bounds.height);
             let viewWidth = Int(bounds.width);
             
-            // Calculate the available width for the rectangles after accounting for spacing
-            let spacing: Int = -1 * (array.count / 64) * 4 + 5;
-            let availableWidth = viewWidth - (spacing * (array.count));
+            let multiplier = 1;
+            let spacing: Int = (Int(-(Float(array.count) / Float(64)) * 4.0 + 5.0) * multiplier);
             
-            // Calculate the width of each rectangle based on the available width and number of rectangles
-            let barWidth = availableWidth / array.count;
+            let availableWidth: Double = Double(viewWidth) - (Double(spacing * array.count));
+//            print(String(viewWidth) + " - " +
+//                  String((spacing * (array.count * 0.75))) + " + " +
+//                  "_" + " = " +
+//                  String(viewWidth - (spacing * (array.count * 0.75)))
+//            );
+            
+            
+            let barWidth: Double = availableWidth / Double(array.count);
+            print(availableWidth);
+            
+            print(barWidth);
+            print(spacing);
+            
+            print(barWidth + Double(spacing));
+            
+            print((barWidth + Double(spacing)) * Double(array.count));
+            
+            print(viewWidth);
+            print();
                     
             for (index, value) in array.enumerated() {
                 let barHeight = Int(Float(value) * Float(viewHeight) / 100);
-                let rect = CGRect(x: (barWidth + spacing) * index + spacing, y: viewHeight - barHeight, width: Int(barWidth), height: barHeight)
-                
-                
+                let x = Int((barWidth + Double(spacing)) * Double(index));
+                let rect = CGRect(x: x, y: viewHeight - barHeight, width: Int(barWidth), height: barHeight)
                 
                 context?.setFillColor(UIColor.red.cgColor)
                 context?.fill(rect)
