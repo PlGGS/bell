@@ -84,7 +84,7 @@
                                                                     <action selector="segSortAlgosTopTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="X0J-AU-UW9"/>
                                                                 </connections>
                                                             </segmentedControl>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvJ-Mw-fho" userLabel="SortingViewTop">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvJ-Mw-fho" userLabel="SortingViewTop" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
                                                                 <rect key="frame" x="8" y="54" width="377" height="308"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihX-Mo-tco" userLabel="lblArrayTop">
@@ -130,7 +130,7 @@
                                                                     <action selector="segSortAlgosBottomTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="kPD-rc-LXB"/>
                                                                 </connections>
                                                             </segmentedControl>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yb-wM-vYq" userLabel="SortingViewBottom">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yb-wM-vYq" userLabel="SortingViewBottom" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
                                                                 <rect key="frame" x="8" y="54" width="377" height="308"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgK-g3-eHB" userLabel="lblArrayBottom">
@@ -215,6 +215,8 @@
                         <outlet property="lblArrayBottom" destination="rgK-g3-eHB" id="Aem-RR-0L0"/>
                         <outlet property="lblArrayTop" destination="ihX-Mo-tco" id="ruI-gh-86R"/>
                         <outlet property="segLength" destination="GYi-Cu-jLD" id="GYE-O3-TLj"/>
+                        <outlet property="sortingViewBottom" destination="2yb-wM-vYq" id="M7S-av-tak"/>
+                        <outlet property="sortingViewTop" destination="AvJ-Mw-fho" id="Vzp-GG-6cc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

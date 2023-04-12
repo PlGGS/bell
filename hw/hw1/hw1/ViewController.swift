@@ -10,6 +10,10 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var lblArrayTop: UILabel!
     @IBOutlet weak var lblArrayBottom: UILabel!
+    
+    @IBOutlet weak var sortingViewTop: BarChartView!
+    @IBOutlet weak var sortingViewBottom: BarChartView!
+    
     @IBOutlet weak var segLength: UISegmentedControl!
     
     var length: Int = 16;
@@ -22,6 +26,8 @@ class ViewController: UIViewController {
         super.viewDidLoad();
         
         resetArray(length);
+        sortingViewTop.array = array;
+        sortingViewBottom.array = array;
     }
     
     @IBAction func segLengthTapped(_ sender: UISegmentedControl) {
@@ -41,6 +47,10 @@ class ViewController: UIViewController {
         array = getRandomIntArray(length: length, from, to);
         lblArrayTop.text = String(array.description);
         lblArrayBottom.text = String(array.description);
+        sortingViewTop.array = array;
+        sortingViewBottom.array = array;
+        sortingViewTop.setNeedsDisplay();
+        sortingViewBottom.setNeedsDisplay();
     }
 }
 
