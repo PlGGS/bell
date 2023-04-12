@@ -16,6 +16,7 @@
 		254F476029DF73680090339F /* hw1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254F475F29DF73680090339F /* hw1Tests.swift */; };
 		254F476A29DF73680090339F /* hw1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254F476929DF73680090339F /* hw1UITests.swift */; };
 		254F476C29DF73680090339F /* hw1UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254F476B29DF73680090339F /* hw1UITestsLaunchTests.swift */; };
+		258BB28029E61B7000A670AC /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258BB27F29E61B7000A670AC /* Sort.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		254F476529DF73680090339F /* hw1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hw1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		254F476929DF73680090339F /* hw1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hw1UITests.swift; sourceTree = "<group>"; };
 		254F476B29DF73680090339F /* hw1UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hw1UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		258BB27F29E61B7000A670AC /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				254F474829DF73670090339F /* AppDelegate.swift */,
 				254F474A29DF73670090339F /* SceneDelegate.swift */,
 				254F474C29DF73670090339F /* ViewController.swift */,
+				258BB27F29E61B7000A670AC /* Sort.swift */,
 				254F474E29DF73670090339F /* Main.storyboard */,
 				254F475129DF73680090339F /* Assets.xcassets */,
 				254F475329DF73680090339F /* LaunchScreen.storyboard */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				254F474D29DF73670090339F /* ViewController.swift in Sources */,
+				258BB28029E61B7000A670AC /* Sort.swift in Sources */,
 				254F474929DF73670090339F /* AppDelegate.swift in Sources */,
 				254F474B29DF73670090339F /* SceneDelegate.swift in Sources */,
 			);
