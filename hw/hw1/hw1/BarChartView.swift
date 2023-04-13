@@ -21,41 +21,34 @@ class BarChartView: UIView {
     override func draw(_ rect: CGRect) {
         if (array.count > 0) {
             let context = UIGraphicsGetCurrentContext();
-            context?.setStrokeColor(UIColor.green.cgColor);
-            context?.stroke(rect);
+            
+            //Show view border
+//            context?.setStrokeColor(UIColor.green.cgColor);
+//            context?.stroke(rect);
             
             let viewHeight = Int(bounds.height);
             let viewWidth = Int(bounds.width);
             
+            //Decrease spacing as number of columns increases
             let spacing: Int = Int(-(Float(array.count) / Float(64)) * 4.0 + 5.0);
             
+            //viewWidth minus summed spaces between columns
             let availableWidth: Double = Double(viewWidth) - (Double(spacing * (array.count - 1)));
-//            print(String(viewWidth) + " - " +
-//                  String((spacing * (array.count * 0.75))) + " + " +
-//                  "_" + " = " +
-//                  String(viewWidth - (spacing * (array.count * 0.75)))
-//            );
             
-            
+            //Set each column width based on the view with minus summed spacing
             let barWidth: Double = availableWidth / Double(array.count);
-            print(availableWidth);
-            print();
-            
-            print(barWidth);
-            print(spacing);
-            print(barWidth + Double(spacing));
-            print();
-            
-            print(String(Int((Double(Int(round(barWidth))) + Double(spacing)) * Double(array.count))));
-            print();
-            
-            print(viewWidth);
-            print();
             
             for (index, value) in array.enumerated() {
+                //Scale column height by 100
                 let barHeight = Int(Float(value) * Float(viewHeight) / 100);
+                
+                //Space columns evenly
                 let x = Int(round((barWidth + Double(spacing)) * Double(index)));
-                let rect = CGRect(x: x, y: viewHeight - barHeight, width: Int(round(barWidth)), height: barHeight)
+                //Subtract barHeight from viewHight to place columns along the bottom of the view
+                let y = viewHeight - barHeight;
+                
+                //Round bar width up or down for proper spacing
+                let rect = CGRect(x: x, y: y, width: Int(round(barWidth)), height: barHeight)
                 
                 context?.setFillColor(UIColor.red.cgColor)
                 context?.fill(rect)
