@@ -25,14 +25,14 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcF-Oi-nc2" userLabel="TopSelectionAndStartView">
                                                 <rect key="frame" x="8" y="0.0" width="414" height="71"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Hn-QB-r65">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Hn-QB-r65" userLabel="btnSort">
                                                         <rect key="frame" x="8.0000000000000036" y="17" width="61.333333333333343" height="38"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Sort">
                                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="10"/>
                                                         </buttonConfiguration>
                                                         <connections>
-                                                            <action selector="btnSortTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RaX-Es-I7j"/>
+                                                            <action selector="btnSortTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7o9-9z-oQD"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N =" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRq-o0-9Ox">
@@ -83,9 +83,6 @@
                                                                     <segment title="Quick"/>
                                                                     <segment title="Merge"/>
                                                                 </segments>
-                                                                <connections>
-                                                                    <action selector="segSortAlgosTopTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="X0J-AU-UW9"/>
-                                                                </connections>
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvJ-Mw-fho" userLabel="SortingViewTop" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
                                                                 <rect key="frame" x="4" y="62" width="384" height="300"/>
@@ -129,9 +126,6 @@
                                                                     <segment title="Quick"/>
                                                                     <segment title="Merge"/>
                                                                 </segments>
-                                                                <connections>
-                                                                    <action selector="segSortAlgosBottomTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="kPD-rc-LXB"/>
-                                                                </connections>
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yb-wM-vYq" userLabel="SortingViewBottom" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
                                                                 <rect key="frame" x="4" y="62" width="384" height="300"/>

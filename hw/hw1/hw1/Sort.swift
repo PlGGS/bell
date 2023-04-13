@@ -5,8 +5,6 @@
 //  Created by Blake Boris on 4/11/23.
 //
 
-import Foundation
-
 struct Sort {
     static func insertion<T: Comparable>(array: inout [T]) -> Void { return insertionSort(&array) };
     static func selection<T: Comparable>(array: inout [T]) -> Void { return selectionSort(&array) };
