@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var btnSort: UIButton!
+    
     @IBOutlet weak var lblArrayTop: UILabel!
     @IBOutlet weak var lblArrayBottom: UILabel!
     
@@ -15,6 +17,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var sortingViewBottom: BarChartView!
     
     @IBOutlet weak var segLength: UISegmentedControl!
+    
+    @IBOutlet weak var segSortAlgosTop: UISegmentedControl!
+    @IBOutlet weak var segSortAlgosBottom: UISegmentedControl!
     
     var length: Int = 16;
     let from: Int = 1;
@@ -28,6 +33,34 @@ class ViewController: UIViewController {
         resetArray(length);
         sortingViewTop.array = array;
         sortingViewBottom.array = array;
+    }
+    
+    @IBAction func btnSortTapped(_ sender: Any) {
+        var arrayCopyTop = array;
+        var arrayCopyBottom = array;
+        
+        sort(seg: segSortAlgosTop, arr: &arrayCopyTop)
+        sort(seg: segSortAlgosBottom, arr: &arrayCopyBottom)
+        
+        sortingViewTop.array = arrayCopyTop;
+        sortingViewBottom.array = arrayCopyBottom;
+        sortingViewTop.setNeedsDisplay();
+        sortingViewBottom.setNeedsDisplay();
+    }
+    
+    func sort<T: Comparable>(seg: UISegmentedControl, arr: inout [T]) {
+        switch seg.selectedSegmentIndex {
+        case 0:
+            Sort.insertion(array: &arr);
+        case 1:
+            Sort.selection(array: &arr);
+        case 2:
+            Sort.quick(array: &arr);
+        case 3:
+            Sort.merge(array: &arr);
+        default:
+            break
+        }
     }
     
     @IBAction func segLengthTapped(_ sender: UISegmentedControl) {

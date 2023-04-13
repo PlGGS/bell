@@ -31,6 +31,9 @@
                                                         <buttonConfiguration key="configuration" style="filled" title="Sort">
                                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="10"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="btnSortTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RaX-Es-I7j"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N =" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRq-o0-9Ox">
                                                         <rect key="frame" x="84.333333333333329" y="25" width="27" height="22"/>
@@ -212,9 +215,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnSort" destination="6Hn-QB-r65" id="hWj-0w-z8B"/>
                         <outlet property="lblArrayBottom" destination="rgK-g3-eHB" id="Aem-RR-0L0"/>
                         <outlet property="lblArrayTop" destination="ihX-Mo-tco" id="ruI-gh-86R"/>
                         <outlet property="segLength" destination="GYi-Cu-jLD" id="GYE-O3-TLj"/>
+                        <outlet property="segSortAlgosBottom" destination="NYQ-8Z-WRs" id="2Cu-Xu-Hch"/>
+                        <outlet property="segSortAlgosTop" destination="TaH-BB-Rss" id="4IU-tK-bqs"/>
                         <outlet property="sortingViewBottom" destination="2yb-wM-vYq" id="M7S-av-tak"/>
                         <outlet property="sortingViewTop" destination="AvJ-Mw-fho" id="Vzp-GG-6cc"/>
                     </connections>
