@@ -10,9 +10,6 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var btnSort: UIButton!
     
-    @IBOutlet weak var lblArrayTop: UILabel!
-    @IBOutlet weak var lblArrayBottom: UILabel!
-    
     @IBOutlet weak var sortingViewTop: BarChartView!
     @IBOutlet weak var sortingViewBottom: BarChartView!
     
@@ -70,8 +67,6 @@ class ViewController: UIViewController {
     
     func resetArray(_ length: Int) {
         array = getRandomIntArray(length: length, from, to);
-        lblArrayTop.text = String(array.description);
-        lblArrayBottom.text = String(array.description);
         sortingViewTop.array = array;
         sortingViewBottom.array = array;
         sortingViewTop.setNeedsDisplay();

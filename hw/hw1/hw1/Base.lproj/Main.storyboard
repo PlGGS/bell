@@ -86,22 +86,7 @@
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvJ-Mw-fho" userLabel="SortingViewTop" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
                                                                 <rect key="frame" x="4" y="62" width="384" height="300"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihX-Mo-tco" userLabel="lblArrayTop">
-                                                                        <rect key="frame" x="8" y="8" width="361" height="292"/>
-                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstItem="ihX-Mo-tco" firstAttribute="leading" secondItem="AvJ-Mw-fho" secondAttribute="leading" constant="8" id="2Dn-hy-ARv"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="ihX-Mo-tco" secondAttribute="bottom" id="HKy-7E-2xg"/>
-                                                                    <constraint firstItem="ihX-Mo-tco" firstAttribute="height" secondItem="AvJ-Mw-fho" secondAttribute="height" multiplier="0.948052" constant="7.5844155844155807" id="hbl-nP-ITi"/>
-                                                                    <constraint firstItem="ihX-Mo-tco" firstAttribute="top" secondItem="AvJ-Mw-fho" secondAttribute="top" constant="8" id="iaw-ZT-lnm"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="ihX-Mo-tco" secondAttribute="trailing" constant="15" id="l6l-FJ-E4F"/>
-                                                                </constraints>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -129,22 +114,7 @@
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yb-wM-vYq" userLabel="SortingViewBottom" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
                                                                 <rect key="frame" x="4" y="62" width="384" height="300"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgK-g3-eHB" userLabel="lblArrayBottom">
-                                                                        <rect key="frame" x="8" y="8" width="361" height="292"/>
-                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstItem="rgK-g3-eHB" firstAttribute="height" secondItem="2yb-wM-vYq" secondAttribute="height" multiplier="0.948052" constant="7.5844155844155807" id="7qm-1R-qtX"/>
-                                                                    <constraint firstItem="rgK-g3-eHB" firstAttribute="top" secondItem="2yb-wM-vYq" secondAttribute="top" constant="8" id="XtU-RH-SEp"/>
-                                                                    <constraint firstItem="rgK-g3-eHB" firstAttribute="leading" secondItem="2yb-wM-vYq" secondAttribute="leading" constant="8" id="bL9-am-bUx"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="rgK-g3-eHB" secondAttribute="bottom" id="fv3-43-E4E"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="rgK-g3-eHB" secondAttribute="trailing" constant="15" id="iIA-cD-RlV"/>
-                                                                </constraints>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -210,8 +180,6 @@
                     </view>
                     <connections>
                         <outlet property="btnSort" destination="6Hn-QB-r65" id="hWj-0w-z8B"/>
-                        <outlet property="lblArrayBottom" destination="rgK-g3-eHB" id="Aem-RR-0L0"/>
-                        <outlet property="lblArrayTop" destination="ihX-Mo-tco" id="ruI-gh-86R"/>
                         <outlet property="segLength" destination="GYi-Cu-jLD" id="GYE-O3-TLj"/>
                         <outlet property="segSortAlgosBottom" destination="NYQ-8Z-WRs" id="2Cu-Xu-Hch"/>
                         <outlet property="segSortAlgosTop" destination="TaH-BB-Rss" id="4IU-tK-bqs"/>
