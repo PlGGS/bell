@@ -35,17 +35,7 @@ class ViewController: UIViewController {
         sortingViewBottom.array = array;
     }
     
-    @IBAction func btnSortTapped(_ sender: Any) {
-        sortBarCharts();
-    }
-    
-    @IBAction func segLengthTapped(_ sender: UISegmentedControl) {
-        length = Int(sender.titleForSegment(at: sender.selectedSegmentIndex)!) ?? length;
-        resetArray(length);
-        sortBarCharts();
-    }
-    
-    func sortBarCharts() {
+    @IBAction func sortBarCharts(_ sender: Any) {
         var arrayCopyTop = Array(array);
         var arrayCopyBottom = Array(array);
         
@@ -71,6 +61,11 @@ class ViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    @IBAction func segLengthTapped(_ sender: UISegmentedControl) {
+        length = Int(sender.titleForSegment(at: sender.selectedSegmentIndex)!) ?? length;
+        resetArray(length);
     }
     
     func resetArray(_ length: Int) {
