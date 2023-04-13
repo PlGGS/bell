@@ -36,11 +36,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnSortTapped(_ sender: Any) {
-        var arrayCopyTop = array;
-        var arrayCopyBottom = array;
+        var arrayCopyTop = Array(array);
+        var arrayCopyBottom = Array(array);
         
-        sort(seg: segSortAlgosTop, arr: &arrayCopyTop)
-        sort(seg: segSortAlgosBottom, arr: &arrayCopyBottom)
+        sortUsingSelected(seg: segSortAlgosTop, arr: &arrayCopyTop)
+        sortUsingSelected(seg: segSortAlgosBottom, arr: &arrayCopyBottom)
         
         sortingViewTop.array = arrayCopyTop;
         sortingViewBottom.array = arrayCopyBottom;
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         sortingViewBottom.setNeedsDisplay();
     }
     
-    func sort<T: Comparable>(seg: UISegmentedControl, arr: inout [T]) {
+    func sortUsingSelected<T: Comparable>(seg: UISegmentedControl, arr: inout [T]) {
         switch seg.selectedSegmentIndex {
         case 0:
             Sort.insertion(array: &arr);
