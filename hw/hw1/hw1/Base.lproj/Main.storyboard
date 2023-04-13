@@ -88,7 +88,7 @@
                                                                 </connections>
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvJ-Mw-fho" userLabel="SortingViewTop" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
-                                                                <rect key="frame" x="5" y="62" width="380" height="300"/>
+                                                                <rect key="frame" x="4" y="62" width="384" height="300"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihX-Mo-tco" userLabel="lblArrayTop">
                                                                         <rect key="frame" x="8" y="8" width="361" height="292"/>
@@ -103,17 +103,17 @@
                                                                     <constraint firstAttribute="bottom" secondItem="ihX-Mo-tco" secondAttribute="bottom" id="HKy-7E-2xg"/>
                                                                     <constraint firstItem="ihX-Mo-tco" firstAttribute="height" secondItem="AvJ-Mw-fho" secondAttribute="height" multiplier="0.948052" constant="7.5844155844155807" id="hbl-nP-ITi"/>
                                                                     <constraint firstItem="ihX-Mo-tco" firstAttribute="top" secondItem="AvJ-Mw-fho" secondAttribute="top" constant="8" id="iaw-ZT-lnm"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="ihX-Mo-tco" secondAttribute="trailing" constant="11" id="l6l-FJ-E4F"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="ihX-Mo-tco" secondAttribute="trailing" constant="15" id="l6l-FJ-E4F"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="TaH-BB-Rss" firstAttribute="leading" secondItem="y7l-qJ-r5A" secondAttribute="leading" constant="8" id="6dc-cl-aJN"/>
-                                                            <constraint firstItem="AvJ-Mw-fho" firstAttribute="leading" secondItem="y7l-qJ-r5A" secondAttribute="leading" constant="5" id="GYj-11-9dv"/>
+                                                            <constraint firstItem="AvJ-Mw-fho" firstAttribute="leading" secondItem="y7l-qJ-r5A" secondAttribute="leading" constant="4" id="GYj-11-9dv"/>
                                                             <constraint firstAttribute="trailing" secondItem="TaH-BB-Rss" secondAttribute="trailing" constant="8" id="K5M-xU-AXj"/>
                                                             <constraint firstItem="AvJ-Mw-fho" firstAttribute="height" secondItem="TaH-BB-Rss" secondAttribute="height" multiplier="9.93548" constant="-8" id="OnU-vs-AYx"/>
-                                                            <constraint firstAttribute="trailing" secondItem="AvJ-Mw-fho" secondAttribute="trailing" constant="8" id="XDA-Yu-SDr"/>
+                                                            <constraint firstAttribute="trailing" secondItem="AvJ-Mw-fho" secondAttribute="trailing" constant="5" id="XDA-Yu-SDr"/>
                                                             <constraint firstAttribute="bottom" secondItem="AvJ-Mw-fho" secondAttribute="bottom" constant="8" id="clZ-Gc-u0S"/>
                                                             <constraint firstItem="TaH-BB-Rss" firstAttribute="top" secondItem="y7l-qJ-r5A" secondAttribute="top" constant="8" id="vip-TC-CTh"/>
                                                         </constraints>
@@ -134,7 +134,7 @@
                                                                 </connections>
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yb-wM-vYq" userLabel="SortingViewBottom" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
-                                                                <rect key="frame" x="6" y="62" width="380" height="300"/>
+                                                                <rect key="frame" x="4" y="62" width="384" height="300"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgK-g3-eHB" userLabel="lblArrayBottom">
                                                                         <rect key="frame" x="8" y="8" width="361" height="292"/>
@@ -149,19 +149,19 @@
                                                                     <constraint firstItem="rgK-g3-eHB" firstAttribute="top" secondItem="2yb-wM-vYq" secondAttribute="top" constant="8" id="XtU-RH-SEp"/>
                                                                     <constraint firstItem="rgK-g3-eHB" firstAttribute="leading" secondItem="2yb-wM-vYq" secondAttribute="leading" constant="8" id="bL9-am-bUx"/>
                                                                     <constraint firstAttribute="bottom" secondItem="rgK-g3-eHB" secondAttribute="bottom" id="fv3-43-E4E"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="rgK-g3-eHB" secondAttribute="trailing" constant="11" id="iIA-cD-RlV"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="rgK-g3-eHB" secondAttribute="trailing" constant="15" id="iIA-cD-RlV"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstItem="2yb-wM-vYq" firstAttribute="leading" secondItem="bxS-g6-EiM" secondAttribute="leading" constant="6" id="Eqm-Jz-O6i"/>
+                                                            <constraint firstItem="2yb-wM-vYq" firstAttribute="leading" secondItem="bxS-g6-EiM" secondAttribute="leading" constant="4" id="Eqm-Jz-O6i"/>
                                                             <constraint firstItem="NYQ-8Z-WRs" firstAttribute="top" secondItem="bxS-g6-EiM" secondAttribute="top" constant="8" id="Q3M-hD-2u6"/>
                                                             <constraint firstAttribute="bottom" secondItem="2yb-wM-vYq" secondAttribute="bottom" constant="8" id="WFO-i2-jfj"/>
                                                             <constraint firstItem="NYQ-8Z-WRs" firstAttribute="leading" secondItem="bxS-g6-EiM" secondAttribute="leading" constant="8" id="fxo-Kh-aQp"/>
                                                             <constraint firstAttribute="trailing" secondItem="NYQ-8Z-WRs" secondAttribute="trailing" constant="8" id="oNy-yM-n0Y"/>
                                                             <constraint firstItem="2yb-wM-vYq" firstAttribute="height" secondItem="NYQ-8Z-WRs" secondAttribute="height" multiplier="9.93548" constant="-8" id="qnl-Zo-jKX"/>
-                                                            <constraint firstAttribute="trailing" secondItem="2yb-wM-vYq" secondAttribute="trailing" constant="7" id="ryu-3V-B49"/>
+                                                            <constraint firstAttribute="trailing" secondItem="2yb-wM-vYq" secondAttribute="trailing" constant="5" id="ryu-3V-B49"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>

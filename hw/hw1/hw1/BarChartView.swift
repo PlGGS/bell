@@ -43,7 +43,8 @@ class BarChartView: UIView {
                 let barHeight = Int(Float(value) * Float(viewHeight) / 100);
                 
                 //Space columns evenly
-                let x = Int(round((barWidth + Double(spacing)) * Double(index)));
+                let x = Int(round((barWidth + Double(spacing))) * Double(index));
+                
                 //Subtract barHeight from viewHight to place columns along the bottom of the view
                 let y = viewHeight - barHeight;
                 
