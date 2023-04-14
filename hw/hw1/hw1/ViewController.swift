@@ -28,33 +28,28 @@ class ViewController: UIViewController {
         super.viewDidLoad();
         
         resetArray(length);
-        sortingViewTop.array = array;
-        sortingViewBottom.array = array;
+        resetSortingViews();
     }
     
     @IBAction func sortBarCharts(_ sender: Any) {
-        var arrayCopyTop = Array(array);
-        var arrayCopyBottom = Array(array);
+        resetArray(length);
         
-        sortUsingSelected(seg: segSortAlgosTop, arr: &arrayCopyTop)
-        sortUsingSelected(seg: segSortAlgosBottom, arr: &arrayCopyBottom)
-        
-        sortingViewTop.array = arrayCopyTop;
-        sortingViewBottom.array = arrayCopyBottom;
-        sortingViewTop.setNeedsDisplay();
-        sortingViewBottom.setNeedsDisplay();
+        sortUsingSelected(seg: segSortAlgosTop, bcv: sortingViewTop);
+        sortUsingSelected(seg: segSortAlgosBottom, bcv: sortingViewBottom);
     }
     
-    func sortUsingSelected<T: Comparable>(seg: UISegmentedControl, arr: inout [T]) {
+    func sortUsingSelected(seg: UISegmentedControl, bcv: BarChartView) {
         switch seg.selectedSegmentIndex {
-        case 0:
-            Sort.insertion(array: &arr);
+            case 0:
+            self.insertionSort(bcv);
+//                SortBarChart.insertion(barChartView: &bcv, array: &arr);
         case 1:
-            Sort.selection(array: &arr);
-        case 2:
-            Sort.quick(array: &arr);
-        case 3:
-            Sort.merge(array: &arr);
+            self.selectionSort(bcv);
+//                SortBarChart.selection(barChartView: &bcv, array: &arr);
+//            case 2:
+//                SortBarChart.quick(barChartView: &bcv, array: &arr);
+//            case 3:
+//                SortBarChart.merge(barChartView: &bcv, array: &arr);
         default:
             break
         }
@@ -63,14 +58,72 @@ class ViewController: UIViewController {
     @IBAction func segLengthTapped(_ sender: UISegmentedControl) {
         length = Int(sender.titleForSegment(at: sender.selectedSegmentIndex)!) ?? length;
         resetArray(length);
+        resetSortingViews();
     }
     
     func resetArray(_ length: Int) {
         array = getRandomIntArray(length: length, from, to);
+    }
+    
+    func resetSortingViews() {
         sortingViewTop.array = array;
         sortingViewBottom.array = array;
+        
+        sortingViewTop.start();
+        sortingViewBottom.start();
+        
         sortingViewTop.setNeedsDisplay();
         sortingViewBottom.setNeedsDisplay();
+    }
+    
+    func insertionSort(_ bcv: BarChartView) {
+        guard array.count > 1 else { return }
+        
+        var array = Array(self.array);
+        
+        DispatchQueue.global(qos: .background).async {
+            for index in 1..<array.count {
+                var currentIndex = index;
+                while currentIndex > 0 && array[currentIndex] < array[currentIndex - 1] {
+                    array.swapAt(currentIndex - 1, currentIndex);
+                    currentIndex -= 1;
+                    
+                    DispatchQueue.main.async {
+                        bcv.array = array;
+                        bcv.setNeedsDisplay();
+                    }
+                    
+                    usleep(1000);
+                }
+            }
+        }
+    }
+    
+    func selectionSort(_ bcv: BarChartView) {
+        guard self.array.count > 1 else { return }
+        
+        var array = Array(self.array);
+        
+        DispatchQueue.global(qos: .background).async {
+            for index in 0..<array.count - 1 {
+                var minIndex = index;
+                for innerIndex in index + 1..<array.count {
+                    if array[innerIndex] < array[minIndex] {
+                        minIndex = innerIndex;
+                        
+                        usleep(1000);
+                    }
+                }
+                if index != minIndex {
+                    array.swapAt(index, minIndex);
+                    
+                    DispatchQueue.main.async {
+                        bcv.array = array;
+                        bcv.setNeedsDisplay();
+                    }
+                }
+            }
+        }
     }
 }
 
