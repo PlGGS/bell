@@ -47,15 +47,12 @@ class ViewController: UIViewController {
         switch seg.selectedSegmentIndex {
         case 0:
             self.insertionSort(bcv);
-//                SortBarChart.insertion(barChartView: &bcv, array: &arr);
         case 1:
             self.selectionSort(bcv);
-//                SortBarChart.selection(barChartView: &bcv, array: &arr);
         case 2:
             self.quickSort(bcv);
-//                SortBarChart.quick(barChartView: &bcv, array: &arr);
-//            case 3:
-//                SortBarChart.merge(barChartView: &bcv, array: &arr);
+        case 3:
+            self.mergeSort(bcv);
         default:
             break
         }
@@ -162,6 +159,7 @@ class ViewController: UIViewController {
                     bcv.setNeedsDisplay();
                 }
                 
+//                usleep(self.sleepTime);
                 usleep(self.sleepTime);
                 
                 i += 1;
@@ -175,6 +173,59 @@ class ViewController: UIViewController {
         }
         
         return i;
+    }
+    
+    func mergeSort(_ bcv: BarChartView) {
+        guard self.array.count > 1 else { return }
+        
+        var array = Array(self.array);
+        var aux = Array(repeating: 0, count: array.count)
+        
+        DispatchQueue.global(qos: .background).async {
+            self.mergeSort(bcv, &array, &aux, 0, array.count - 1);
+        }
+    }
+
+    func mergeSort(_ bcv: BarChartView, _ array: inout [Int], _ aux: inout [Int], _ low: Int, _ high: Int) {
+        if low >= high {
+            return
+        }
+
+        let mid = low + (high - low) / 2
+        mergeSort(bcv, &array, &aux, low, mid)
+        mergeSort(bcv, &array, &aux, mid + 1, high)
+        merge(bcv, &array, &aux, low, mid, high)
+    }
+
+    func merge(_ bcv: BarChartView, _ array: inout [Int], _ aux: inout [Int], _ low: Int, _ mid: Int, _ high: Int) {
+        for i in low...high {
+            aux[i] = array[i];
+        }
+
+        var i = low;
+        var j = mid + 1;
+        for k in low...high {
+            if i > mid {
+                array[k] = aux[j];
+                j += 1;
+            } else if j > high {
+                array[k] = aux[i];
+                i += 1;
+            } else if aux[j] < aux[i] {
+                array[k] = aux[j];
+                j += 1;
+            } else {
+                array[k] = aux[i];
+                i += 1;
+            }
+            
+            DispatchQueue.main.async { [array] in
+                bcv.array = array;
+                bcv.setNeedsDisplay();
+            }
+            
+            usleep(self.sleepTime);
+        }
     }
 }
 
