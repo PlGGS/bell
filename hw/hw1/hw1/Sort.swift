@@ -41,7 +41,7 @@ func selectionSort(_ array: inout [Int]) {
 }
 
 func quickSort(_ array: inout [Int]) {
-    guard array.count > 1 else { return } // check array length
+    guard array.count > 1 else { return }
 
     let pivot = array.remove(at: 0);
     var left: [Int] = [];

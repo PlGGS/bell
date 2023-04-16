@@ -18,11 +18,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var segSortAlgosTop: UISegmentedControl!
     @IBOutlet weak var segSortAlgosBottom: UISegmentedControl!
     
+    //Time to sleep between array updates in microseconds
+    var sleepTime: UInt32 = 1000;
+    
     var length: Int = 16;
     let from: Int = 1;
     let to: Int = 100;
     
     var array: [Int] = [Int]();
+    var topArrayCopy: [Int] = [Int]();
+    var bottomArrayCopy: [Int] = [Int]();
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -40,13 +45,14 @@ class ViewController: UIViewController {
     
     func sortUsingSelected(seg: UISegmentedControl, bcv: BarChartView) {
         switch seg.selectedSegmentIndex {
-            case 0:
+        case 0:
             self.insertionSort(bcv);
 //                SortBarChart.insertion(barChartView: &bcv, array: &arr);
         case 1:
             self.selectionSort(bcv);
 //                SortBarChart.selection(barChartView: &bcv, array: &arr);
-//            case 2:
+        case 2:
+            self.quickSort(bcv);
 //                SortBarChart.quick(barChartView: &bcv, array: &arr);
 //            case 3:
 //                SortBarChart.merge(barChartView: &bcv, array: &arr);
@@ -93,7 +99,7 @@ class ViewController: UIViewController {
                         bcv.setNeedsDisplay();
                     }
                     
-                    usleep(1000);
+                    usleep(self.sleepTime);
                 }
             }
         }
@@ -111,7 +117,7 @@ class ViewController: UIViewController {
                     if array[innerIndex] < array[minIndex] {
                         minIndex = innerIndex;
                         
-                        usleep(1000);
+                        usleep(self.sleepTime);
                     }
                 }
                 if index != minIndex {
@@ -124,6 +130,51 @@ class ViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    func quickSort(_ bcv: BarChartView) {
+        guard self.array.count > 1 else { return }
+        
+        var array = Array(self.array);
+        var stack = [(0, array.count - 1)];
+        
+        DispatchQueue.global(qos: .background).async {
+            while !stack.isEmpty {
+                let (low, high) = stack.popLast()!;
+                if low < high {
+                    let pivotIndex = self.partition(bcv, &array, low: low, high: high)
+                    stack.append((low, pivotIndex - 1));
+                    stack.append((pivotIndex + 1, high));
+                }
+            }
+        }
+    }
+
+    func partition(_ bcv: BarChartView, _ array: inout [Int], low: Int, high: Int) -> Int {
+        let pivot = array[high];
+        var i = low;
+        for j in low..<high {
+            if array[j] < pivot {
+                array.swapAt(i, j);
+                
+                DispatchQueue.main.async { [array] in
+                    bcv.array = array;
+                    bcv.setNeedsDisplay();
+                }
+                
+                usleep(self.sleepTime);
+                
+                i += 1;
+            }
+        }
+        array.swapAt(i, high);
+        
+        DispatchQueue.main.async { [array] in
+            bcv.array = array;
+            bcv.setNeedsDisplay();
+        }
+        
+        return i;
     }
 }
 
