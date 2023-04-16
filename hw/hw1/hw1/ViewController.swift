@@ -26,8 +26,6 @@ class ViewController: UIViewController {
     let to: Int = 100;
     
     var array: [Int] = [Int]();
-    var topArrayCopy: [Int] = [Int]();
-    var bottomArrayCopy: [Int] = [Int]();
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -159,7 +157,6 @@ class ViewController: UIViewController {
                     bcv.setNeedsDisplay();
                 }
                 
-//                usleep(self.sleepTime);
                 usleep(self.sleepTime);
                 
                 i += 1;
