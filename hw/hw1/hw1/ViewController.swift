@@ -42,17 +42,21 @@ class ViewController: UIViewController {
     }
     
     func sortUsingSelected(seg: UISegmentedControl, bcv: BarChartView) {
-        switch seg.selectedSegmentIndex {
-        case 0:
-            self.insertionSort(bcv);
-        case 1:
-            self.selectionSort(bcv);
-        case 2:
-            self.quickSort(bcv);
-        case 3:
-            self.mergeSort(bcv);
-        default:
-            break
+        let selected: Int = seg.selectedSegmentIndex;
+        
+        DispatchQueue.global(qos: .background).async {
+            switch selected {
+            case 0:
+                self.insertionSort(bcv);
+            case 1:
+                self.selectionSort(bcv);
+            case 2:
+                self.quickSort(bcv);
+            case 3:
+                self.mergeSort(bcv);
+            default:
+                break
+            }
         }
     }
     
@@ -64,6 +68,10 @@ class ViewController: UIViewController {
     
     func resetArray(_ length: Int) {
         array = getRandomIntArray(length: length, from, to);
+    }
+    
+    func getRandomIntArray(length: Int, _ from: Int, _ to: Int) -> [Int] {
+        return (0..<length).map( { _ in Int.random(in: from...to) } );
     }
     
     func resetSortingViews() {
@@ -82,20 +90,18 @@ class ViewController: UIViewController {
         
         var array = Array(self.array);
         
-        DispatchQueue.global(qos: .background).async {
-            for index in 1..<array.count {
-                var currentIndex = index;
-                while currentIndex > 0 && array[currentIndex] < array[currentIndex - 1] {
-                    array.swapAt(currentIndex - 1, currentIndex);
-                    currentIndex -= 1;
-                    
-                    DispatchQueue.main.async {
-                        bcv.array = array;
-                        bcv.setNeedsDisplay();
-                    }
-                    
-                    usleep(self.sleepTime);
+        for index in 1..<array.count {
+            var currentIndex = index;
+            while currentIndex > 0 && array[currentIndex] < array[currentIndex - 1] {
+                array.swapAt(currentIndex - 1, currentIndex);
+                currentIndex -= 1;
+                
+                DispatchQueue.main.async {
+                    bcv.array = array;
+                    bcv.setNeedsDisplay();
                 }
+                
+                usleep(self.sleepTime);
             }
         }
     }
@@ -105,23 +111,21 @@ class ViewController: UIViewController {
         
         var array = Array(self.array);
         
-        DispatchQueue.global(qos: .background).async {
-            for index in 0..<array.count - 1 {
-                var minIndex = index;
-                for innerIndex in index + 1..<array.count {
-                    if array[innerIndex] < array[minIndex] {
-                        minIndex = innerIndex;
-                        
-                        usleep(self.sleepTime);
-                    }
-                }
-                if index != minIndex {
-                    array.swapAt(index, minIndex);
+        for index in 0..<array.count - 1 {
+            var minIndex = index;
+            for innerIndex in index + 1..<array.count {
+                if array[innerIndex] < array[minIndex] {
+                    minIndex = innerIndex;
                     
-                    DispatchQueue.main.async {
-                        bcv.array = array;
-                        bcv.setNeedsDisplay();
-                    }
+                    usleep(self.sleepTime);
+                }
+            }
+            if index != minIndex {
+                array.swapAt(index, minIndex);
+                
+                DispatchQueue.main.async {
+                    bcv.array = array;
+                    bcv.setNeedsDisplay();
                 }
             }
         }
@@ -133,14 +137,12 @@ class ViewController: UIViewController {
         var array = Array(self.array);
         var stack = [(0, array.count - 1)];
         
-        DispatchQueue.global(qos: .background).async {
-            while !stack.isEmpty {
-                let (low, high) = stack.popLast()!;
-                if low < high {
-                    let pivotIndex = self.partition(bcv, &array, low: low, high: high)
-                    stack.append((low, pivotIndex - 1));
-                    stack.append((pivotIndex + 1, high));
-                }
+        while !stack.isEmpty {
+            let (low, high) = stack.popLast()!;
+            if low < high {
+                let pivotIndex = self.partition(bcv, &array, low: low, high: high)
+                stack.append((low, pivotIndex - 1));
+                stack.append((pivotIndex + 1, high));
             }
         }
     }
@@ -176,22 +178,19 @@ class ViewController: UIViewController {
         guard self.array.count > 1 else { return }
         
         var array = Array(self.array);
-        var aux = Array(repeating: 0, count: array.count)
+        var aux = Array(repeating: 0, count: array.count);
         
-        DispatchQueue.global(qos: .background).async {
-            self.mergeSort(bcv, &array, &aux, 0, array.count - 1);
-        }
+        self.mergeSort(bcv, &array, &aux, 0, array.count - 1);
     }
 
     func mergeSort(_ bcv: BarChartView, _ array: inout [Int], _ aux: inout [Int], _ low: Int, _ high: Int) {
-        if low >= high {
-            return
-        }
+        if low >= high { return }
 
-        let mid = low + (high - low) / 2
-        mergeSort(bcv, &array, &aux, low, mid)
-        mergeSort(bcv, &array, &aux, mid + 1, high)
-        merge(bcv, &array, &aux, low, mid, high)
+        let mid = low + (high - low) / 2;
+        
+        mergeSort(bcv, &array, &aux, low, mid);
+        mergeSort(bcv, &array, &aux, mid + 1, high);
+        merge(bcv, &array, &aux, low, mid, high);
     }
 
     func merge(_ bcv: BarChartView, _ array: inout [Int], _ aux: inout [Int], _ low: Int, _ mid: Int, _ high: Int) {
@@ -224,8 +223,4 @@ class ViewController: UIViewController {
             usleep(self.sleepTime);
         }
     }
-}
-
-func getRandomIntArray(length: Int, _ from: Int, _ to: Int) -> [Int] {
-    return (0..<length).map( { _ in Int.random(in: from...to) } );
 }
