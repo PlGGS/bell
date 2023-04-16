@@ -21,6 +21,9 @@ class ViewController: UIViewController {
     //Time to sleep between array updates in microseconds
     var sleepTime: UInt32 = 1000;
     
+    var isSortingTop: Bool = false;
+    var isSortingBottom: Bool = false;
+    
     var length: Int = 16;
     let from: Int = 1;
     let to: Int = 100;
@@ -35,13 +38,20 @@ class ViewController: UIViewController {
     }
     
     @IBAction func sortBarCharts(_ sender: Any) {
-        resetArray(length);
+        btnSort.isEnabled = false;
         
-        sortUsingSelected(seg: segSortAlgosTop, bcv: sortingViewTop);
-        sortUsingSelected(seg: segSortAlgosBottom, bcv: sortingViewBottom);
+        if (isSortingTop == false && isSortingBottom == false) {
+            resetArray(length);
+            
+            isSortingTop = true;
+            isSortingBottom = true;
+            
+            sortUsingSelected(seg: segSortAlgosTop, bcv: sortingViewTop, true);
+            sortUsingSelected(seg: segSortAlgosBottom, bcv: sortingViewBottom, false);
+        }
     }
     
-    func sortUsingSelected(seg: UISegmentedControl, bcv: BarChartView) {
+    func sortUsingSelected(seg: UISegmentedControl, bcv: BarChartView, _ top: Bool) {
         let selected: Int = seg.selectedSegmentIndex;
         
         DispatchQueue.global(qos: .background).async {
@@ -56,6 +66,19 @@ class ViewController: UIViewController {
                 self.mergeSort(bcv);
             default:
                 break
+            }
+            
+            if (top) {
+                self.isSortingTop = false;
+            }
+            else {
+                self.isSortingBottom = false;
+            }
+            
+            if (self.isSortingTop == false && self.isSortingBottom == false) {
+                DispatchQueue.main.async {
+                    self.btnSort.isEnabled = true;
+                }
             }
         }
     }
