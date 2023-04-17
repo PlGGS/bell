@@ -28,10 +28,6 @@ class BarChartView: UIView {
     }
     
     func start() {
-        
-    }
-    
-    override func draw(_ rect: CGRect) {
         viewHeight = Int(bounds.height);
         viewWidth = Int(bounds.width);
         
@@ -43,7 +39,9 @@ class BarChartView: UIView {
         
         //Set each column width based on the view with minus summed spacing
         barWidth = floor(availableWidth) / Double(array.count);
-        
+    }
+    
+    override func draw(_ rect: CGRect) {
         if let context = UIGraphicsGetCurrentContext() {
             if (array.count > 0) {
                 
