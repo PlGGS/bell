@@ -39,6 +39,7 @@ class ViewController: UIViewController {
     
     @IBAction func sortBarCharts(_ sender: Any) {
         btnSort.isEnabled = false;
+        segLength.isEnabled = false;
         
         if (isSortingTop == false && isSortingBottom == false) {
             resetArray(length);
@@ -78,6 +79,7 @@ class ViewController: UIViewController {
             if (self.isSortingTop == false && self.isSortingBottom == false) {
                 DispatchQueue.main.async {
                     self.btnSort.isEnabled = true;
+                    self.segLength.isEnabled = true;
                 }
             }
         }
