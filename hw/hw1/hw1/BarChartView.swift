@@ -28,33 +28,35 @@ class BarChartView: UIView {
     }
     
     func start() {
+        
+    }
+    
+    override func draw(_ rect: CGRect) {
         viewHeight = Int(bounds.height);
         viewWidth = Int(bounds.width);
         
         //Decrease spacing as number of columns increases
-        spacing = Int(-(Float(array.count) / Float(64)) * 4.0 + 5.0);
+        spacing = Int(-(Float(array.count) / Float(64)) * 4.0 + 6.0);
         
         //viewWidth minus summed spaces between columns
-        availableWidth = Double(viewWidth) - (Double(spacing * (array.count - 1)));
+        availableWidth = Double(viewWidth) - (Double(spacing) * Double(array.count));
         
         //Set each column width based on the view with minus summed spacing
-        barWidth = availableWidth / Double(array.count);
-    }
-    
-    override func draw(_ rect: CGRect) {
+        barWidth = floor(availableWidth) / Double(array.count);
+        
         if let context = UIGraphicsGetCurrentContext() {
             if (array.count > 0) {
                 
                 //Show view border
-    //                context?.setStrokeColor(UIColor.green.cgColor);
-    //                context?.stroke(rect);
+//                context.setStrokeColor(UIColor.green.cgColor);
+//                context.stroke(rect);
                 
                 for (index, value) in array.enumerated() {
                     //Scale column height by 100
                     let barHeight = Int(Double(value) * Double(viewHeight) / 100);
                     
                     //Space columns evenly
-                    let x = Int(round((barWidth + Double(spacing))) * Double(index));
+                    let x = Int((barWidth + Double(spacing)) * Double(index));
                     
                     //Subtract barHeight from viewHight to place columns along the bottom of the view
                     let y = viewHeight - barHeight;
@@ -66,6 +68,12 @@ class BarChartView: UIView {
                     columns.append(column);
                     
                     context.setFillColor(UIColor.red.cgColor);
+                    
+                    //Highlight last bar to check spacing
+//                    if (index == array.count - 1) {
+//                        context.setFillColor(UIColor.blue.cgColor);
+//                    }
+                    
                     context.fill(column);
                 }
             }
