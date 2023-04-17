@@ -42,8 +42,6 @@ class ViewController: UIViewController {
         segLength.isEnabled = false;
         
         if (isSortingTop == false && isSortingBottom == false) {
-            resetArray(length);
-            
             isSortingTop = true;
             isSortingBottom = true;
             
