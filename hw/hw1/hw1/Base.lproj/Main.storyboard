@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_72" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,20 +13,20 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="hw1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h9s-AF-GkT">
-                                <rect key="frame" x="0.0" y="59" width="430" height="839"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpB-Ua-YeV" userLabel="AutoLayoutView">
-                                        <rect key="frame" x="0.0" y="0.0" width="430" height="839"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="759"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcF-Oi-nc2" userLabel="TopSelectionAndStartView">
-                                                <rect key="frame" x="8" y="0.0" width="414" height="71"/>
+                                                <rect key="frame" x="8" y="0.0" width="377" height="71"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Hn-QB-r65" userLabel="btnSort">
-                                                        <rect key="frame" x="8.0000000000000036" y="17" width="61.333333333333343" height="38"/>
+                                                        <rect key="frame" x="8" y="17" width="56" height="38"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Sort">
                                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="10"/>
@@ -36,13 +36,13 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N =" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRq-o0-9Ox">
-                                                        <rect key="frame" x="84.333333333333329" y="25" width="27" height="22"/>
+                                                        <rect key="frame" x="79" y="25" width="27" height="22"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GYi-Cu-jLD" userLabel="segLength">
-                                                        <rect key="frame" x="121.33333333333334" y="20" width="284.66666666666663" height="32"/>
+                                                        <rect key="frame" x="116" y="20" width="253" height="32"/>
                                                         <segments>
                                                             <segment title="16"/>
                                                             <segment title="32"/>
@@ -70,13 +70,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkN-Z4-b8q" userLabel="SortingContainersView">
-                                                <rect key="frame" x="8" y="71" width="414" height="768"/>
+                                                <rect key="frame" x="6.6666666666666572" y="71" width="378.33333333333337" height="688"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7l-qJ-r5A" userLabel="SortingContainerViewTop">
-                                                        <rect key="frame" x="8" y="8" width="398" height="372.33333333333331"/>
+                                                        <rect key="frame" x="8" y="8" width="362.33333333333331" height="333.66666666666669"/>
                                                         <subviews>
                                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TaH-BB-Rss" userLabel="segSortAlgosTop">
-                                                                <rect key="frame" x="8" y="8" width="382" height="33.666666666666664"/>
+                                                                <rect key="frame" x="8" y="8" width="346.33333333333331" height="30"/>
                                                                 <segments>
                                                                     <segment title="Insertion"/>
                                                                     <segment title="Selection"/>
@@ -85,7 +85,7 @@
                                                                 </segments>
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AvJ-Mw-fho" userLabel="SortingViewTop" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="48.666666666666657" width="389" height="315.66666666666674"/>
+                                                                <rect key="frame" x="4" y="45" width="353.33333333333331" height="280.66666666666663"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             </view>
                                                         </subviews>
@@ -102,10 +102,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxS-g6-EiM" userLabel="SortingContainerViewBottom">
-                                                        <rect key="frame" x="8" y="387.66666666666663" width="398" height="372.33333333333337"/>
+                                                        <rect key="frame" x="8" y="346.33333333333326" width="362.33333333333331" height="333.66666666666674"/>
                                                         <subviews>
                                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NYQ-8Z-WRs" userLabel="segSortAlgosBottom">
-                                                                <rect key="frame" x="8" y="8" width="382" height="33.666666666666664"/>
+                                                                <rect key="frame" x="8" y="8" width="346.33333333333331" height="30"/>
                                                                 <segments>
                                                                     <segment title="Insertion"/>
                                                                     <segment title="Selection"/>
@@ -114,7 +114,7 @@
                                                                 </segments>
                                                             </segmentedControl>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yb-wM-vYq" userLabel="SortingViewBottom" customClass="BarChartView" customModule="hw1" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="48.666666666666742" width="389" height="315.66666666666669"/>
+                                                                <rect key="frame" x="4" y="45.000000000000057" width="353.33333333333331" height="280.66666666666669"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             </view>
                                                         </subviews>
