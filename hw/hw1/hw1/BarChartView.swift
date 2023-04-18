@@ -9,15 +9,13 @@ import UIKit
 
 class BarChartView: UIView {
     var array: [Int] = [Int]();
-    var columns: [CGRect] = [CGRect]();
     
+    var columns: [CGRect] = [CGRect]();
     var viewHeight: CGFloat = 0;
     var viewWidth: CGFloat = 0;
     var spacing: Float = 0;
     var availableWidth: CGFloat = 0;
     var barWidth: CGFloat = 0;
-    
-    var done = false;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -46,8 +44,8 @@ class BarChartView: UIView {
             if (array.count > 0) {
                 
                 //Show view border
-                context.setStrokeColor(UIColor.green.cgColor);
-                context.stroke(rect);
+//                context.setStrokeColor(UIColor.green.cgColor);
+//                context.stroke(rect);
                 
                 for (index, value) in array.enumerated() {
                     //Scale column height by 100

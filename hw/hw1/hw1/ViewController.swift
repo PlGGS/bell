@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var segSortAlgosTop: UISegmentedControl!
     @IBOutlet weak var segSortAlgosBottom: UISegmentedControl!
     
+    var array: [Int] = [Int]();
+    
     //Time to sleep between array updates in microseconds
     var sleepTime: UInt32 = 1000;
     
@@ -27,8 +29,6 @@ class ViewController: UIViewController {
     var length: Int = 16;
     let from: Int = 1;
     let to: Int = 100;
-    
-    var array: [Int] = [Int]();
     
     override func viewDidLoad() {
         super.viewDidLoad();
