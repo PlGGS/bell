@@ -152,6 +152,302 @@ enum Terminal {
     case ciceroGreenLine
     case montroseBlueLine
     
+    var isADAComplient: Bool {
+        switch self {
+            case .ciceroPinkLine: return true
+            case .centralParkPinkLine: return true
+            case .halstedGreenLine: return true
+            case .cumberlandBlueLine: return true
+            case .racineBlueLine: return false
+            case .paulinaBrownLine: return true
+            case .eighteenthPinkLine: return true
+            case .clarkLakeBlueBrownGreenOrangePurplePinklines: return true
+            case .jeffersonParkBlueLine: return true
+            case .diverseyBrownPurplelines: return true
+            case .montroseBrownLine: return true
+            case .uICHalstedBlueLine: return true
+            case .thirtyFifthBronzevilleIITGreenLine: return true
+            case .fosterPurpleLine: return false
+            case .quincyWellsBrownOrangePurplePinklines: return true
+            case .southportBrownLine: return true
+            case .loyolaRedLine: return true
+            case .fortySeventhRedLine: return true
+            case .brynMawrRedLine: return false
+            case .harlemBlueLineForestParkBranch: return false
+            case .howardRedPurpleYellowlines: return true
+            case .kedzieGreenLine: return true
+            case .kingDriveGreenLine: return true
+            case .ashlandsixtyThirdGreenLine: return true
+            case .ninetyFifthDanRyanRedLine: return true
+            case .westernBlueLineOHareBranch: return true
+            case .armitageBrownPurplelines: return true
+            case .rooseveltRedOrangeGreenlines: return true
+            case .belmontRedBrownPurplelines: return true
+            case .fiftyFourthCermakPinkLine: return true
+            case .dempsterPurpleLine: return false
+            case .fullertonRedBrownPurplelines: return true
+            case .lawrenceRedLine: return false
+            case .illinoisMedicalDistrictBlueLine: return true
+            case .lakeRedLine: return true
+            case .seventyNinthRedLine: return true
+            case .austinGreenLine: return false
+            case .clintonBlueLine: return false
+            case .wellingtonBrownPurplelines: return true
+            case .oakParkGreenLine: return false
+            case .chicagoRedLine: return true
+            case .sedgwickBrownPurplelines: return true
+            case .addisonBlueLine: return true
+            case .jacksonBlueLine: return true
+            case .kedziePinkLine: return true
+            case .monroeBlueLine: return false
+            case .rockwellBrownLine: return true
+            case .damenPinkLine: return true
+            case .pulaskiBlueLine: return false
+            case .harlemLakeGreenLine: return true
+            case .washingtonWabashBrownGreenOrangePurplePinklines: return true
+            case .californiaGreenLine: return true
+            case .morseRedLine: return false
+            case .westernOrangeLine: return true
+            case .grandBlueLine: return false
+            case .divisionBlueLine: return false
+            case .pulaskiOrangeLine: return true
+            case .sheridanRedLine: return false
+            case .chicagoBlueLine: return false
+            case .merchandiseMartBrownPurplelines: return true
+            case .oHareBlueLine: return true
+            case .fortyThirdGreenLine: return true
+            case .soxthirtyFifthRedLine: return true
+            case .loganSquareBlueLine: return true
+            case .damenBlueLine: return false
+            case .ashlandGreenPinklines: return true
+            case .irvingParkBlueLine: return false
+            case .wilsonRedPurplelines: return true
+            case .cermakChinatownRedLine: return true
+            case .laSalleBlueLine: return false
+            case .thorndaleRedLine: return false
+            case .granvilleRedLine: return true
+            case .addisonRedLine: return true
+            case .centralGreenLine: return true
+            case .conservatoryGreenLine: return true
+            case .noyesPurpleLine: return false
+            case .fortySeventhGreenLine: return true
+            case .jarvisRedLine: return false
+            case .halstedOrangeLine: return true
+            case .davisPurpleLine: return true
+            case .chicagoBrownPurplelines: return true
+            case .monroeRedLine: return false
+            case .kedzieBrownLine: return true
+            case .fiftyFirstGreenLine: return true
+            case .garfieldGreenLine: return true
+            case .ashlandOrangeLine: return true
+            case .grandRedLine: return true
+            case .cermakMcCormickPlaceGreenLine: return true
+            case .polkPinkLine: return true
+            case .damenBrownLine: return true
+            case .pulaskiPinkLine: return true
+            case .thirtyFifthArcherOrangeLine: return true
+            case .southBoulevardPurpleLine: return false
+            case .mainPurpleLine: return false
+            case .jacksonRedLine: return true
+            case .argyleRedLine: return false
+            case .haroldWashingtonLibraryStateVanBurenBrownOrangePurplePinklines: return true
+            case .austinBlueLine: return false
+            case .washingtonBlueLine: return false
+            case .kedzieHomanBlueLine: return true
+            case .sixtyThirdRedLine: return true
+            case .kedzieOrangeLine: return true
+            case .laramieGreenLine: return true
+            case .eightySeventhRedLine: return true
+            case .westernBlueLineForestParkBranch: return false
+            case .westernBrownLine: return true
+            case .californiaBlueLine: return false
+            case .forestParkBlueLine: return true
+            case .rosemontBlueLine: return true
+            case .adamsWabashBrownGreenOrangePinkPurplelines: return false
+            case .berwynRedLine: return false
+            case .harlemBlueLineOHareBranch: return true
+            case .belmontBlueLine: return false
+            case .clarkDivisionRedLine: return true
+            case .indianaGreenLine: return true
+            case .kostnerPinkLine: return true
+            case .dempsterSkokieYellowLine: return true
+            case .morganGreenPinklines: return true
+            case .ciceroBlueLine: return false
+            case .oaktonSkokieYellowLine: return true
+            case .cottageGroveGreenLine: return true
+            case .midwayOrangeLine: return true
+            case .centralPurpleLine: return false
+            case .pulaskiGreenLine: return true
+            case .ridgelandGreenLine: return false
+            case .lindenPurpleLine: return true
+            case .garfieldRedLine: return true
+            case .northClybournRedLine: return false
+            case .oakParkBlueLine: return false
+            case .irvingParkBrownLine: return true
+            case .franciscoBrownLine: return true
+            case .laSalleVanBurenBrownOrangePurplePinklines: return false
+            case .californiaPinkLine: return true
+            case .westernPinkLine: return true
+            case .sixtyNinthRedLine: return true
+            case .washingtonWellsBrownOrangePurplePinklines: return true
+            case .harrisonRedLine: return false
+            case .clintonGreenPinklines: return true
+            case .kimballBrownLine: return true
+            case .addisonBrownLine: return true
+            case .stateLakeBrownGreenOrangePinkPurplelines: return false
+            case .ciceroGreenLine: return true
+            case .montroseBlueLine: return false
+        }
+    }
+    
+    var lines: Array<String> {
+        switch self {
+            case .ciceroPinkLine: return ["Pink"]
+            case .centralParkPinkLine: return ["Pink"]
+            case .halstedGreenLine: return ["Green"]
+            case .cumberlandBlueLine: return ["Blue"]
+            case .racineBlueLine: return ["Blue"]
+            case .paulinaBrownLine: return ["Brown"]
+            case .eighteenthPinkLine: return ["Pink"]
+            case .clarkLakeBlueBrownGreenOrangePurplePinklines: return ["Blue", "Green", "Brown", "PurpleExp", "Pink", "Orange"]
+            case .jeffersonParkBlueLine: return ["Blue"]
+            case .diverseyBrownPurplelines: return ["Brown", "PurpleExp"]
+            case .montroseBrownLine: return ["Brown"]
+            case .uICHalstedBlueLine: return ["Blue"]
+            case .thirtyFifthBronzevilleIITGreenLine: return ["Green"]
+            case .fosterPurpleLine: return ["Purple", "PurpleExp"]
+            case .quincyWellsBrownOrangePurplePinklines: return ["Brown", "PurpleExp", "Pink", "Orange"]
+            case .southportBrownLine: return ["Brown"]
+            case .loyolaRedLine: return ["Red"]
+            case .fortySeventhRedLine: return ["Red"]
+            case .brynMawrRedLine: return ["Red"]
+            case .harlemBlueLineForestParkBranch: return ["Blue"]
+            case .howardRedPurpleYellowlines: return ["Red", "Purple", "PurpleExp", "Yellow"]
+            case .kedzieGreenLine: return ["Green"]
+            case .kingDriveGreenLine: return ["Green"]
+            case .ashlandsixtyThirdGreenLine: return ["Green"]
+            case .ninetyFifthDanRyanRedLine: return ["Red"]
+            case .westernBlueLineOHareBranch: return ["Blue"]
+            case .armitageBrownPurplelines: return ["Brown", "PurpleExp"]
+            case .rooseveltRedOrangeGreenlines: return ["Red", "Green", "Orange"]
+            case .belmontRedBrownPurplelines: return ["Red", "Brown", "PurpleExp"]
+            case .fiftyFourthCermakPinkLine: return ["Pink"]
+            case .dempsterPurpleLine: return ["Purple", "PurpleExp"]
+            case .fullertonRedBrownPurplelines: return ["Brown", "PurpleExp", "Red"]
+            case .lawrenceRedLine: return ["Red"]
+            case .illinoisMedicalDistrictBlueLine: return ["Blue"]
+            case .lakeRedLine: return ["Red"]
+            case .seventyNinthRedLine: return ["Red"]
+            case .austinGreenLine: return ["Green"]
+            case .clintonBlueLine: return ["Blue"]
+            case .wellingtonBrownPurplelines: return ["Brown", "PurpleExp"]
+            case .oakParkGreenLine: return ["Green"]
+            case .chicagoRedLine: return ["Red"]
+            case .sedgwickBrownPurplelines: return ["Brown", "PurpleExp"]
+            case .addisonBlueLine: return ["Blue"]
+            case .jacksonBlueLine: return ["Blue"]
+            case .kedziePinkLine: return ["Pink"]
+            case .monroeBlueLine: return ["Blue"]
+            case .rockwellBrownLine: return ["Brown"]
+            case .damenPinkLine: return ["Pink"]
+            case .pulaskiBlueLine: return ["Blue"]
+            case .harlemLakeGreenLine: return ["Green"]
+            case .washingtonWabashBrownGreenOrangePurplePinklines: return ["Green", "PurpleExp", "Pink", "Orange", "Brown"]
+            case .californiaGreenLine: return ["Green"]
+            case .morseRedLine: return ["Red"]
+            case .westernOrangeLine: return ["Orange"]
+            case .grandBlueLine: return ["Blue"]
+            case .divisionBlueLine: return ["Blue"]
+            case .pulaskiOrangeLine: return ["Orange"]
+            case .sheridanRedLine: return ["Red"]
+            case .chicagoBlueLine: return ["Blue"]
+            case .merchandiseMartBrownPurplelines: return ["Brown", "PurpleExp"]
+            case .oHareBlueLine: return ["Blue"]
+            case .fortyThirdGreenLine: return ["Green"]
+            case .soxthirtyFifthRedLine: return ["Red"]
+            case .loganSquareBlueLine: return ["Blue"]
+            case .damenBlueLine: return ["Blue"]
+            case .ashlandGreenPinklines: return ["Green", "Pink"]
+            case .irvingParkBlueLine: return ["Blue"]
+            case .wilsonRedPurplelines: return ["PurpleExp", "Red"]
+            case .cermakChinatownRedLine: return ["Red"]
+            case .laSalleBlueLine: return ["Blue"]
+            case .thorndaleRedLine: return ["Red"]
+            case .granvilleRedLine: return ["Red"]
+            case .addisonRedLine: return ["Red"]
+            case .centralGreenLine: return ["Green"]
+            case .conservatoryGreenLine: return ["Green"]
+            case .noyesPurpleLine: return ["Purple", "PurpleExp"]
+            case .fortySeventhGreenLine: return ["Green"]
+            case .jarvisRedLine: return ["Red"]
+            case .halstedOrangeLine: return ["Orange"]
+            case .davisPurpleLine: return ["Purple", "PurpleExp"]
+            case .chicagoBrownPurplelines: return ["Brown", "PurpleExp"]
+            case .monroeRedLine: return ["Red"]
+            case .kedzieBrownLine: return ["Brown"]
+            case .fiftyFirstGreenLine: return ["Green"]
+            case .garfieldGreenLine: return ["Green"]
+            case .ashlandOrangeLine: return ["Orange"]
+            case .grandRedLine: return ["Red"]
+            case .cermakMcCormickPlaceGreenLine: return ["Green"]
+            case .polkPinkLine: return ["Pink"]
+            case .damenBrownLine: return ["Brown"]
+            case .pulaskiPinkLine: return ["Pink"]
+            case .thirtyFifthArcherOrangeLine: return ["Orange"]
+            case .southBoulevardPurpleLine: return ["Purple", "PurpleExp"]
+            case .mainPurpleLine: return ["Purple", "PurpleExp"]
+            case .jacksonRedLine: return ["Red"]
+            case .argyleRedLine: return ["Red"]
+            case .haroldWashingtonLibraryStateVanBurenBrownOrangePurplePinklines: return ["Brown", "PurpleExp", "Pink", "Orange"]
+            case .austinBlueLine: return ["Blue"]
+            case .washingtonBlueLine: return ["Blue"]
+            case .kedzieHomanBlueLine: return ["Blue"]
+            case .sixtyThirdRedLine: return ["Red"]
+            case .kedzieOrangeLine: return ["Orange"]
+            case .laramieGreenLine: return ["Green"]
+            case .eightySeventhRedLine: return ["Red"]
+            case .westernBlueLineForestParkBranch: return ["Blue"]
+            case .westernBrownLine: return ["Brown"]
+            case .californiaBlueLine: return ["Blue"]
+            case .forestParkBlueLine: return ["Blue"]
+            case .rosemontBlueLine: return ["Blue"]
+            case .adamsWabashBrownGreenOrangePinkPurplelines: return ["Green", "PurpleExp", "Pink", "Orange", "Brown"]
+            case .berwynRedLine: return ["Red"]
+            case .harlemBlueLineOHareBranch: return ["Blue"]
+            case .belmontBlueLine: return ["Blue"]
+            case .clarkDivisionRedLine: return ["Red"]
+            case .indianaGreenLine: return ["Green"]
+            case .kostnerPinkLine: return ["Pink"]
+            case .dempsterSkokieYellowLine: return ["Yellow"]
+            case .morganGreenPinklines: return ["Green", "Pink"]
+            case .ciceroBlueLine: return ["Blue"]
+            case .oaktonSkokieYellowLine: return ["Yellow"]
+            case .cottageGroveGreenLine: return ["Green"]
+            case .midwayOrangeLine: return ["Orange"]
+            case .centralPurpleLine: return ["Purple", "PurpleExp"]
+            case .pulaskiGreenLine: return ["Green"]
+            case .ridgelandGreenLine: return ["Green"]
+            case .lindenPurpleLine: return ["Purple", "PurpleExp"]
+            case .garfieldRedLine: return ["Red"]
+            case .northClybournRedLine: return ["Red"]
+            case .oakParkBlueLine: return ["Blue"]
+            case .irvingParkBrownLine: return ["Brown"]
+            case .franciscoBrownLine: return ["Brown"]
+            case .laSalleVanBurenBrownOrangePurplePinklines: return ["Brown", "PurpleExp", "Pink", "Orange"]
+            case .californiaPinkLine: return ["Pink"]
+            case .westernPinkLine: return ["Pink"]
+            case .sixtyNinthRedLine: return ["Red"]
+            case .washingtonWellsBrownOrangePurplePinklines: return ["PurpleExp", "Pink", "Orange", "Brown"]
+            case .harrisonRedLine: return ["Red"]
+            case .clintonGreenPinklines: return ["Green", "Pink"]
+            case .kimballBrownLine: return ["Brown"]
+            case .addisonBrownLine: return ["Brown"]
+            case .stateLakeBrownGreenOrangePinkPurplelines: return ["Green", "Brown", "PurpleExp", "Pink", "Orange"]
+            case .ciceroGreenLine: return ["Green"]
+            case .montroseBlueLine: return ["Blue"]
+        }
+    }
+    
     var shortName: String {
         switch self {
             case .ciceroPinkLine: return "Cicero"
