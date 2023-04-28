@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2566E5B329FC6EC5002991DE /* TrainStatsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566E5B229FC6EC5002991DE /* TrainStatsCollectionViewCell.swift */; };
 		257004C329F8A45700E08371 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257004C229F8A45700E08371 /* AppDelegate.swift */; };
 		257004C529F8A45700E08371 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257004C429F8A45700E08371 /* SceneDelegate.swift */; };
 		257004C729F8A45700E08371 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257004C629F8A45700E08371 /* ViewController.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2566E5B229FC6EC5002991DE /* TrainStatsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainStatsCollectionViewCell.swift; sourceTree = "<group>"; };
 		257004BF29F8A45700E08371 /* hw2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hw2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257004C229F8A45700E08371 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		257004C429F8A45700E08371 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				257004F829FB3E5900E08371 /* Line.swift */,
 				257004F429F8E91600E08371 /* Terminal.swift */,
 				257004FA29FB527300E08371 /* MultipleSelectionCollectionViewCell.swift */,
+				2566E5B229FC6EC5002991DE /* TrainStatsCollectionViewCell.swift */,
 				257004C829F8A45700E08371 /* Main.storyboard */,
 				2589717829FBC0510076BA69 /* TrainTableViewCell.swift */,
 				257004CB29F8A45900E08371 /* Assets.xcassets */,
@@ -279,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2566E5B329FC6EC5002991DE /* TrainStatsCollectionViewCell.swift in Sources */,
 				2589717729FB8E160076BA69 /* TerminalViewController.swift in Sources */,
 				257004C729F8A45700E08371 /* ViewController.swift in Sources */,
 				257004F529F8E91600E08371 /* Terminal.swift in Sources */,

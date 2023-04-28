@@ -16,11 +16,4 @@ class MultipleSelectionCollectionViewCell : UICollectionViewCell {
         selectionView.layer.borderWidth = 1
         selectionView.layer.borderColor = UIColor.lightGray.cgColor
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        lblSelection.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        lblSelection.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-    }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TerminalViewController: UIViewController {
+class TerminalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let apiKey = "581954360bb24ae0bc667769dd6cad45";
     
     enum SerializationError: Error {
@@ -26,17 +26,58 @@ class TerminalViewController: UIViewController {
     
     
     @IBOutlet weak var lblName: UILabel!
-    
-    
-    
+    @IBOutlet weak var tableViewTrains: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad();
         
         lblName.text = terminal.fullName
         
-//        getTerminalInfo(terminalID: Terminal.belmontRedBrownPurplelines.id);
+        getTerminalInfo(terminalID: terminal.id);
 //        getLineInfo(line: "red");
+    }
+    
+    
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let terminalvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalvc") as! TerminalViewController;
+//
+//        terminalvc.terminal = trains[tableViewLines.indexPathForSelectedRow!.row];
+//
+//        terminalvc.modalPresentationStyle = .popover;
+//        self.present(terminalvc, animated: true);
+//    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1;
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return trains.count;
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableViewTrains.dequeueReusableCell(withIdentifier: "train", for: indexPath) as! TrainTableViewCell;
+        
+        let train = trains[indexPath.row];
+        cell.train = train;
+        
+        
+//        cell.collectionViewTrains.reloadData(); .text = train.runNumber;
+//        if (train.lines.count > 2) {
+//            cell.lblLines.text = terminal.lines.dropLast().joined(separator: ", ") + ", and " + terminal.lines.last! + " lines";
+//        }
+//        else if (terminal.lines.count == 2) {
+//            cell.lblLines.text = terminal.lines[0] + " and " + terminal.lines[1] + " lines";
+//        }
+//        else {
+//            cell.lblLines.text = terminal.lines[0];
+//        }
+//        cell.lblLines.text?.replace("PurpleExp", with: "Purple (Express)")
+//
+//        cell.imgIsADAComplient.isHidden = (terminal.isADAComplient) ? false : true;
+        
+        return cell;
     }
     
     func getTerminalInfo(terminalID: Int) {
@@ -93,9 +134,7 @@ class TerminalViewController: UIViewController {
                     self.dataAvailable = true;
                     
                     DispatchQueue.main.async{
-                        for train in self.trains {
-                            print(train.runNumber);
-                        }
+                        self.tableViewTrains.reloadData();
                     }
                 }
             } catch SerializationError.missing(let msg) {
