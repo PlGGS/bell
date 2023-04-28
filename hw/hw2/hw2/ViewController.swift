@@ -7,12 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
     let apiKey = "581954360bb24ae0bc667769dd6cad45"
     
     @IBOutlet weak var collectionViewLines: UICollectionView!
+    @IBOutlet weak var tableViewLines: UITableView!
     
     var selectedLineIndex = [-1];
+    var filteredTerminals = [Terminal]()
     
     enum SerializationError: Error {
         case missing(String)
@@ -31,12 +33,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 //        getTerminalInfo(terminalID: Terminal.belmontRedBrownPurplelines.id);
 //        getLineInfo(line: "red");
         
-//        collectionViewLines.collectionViewLayout.invalidateLayout();
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 10
         collectionViewLines.collectionViewLayout = layout
+        
+        filteredTerminals = Terminal.allCases;
+        
+        tableViewLines.delegate = self;
+        tableViewLines.dataSource = self;
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -93,6 +99,43 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! TerminalTableViewCell
+        
+        let terminalvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalvc") as! TerminalViewController;
+//        let langIndex = tableViewLines.indexPathForSelectedRow!.row;
+        
+        print(cell.lblName.text!);
+        terminalvc.terminal = Terminal(rawValue: cell.lblName.text!)!;
+//        terminalvc.terminal = Terminal.allCases[langIndex];
+
+        terminalvc.modalPresentationStyle = .popover;
+        self.present(terminalvc, animated: true);
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1;
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Terminal.allCases.count;
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableViewLines.dequeueReusableCell(withIdentifier: "terminal", for: indexPath) as! TerminalTableViewCell;
+        
+        print(indexPath.row);
+        let terminal = Terminal.allCases[indexPath.row];
+        
+        cell.lblName.text = terminal.fullName;
+        cell.lblLines.text = terminal.lines.joined(separator: ", ");
+        if (terminal.isADAComplient == false) {
+            cell.imgIsADAComplient.isHidden = true;
+        }
+        
+        return cell;
     }
     
     func getTerminalInfo(terminalID: Int) {
