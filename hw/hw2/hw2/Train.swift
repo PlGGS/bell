@@ -9,7 +9,7 @@ class Train: Codable {
     let nextParentTerminalID: String; ///Parent terminal ids correspond to the generic internal name for a terminal
     let nextDirectedTerminalID: String; ///Directed terminal ids correspond to the unique, internal, line-specific terminal identifiers
     let nextParentTerminalShortName: String;
-    let destinationString: String;
+    let destinationString: String; ///Final destination of the train (Ex: Howard)
     let runNumber: String; ///Ex: 420
     let lineName: String; ///Ex: "Red" "Brn"
     let destinationDirectedTerminalID: String;
