@@ -135,7 +135,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let terminal = filteredTerminals[indexPath.row];
         
         cell.lblName.text = terminal.shortName;
-        cell.lblLines.text = terminal.lines.joined(separator: ", ");
+        if (terminal.lines.count > 2) {
+            cell.lblLines.text = terminal.lines.dropLast().joined(separator: ", ") + ", and " + terminal.lines.last! + " lines";
+        }
+        else if (terminal.lines.count == 2) {
+            cell.lblLines.text = terminal.lines[0] + " and " + terminal.lines[1] + " lines";
+        }
+        else {
+            cell.lblLines.text = terminal.lines[0];
+        }
+        cell.lblLines.text?.replace("PurpleExp", with: "Purple (Express)")
+        
         cell.imgIsADAComplient.isHidden = (terminal.isADAComplient) ? false : true;
         
         return cell;
