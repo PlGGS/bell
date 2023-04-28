@@ -102,14 +102,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! TerminalTableViewCell
-        
         let terminalvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalvc") as! TerminalViewController;
-//        let langIndex = tableViewLines.indexPathForSelectedRow!.row;
         
-        print(cell.lblName.text!);
-        terminalvc.terminal = Terminal(rawValue: cell.lblName.text!)!;
-//        terminalvc.terminal = Terminal.allCases[langIndex];
+        terminalvc.terminal = Terminal.allCases[tableViewLines.indexPathForSelectedRow!.row];
 
         terminalvc.modalPresentationStyle = .popover;
         self.present(terminalvc, animated: true);

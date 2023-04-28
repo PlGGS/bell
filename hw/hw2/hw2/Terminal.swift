@@ -7,150 +7,150 @@
 
 import Foundation
 
-enum Terminal: String, CaseIterable {
-    case ciceroPinkLine = "Cicero (Pink Line)"
-    case centralParkPinkLine = "Central Park (Pink Line)"
-    case halstedGreenLine = "Halsted (Green Line)"
-    case cumberlandBlueLine = "Cumberland (Blue Line)"
-    case racineBlueLine = "Racine (Blue Line)"
-    case paulinaBrownLine = "Paulina (Brown Line)"
-    case eighteenthPinkLine = "18th (Pink Line)"
-    case clarkLakeBlueBrownGreenOrangePurplePinklines = "Clark/Lake (Blue, Brown, Green, Orange, Purple & Pink lines)"
-    case jeffersonParkBlueLine = "Jefferson Park (Blue Line)"
-    case diverseyBrownPurplelines = "Diversey (Brown & Purple lines)"
-    case montroseBrownLine = "Montrose (Brown Line)"
-    case uICHalstedBlueLine = "UIC-Halsted (Blue Line)"
-    case thirtyFifthBronzevilleIITGreenLine = "35th-Bronzeville-IIT (Green Line)"
-    case fosterPurpleLine = "Foster (Purple Line)"
-    case quincyWellsBrownOrangePurplePinklines = "Quincy/Wells (Brown, Orange, Purple & Pink lines)"
-    case southportBrownLine = "Southport (Brown Line)"
-    case loyolaRedLine = "Loyola (Red Line)"
-    case fortySeventhRedLine = "47th (Red Line)"
-    case brynMawrRedLine = "Bryn Mawr (Red Line)"
-    case harlemBlueLineForestParkBranch = "Harlem (Blue Line - Forest Park Branch)"
-    case howardRedPurpleYellowlines = "Howard (Red, Purple & Yellow lines)"
-    case kedzieGreenLine = "Kedzie (Green Line)"
-    case kingDriveGreenLine = "King Drive (Green Line)"
-    case ashlandsixtyThirdGreenLine = "Ashland/63rd (Green Line)"
-    case ninetyFifthDanRyanRedLine = "95th/Dan Ryan (Red Line)"
-    case westernBlueLineOHareBranch = "Western (Blue Line - O'Hare Branch)"
-    case armitageBrownPurplelines = "Armitage (Brown & Purple lines)"
-    case rooseveltRedOrangeGreenlines = "Roosevelt (Red, Orange & Green lines)"
-    case belmontRedBrownPurplelines = "Belmont (Red, Brown & Purple lines)"
-    case fiftyFourthCermakPinkLine = "54th/Cermak (Pink Line)"
-    case dempsterPurpleLine = "Dempster (Purple Line)"
-    case fullertonRedBrownPurplelines = "Fullerton (Red, Brown & Purple lines)"
-    case lawrenceRedLine = "Lawrence (Red Line)"
-    case illinoisMedicalDistrictBlueLine = "Illinois Medical District (Blue Line)"
-    case lakeRedLine = "Lake (Red Line)"
-    case seventyNinthRedLine = "79th (Red Line)"
-    case austinGreenLine = "Austin (Green Line)"
-    case clintonBlueLine = "Clinton (Blue Line)"
-    case wellingtonBrownPurplelines = "Wellington (Brown & Purple lines)"
-    case oakParkGreenLine = "Oak Park (Green Line)"
-    case chicagoRedLine = "Chicago (Red Line)"
-    case sedgwickBrownPurplelines = "Sedgwick (Brown & Purple lines)"
-    case addisonBlueLine = "Addison (Blue Line)"
-    case jacksonBlueLine = "Jackson (Blue Line)"
-    case kedziePinkLine = "Kedzie (Pink Line)"
-    case monroeBlueLine = "Monroe (Blue Line)"
-    case rockwellBrownLine = "Rockwell (Brown Line)"
-    case damenPinkLine = "Damen (Pink Line)"
-    case pulaskiBlueLine = "Pulaski (Blue Line)"
-    case harlemLakeGreenLine = "Harlem/Lake (Green Line)"
-    case washingtonWabashBrownGreenOrangePurplePinklines = "Washington/Wabash (Brown, Green, Orange, Purple & Pink lines)"
-    case californiaGreenLine = "California (Green Line)"
-    case morseRedLine = "Morse (Red Line)"
-    case westernOrangeLine = "Western (Orange Line)"
-    case grandBlueLine = "Grand (Blue Line)"
-    case divisionBlueLine = "Division (Blue Line)"
-    case pulaskiOrangeLine = "Pulaski (Orange Line)"
-    case sheridanRedLine = "Sheridan (Red Line)"
-    case chicagoBlueLine = "Chicago (Blue Line)"
-    case merchandiseMartBrownPurplelines = "Merchandise Mart (Brown & Purple lines)"
-    case oHareBlueLine = "O'Hare (Blue Line)"
-    case fortyThirdGreenLine = "43rd (Green Line)"
-    case soxthirtyFifthRedLine = "Sox-35th (Red Line)"
-    case loganSquareBlueLine = "Logan Square (Blue Line)"
-    case damenBlueLine = "Damen (Blue Line)"
-    case ashlandGreenPinklines = "Ashland (Green & Pink lines)"
-    case irvingParkBlueLine = "Irving Park (Blue Line)"
-    case wilsonRedPurplelines = "Wilson (Red & Purple lines)"
-    case cermakChinatownRedLine = "Cermak-Chinatown (Red Line)"
-    case laSalleBlueLine = "LaSalle (Blue Line)"
-    case thorndaleRedLine = "Thorndale (Red Line)"
-    case granvilleRedLine = "Granville (Red Line)"
-    case addisonRedLine = "Addison (Red Line)"
-    case centralGreenLine = "Central (Green Line)"
-    case conservatoryGreenLine = "Conservatory (Green Line)"
-    case noyesPurpleLine = "Noyes (Purple Line)"
-    case fortySeventhGreenLine = "47th (Green Line)"
-    case jarvisRedLine = "Jarvis (Red Line)"
-    case halstedOrangeLine = "Halsted (Orange Line)"
-    case davisPurpleLine = "Davis (Purple Line)"
-    case chicagoBrownPurplelines = "Chicago (Brown & Purple lines)"
-    case monroeRedLine = "Monroe (Red Line)"
-    case kedzieBrownLine = "Kedzie (Brown Line)"
-    case fiftyFirstGreenLine = "51st (Green Line)"
-    case garfieldGreenLine = "Garfield (Green Line)"
-    case ashlandOrangeLine = "Ashland (Orange Line)"
-    case grandRedLine = "Grand (Red Line)"
-    case cermakMcCormickPlaceGreenLine = "Cermak-McCormick Place (Green Line)"
-    case polkPinkLine = "Polk (Pink Line)"
-    case damenBrownLine = "Damen (Brown Line)"
-    case pulaskiPinkLine = "Pulaski (Pink Line)"
-    case thirtyFifthArcherOrangeLine = "35th/Archer (Orange Line)"
-    case southBoulevardPurpleLine = "South Boulevard (Purple Line)"
-    case mainPurpleLine = "Main (Purple Line)"
-    case jacksonRedLine = "Jackson (Red Line)"
-    case argyleRedLine = "Argyle (Red Line)"
-    case haroldWashingtonLibraryStateVanBurenBrownOrangePurplePinklines = "Harold Washington Library-State/Van Buren (Brown, Orange, Purple & Pink lines)"
-    case austinBlueLine = "Austin (Blue Line)"
-    case washingtonBlueLine = "Washington (Blue Line)"
-    case kedzieHomanBlueLine = "Kedzie-Homan (Blue Line)"
-    case sixtyThirdRedLine = "63rd (Red Line)"
-    case kedzieOrangeLine = "Kedzie (Orange Line)"
-    case laramieGreenLine = "Laramie (Green Line)"
-    case eightySeventhRedLine = "87th (Red Line)"
-    case westernBlueLineForestParkBranch = "Western (Blue Line - Forest Park Branch)"
-    case westernBrownLine = "Western (Brown Line)"
-    case californiaBlueLine = "California (Blue Line)"
-    case forestParkBlueLine = "Forest Park (Blue Line)"
-    case rosemontBlueLine = "Rosemont (Blue Line)"
-    case adamsWabashBrownGreenOrangePinkPurplelines = "Adams/Wabash (Brown, Green, Orange, Pink & Purple lines)"
-    case berwynRedLine = "Berwyn (Red Line)"
-    case harlemBlueLineOHareBranch = "Harlem (Blue Line - O'Hare Branch)"
-    case belmontBlueLine = "Belmont (Blue Line)"
-    case clarkDivisionRedLine = "Clark/Division (Red Line)"
-    case indianaGreenLine = "Indiana (Green Line)"
-    case kostnerPinkLine = "Kostner (Pink Line)"
-    case dempsterSkokieYellowLine = "Dempster-Skokie  (Yellow Line)"
-    case morganGreenPinklines = "Morgan (Green & Pink lines)"
-    case ciceroBlueLine = "Cicero (Blue Line)"
-    case oaktonSkokieYellowLine = "Oakton-Skokie (Yellow Line)"
-    case cottageGroveGreenLine = "Cottage Grove (Green Line)"
-    case midwayOrangeLine = "Midway (Orange Line)"
-    case centralPurpleLine = "Central (Purple Line)"
-    case pulaskiGreenLine = "Pulaski (Green Line)"
-    case ridgelandGreenLine = "Ridgeland (Green Line)"
-    case lindenPurpleLine = "Linden (Purple Line)"
-    case garfieldRedLine = "Garfield (Red Line)"
-    case northClybournRedLine = "North/Clybourn (Red Line)"
-    case oakParkBlueLine = "Oak Park (Blue Line)"
-    case irvingParkBrownLine = "Irving Park (Brown Line)"
-    case franciscoBrownLine = "Francisco (Brown Line)"
-    case laSalleVanBurenBrownOrangePurplePinklines = "LaSalle/Van Buren (Brown, Orange, Purple & Pink lines)"
-    case californiaPinkLine = "California (Pink Line)"
-    case westernPinkLine = "Western (Pink Line)"
-    case sixtyNinthRedLine = "69th (Red Line)"
-    case washingtonWellsBrownOrangePurplePinklines = "Washington/Wells (Brown, Orange, Purple & Pink lines)"
-    case harrisonRedLine = "Harrison (Red Line)"
-    case clintonGreenPinklines = "Clinton (Green & Pink lines)"
-    case kimballBrownLine = "Kimball (Brown Line)"
-    case addisonBrownLine = "Addison (Brown Line)"
-    case stateLakeBrownGreenOrangePinkPurplelines = "State/Lake (Brown, Green, Orange, Pink & Purple lines)"
-    case ciceroGreenLine = "Cicero (Green Line)"
-    case montroseBlueLine = "Montrose (Blue Line)"
+enum Terminal: CaseIterable {
+    case ciceroPinkLine
+    case centralParkPinkLine
+    case halstedGreenLine
+    case cumberlandBlueLine
+    case racineBlueLine
+    case paulinaBrownLine
+    case eighteenthPinkLine
+    case clarkLakeBlueBrownGreenOrangePurplePinklines
+    case jeffersonParkBlueLine
+    case diverseyBrownPurplelines
+    case montroseBrownLine
+    case uICHalstedBlueLine
+    case thirtyFifthBronzevilleIITGreenLine
+    case fosterPurpleLine
+    case quincyWellsBrownOrangePurplePinklines
+    case southportBrownLine
+    case loyolaRedLine
+    case fortySeventhRedLine
+    case brynMawrRedLine
+    case harlemBlueLineForestParkBranch
+    case howardRedPurpleYellowlines
+    case kedzieGreenLine
+    case kingDriveGreenLine
+    case ashlandsixtyThirdGreenLine
+    case ninetyFifthDanRyanRedLine
+    case westernBlueLineOHareBranch
+    case armitageBrownPurplelines
+    case rooseveltRedOrangeGreenlines
+    case belmontRedBrownPurplelines
+    case fiftyFourthCermakPinkLine
+    case dempsterPurpleLine
+    case fullertonRedBrownPurplelines
+    case lawrenceRedLine
+    case illinoisMedicalDistrictBlueLine
+    case lakeRedLine
+    case seventyNinthRedLine
+    case austinGreenLine
+    case clintonBlueLine
+    case wellingtonBrownPurplelines
+    case oakParkGreenLine
+    case chicagoRedLine
+    case sedgwickBrownPurplelines
+    case addisonBlueLine
+    case jacksonBlueLine
+    case kedziePinkLine
+    case monroeBlueLine
+    case rockwellBrownLine
+    case damenPinkLine
+    case pulaskiBlueLine
+    case harlemLakeGreenLine
+    case washingtonWabashBrownGreenOrangePurplePinklines
+    case californiaGreenLine
+    case morseRedLine
+    case westernOrangeLine
+    case grandBlueLine
+    case divisionBlueLine
+    case pulaskiOrangeLine
+    case sheridanRedLine
+    case chicagoBlueLine
+    case merchandiseMartBrownPurplelines
+    case oHareBlueLine
+    case fortyThirdGreenLine
+    case soxthirtyFifthRedLine
+    case loganSquareBlueLine
+    case damenBlueLine
+    case ashlandGreenPinklines
+    case irvingParkBlueLine
+    case wilsonRedPurplelines
+    case cermakChinatownRedLine
+    case laSalleBlueLine
+    case thorndaleRedLine
+    case granvilleRedLine
+    case addisonRedLine
+    case centralGreenLine
+    case conservatoryGreenLine
+    case noyesPurpleLine
+    case fortySeventhGreenLine
+    case jarvisRedLine
+    case halstedOrangeLine
+    case davisPurpleLine
+    case chicagoBrownPurplelines
+    case monroeRedLine
+    case kedzieBrownLine
+    case fiftyFirstGreenLine
+    case garfieldGreenLine
+    case ashlandOrangeLine
+    case grandRedLine
+    case cermakMcCormickPlaceGreenLine
+    case polkPinkLine
+    case damenBrownLine
+    case pulaskiPinkLine
+    case thirtyFifthArcherOrangeLine
+    case southBoulevardPurpleLine
+    case mainPurpleLine
+    case jacksonRedLine
+    case argyleRedLine
+    case haroldWashingtonLibraryStateVanBurenBrownOrangePurplePinklines
+    case austinBlueLine
+    case washingtonBlueLine
+    case kedzieHomanBlueLine
+    case sixtyThirdRedLine
+    case kedzieOrangeLine
+    case laramieGreenLine
+    case eightySeventhRedLine
+    case westernBlueLineForestParkBranch
+    case westernBrownLine
+    case californiaBlueLine
+    case forestParkBlueLine
+    case rosemontBlueLine
+    case adamsWabashBrownGreenOrangePinkPurplelines
+    case berwynRedLine
+    case harlemBlueLineOHareBranch
+    case belmontBlueLine
+    case clarkDivisionRedLine
+    case indianaGreenLine
+    case kostnerPinkLine
+    case dempsterSkokieYellowLine
+    case morganGreenPinklines
+    case ciceroBlueLine
+    case oaktonSkokieYellowLine
+    case cottageGroveGreenLine
+    case midwayOrangeLine
+    case centralPurpleLine
+    case pulaskiGreenLine
+    case ridgelandGreenLine
+    case lindenPurpleLine
+    case garfieldRedLine
+    case northClybournRedLine
+    case oakParkBlueLine
+    case irvingParkBrownLine
+    case franciscoBrownLine
+    case laSalleVanBurenBrownOrangePurplePinklines
+    case californiaPinkLine
+    case westernPinkLine
+    case sixtyNinthRedLine
+    case washingtonWellsBrownOrangePurplePinklines
+    case harrisonRedLine
+    case clintonGreenPinklines
+    case kimballBrownLine
+    case addisonBrownLine
+    case stateLakeBrownGreenOrangePinkPurplelines
+    case ciceroGreenLine
+    case montroseBlueLine
     
     var isADAComplient: Bool {
         switch self {
