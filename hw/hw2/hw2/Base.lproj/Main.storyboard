@@ -275,6 +275,37 @@
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nLL-tn-36G" id="hPx-Rk-s7U">
                                                                     <rect key="frame" x="0.0" y="0.0" width="430" height="100"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7p3-9M-SCA" userLabel="CollectionView">
+                                                                            <rect key="frame" x="20" y="0.0" width="282" height="50"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        </view>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YwC-aT-xTN" userLabel="DirectionView">
+                                                                            <rect key="frame" x="20" y="50" width="282" height="50"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        </view>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L2L-mn-3Ta" userLabel="PredictionView">
+                                                                            <rect key="frame" x="310" y="0.0" width="100" height="100"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        </view>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="L2L-mn-3Ta" firstAttribute="height" secondItem="hPx-Rk-s7U" secondAttribute="height" id="DJ1-8b-7D4"/>
+                                                                        <constraint firstItem="7p3-9M-SCA" firstAttribute="width" secondItem="hPx-Rk-s7U" secondAttribute="width" multiplier="0.655814" id="IWk-Ny-EZw"/>
+                                                                        <constraint firstItem="7p3-9M-SCA" firstAttribute="top" secondItem="hPx-Rk-s7U" secondAttribute="top" id="JJt-u4-YY5"/>
+                                                                        <constraint firstItem="YwC-aT-xTN" firstAttribute="leading" secondItem="hPx-Rk-s7U" secondAttribute="leading" constant="20" symbolic="YES" id="Jp1-Um-DHb"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="YwC-aT-xTN" secondAttribute="bottom" id="L5w-aV-NZw"/>
+                                                                        <constraint firstItem="L2L-mn-3Ta" firstAttribute="width" secondItem="YwC-aT-xTN" secondAttribute="width" multiplier="0.35461" id="LDO-B6-9Rm"/>
+                                                                        <constraint firstItem="YwC-aT-xTN" firstAttribute="width" secondItem="hPx-Rk-s7U" secondAttribute="width" multiplier="0.655814" id="MCe-T8-R2W"/>
+                                                                        <constraint firstItem="L2L-mn-3Ta" firstAttribute="top" secondItem="hPx-Rk-s7U" secondAttribute="top" id="QRy-Pt-9kA"/>
+                                                                        <constraint firstItem="L2L-mn-3Ta" firstAttribute="width" secondItem="hPx-Rk-s7U" secondAttribute="width" multiplier="0.232558" id="V6r-HD-HE7"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="L2L-mn-3Ta" secondAttribute="trailing" constant="20" symbolic="YES" id="VW7-dm-I0J"/>
+                                                                        <constraint firstItem="7p3-9M-SCA" firstAttribute="leading" secondItem="hPx-Rk-s7U" secondAttribute="leading" constant="20" symbolic="YES" id="W7S-Ea-xeV"/>
+                                                                        <constraint firstItem="L2L-mn-3Ta" firstAttribute="width" secondItem="7p3-9M-SCA" secondAttribute="width" multiplier="0.35461" id="Ycp-xC-8Ea"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="L2L-mn-3Ta" secondAttribute="bottom" id="klC-gn-cqF"/>
+                                                                        <constraint firstItem="YwC-aT-xTN" firstAttribute="top" secondItem="7p3-9M-SCA" secondAttribute="bottom" id="qSm-Il-Mlt"/>
+                                                                        <constraint firstItem="YwC-aT-xTN" firstAttribute="height" secondItem="7p3-9M-SCA" secondAttribute="height" id="z2t-fI-U5h"/>
+                                                                    </constraints>
                                                                 </tableViewCellContentView>
                                                             </tableViewCell>
                                                         </prototypes>
