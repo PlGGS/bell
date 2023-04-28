@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Terminal: String {
+enum Terminal: String, CaseIterable {
     case ciceroPinkLine = "Cicero (Pink Line)"
     case centralParkPinkLine = "Central Park (Pink Line)"
     case halstedGreenLine = "Halsted (Green Line)"
@@ -148,9 +148,9 @@ enum Terminal: String {
     case clintonGreenPinklines = "Clinton (Green & Pink lines)"
     case kimballBrownLine = "Kimball (Brown Line)"
     case addisonBrownLine = "Addison (Brown Line)"
-    case stateLakeBrownGreenOrangePinkPurplelines = "California  (Blue Line)"
-    case ciceroGreenLine = "State/Lake (Brown, Green, Orange, Pink & Purple lines)"
-    case montroseBlueLine = "Cicero (Green Line)"
+    case stateLakeBrownGreenOrangePinkPurplelines = "State/Lake (Brown, Green, Orange, Pink & Purple lines)"
+    case ciceroGreenLine = "Cicero (Green Line)"
+    case montroseBlueLine = "Montrose (Blue Line)"
     
     var isADAComplient: Bool {
         switch self {
@@ -590,9 +590,157 @@ enum Terminal: String {
             case .clintonGreenPinklines: return "Clinton"
             case .kimballBrownLine: return "Kimball"
             case .addisonBrownLine: return "Addison"
-            case .stateLakeBrownGreenOrangePinkPurplelines: return "California"
-            case .ciceroGreenLine: return "State/Lake"
-            case .montroseBlueLine: return "Cicero"
+            case .stateLakeBrownGreenOrangePinkPurplelines: return "State/Lake"
+            case .ciceroGreenLine: return "Cicero"
+            case .montroseBlueLine: return "Montrose"
+        }
+    }
+    
+    var fullName: String {
+        switch self {
+            case .ciceroPinkLine: return "Cicero (Pink Line)"
+            case .centralParkPinkLine: return "Central Park (Pink Line)"
+            case .halstedGreenLine: return "Halsted (Green Line)"
+            case .cumberlandBlueLine: return "Cumberland (Blue Line)"
+            case .racineBlueLine: return "Racine (Blue Line)"
+            case .paulinaBrownLine: return "Paulina (Brown Line)"
+            case .eighteenthPinkLine: return "18th (Pink Line)"
+            case .clarkLakeBlueBrownGreenOrangePurplePinklines: return "Clark/Lake (Blue, Brown, Green, Orange, Purple & Pink lines)"
+            case .jeffersonParkBlueLine: return "Jefferson Park (Blue Line)"
+            case .diverseyBrownPurplelines: return "Diversey (Brown & Purple lines)"
+            case .montroseBrownLine: return "Montrose (Brown Line)"
+            case .uICHalstedBlueLine: return "UIC-Halsted (Blue Line)"
+            case .thirtyFifthBronzevilleIITGreenLine: return "35th-Bronzeville-IIT (Green Line)"
+            case .fosterPurpleLine: return "Foster (Purple Line)"
+            case .quincyWellsBrownOrangePurplePinklines: return "Quincy/Wells (Brown, Orange, Purple & Pink lines)"
+            case .southportBrownLine: return "Southport (Brown Line)"
+            case .loyolaRedLine: return "Loyola (Red Line)"
+            case .fortySeventhRedLine: return "47th (Red Line)"
+            case .brynMawrRedLine: return "Bryn Mawr (Red Line)"
+            case .harlemBlueLineForestParkBranch: return "Harlem (Blue Line - Forest Park Branch)"
+            case .howardRedPurpleYellowlines: return "Howard (Red, Purple & Yellow lines)"
+            case .kedzieGreenLine: return "Kedzie (Green Line)"
+            case .kingDriveGreenLine: return "King Drive (Green Line)"
+            case .ashlandsixtyThirdGreenLine: return "Ashland/63rd (Green Line)"
+            case .ninetyFifthDanRyanRedLine: return "95th/Dan Ryan (Red Line)"
+            case .westernBlueLineOHareBranch: return "Western (Blue Line - O'Hare Branch)"
+            case .armitageBrownPurplelines: return "Armitage (Brown & Purple lines)"
+            case .rooseveltRedOrangeGreenlines: return "Roosevelt (Red, Orange & Green lines)"
+            case .belmontRedBrownPurplelines: return "Belmont (Red, Brown & Purple lines)"
+            case .fiftyFourthCermakPinkLine: return "54th/Cermak (Pink Line)"
+            case .dempsterPurpleLine: return "Dempster (Purple Line)"
+            case .fullertonRedBrownPurplelines: return "Fullerton (Red, Brown & Purple lines)"
+            case .lawrenceRedLine: return "Lawrence (Red Line)"
+            case .illinoisMedicalDistrictBlueLine: return "Illinois Medical District (Blue Line)"
+            case .lakeRedLine: return "Lake (Red Line)"
+            case .seventyNinthRedLine: return "79th (Red Line)"
+            case .austinGreenLine: return "Austin (Green Line)"
+            case .clintonBlueLine: return "Clinton (Blue Line)"
+            case .wellingtonBrownPurplelines: return "Wellington (Brown & Purple lines)"
+            case .oakParkGreenLine: return "Oak Park (Green Line)"
+            case .chicagoRedLine: return "Chicago (Red Line)"
+            case .sedgwickBrownPurplelines: return "Sedgwick (Brown & Purple lines)"
+            case .addisonBlueLine: return "Addison (Blue Line)"
+            case .jacksonBlueLine: return "Jackson (Blue Line)"
+            case .kedziePinkLine: return "Kedzie (Pink Line)"
+            case .monroeBlueLine: return "Monroe (Blue Line)"
+            case .rockwellBrownLine: return "Rockwell (Brown Line)"
+            case .damenPinkLine: return "Damen (Pink Line)"
+            case .pulaskiBlueLine: return "Pulaski (Blue Line)"
+            case .harlemLakeGreenLine: return "Harlem/Lake (Green Line)"
+            case .washingtonWabashBrownGreenOrangePurplePinklines: return "Washington/Wabash (Brown, Green, Orange, Purple & Pink lines)"
+            case .californiaGreenLine: return "California (Green Line)"
+            case .morseRedLine: return "Morse (Red Line)"
+            case .westernOrangeLine: return "Western (Orange Line)"
+            case .grandBlueLine: return "Grand (Blue Line)"
+            case .divisionBlueLine: return "Division (Blue Line)"
+            case .pulaskiOrangeLine: return "Pulaski (Orange Line)"
+            case .sheridanRedLine: return "Sheridan (Red Line)"
+            case .chicagoBlueLine: return "Chicago (Blue Line)"
+            case .merchandiseMartBrownPurplelines: return "Merchandise Mart (Brown & Purple lines)"
+            case .oHareBlueLine: return "O'Hare (Blue Line)"
+            case .fortyThirdGreenLine: return "43rd (Green Line)"
+            case .soxthirtyFifthRedLine: return "Sox-35th (Red Line)"
+            case .loganSquareBlueLine: return "Logan Square (Blue Line)"
+            case .damenBlueLine: return "Damen (Blue Line)"
+            case .ashlandGreenPinklines: return "Ashland (Green & Pink lines)"
+            case .irvingParkBlueLine: return "Irving Park (Blue Line)"
+            case .wilsonRedPurplelines: return "Wilson (Red & Purple lines)"
+            case .cermakChinatownRedLine: return "Cermak-Chinatown (Red Line)"
+            case .laSalleBlueLine: return "LaSalle (Blue Line)"
+            case .thorndaleRedLine: return "Thorndale (Red Line)"
+            case .granvilleRedLine: return "Granville (Red Line)"
+            case .addisonRedLine: return "Addison (Red Line)"
+            case .centralGreenLine: return "Central (Green Line)"
+            case .conservatoryGreenLine: return "Conservatory (Green Line)"
+            case .noyesPurpleLine: return "Noyes (Purple Line)"
+            case .fortySeventhGreenLine: return "47th (Green Line)"
+            case .jarvisRedLine: return "Jarvis (Red Line)"
+            case .halstedOrangeLine: return "Halsted (Orange Line)"
+            case .davisPurpleLine: return "Davis (Purple Line)"
+            case .chicagoBrownPurplelines: return "Chicago (Brown & Purple lines)"
+            case .monroeRedLine: return "Monroe (Red Line)"
+            case .kedzieBrownLine: return "Kedzie (Brown Line)"
+            case .fiftyFirstGreenLine: return "51st (Green Line)"
+            case .garfieldGreenLine: return "Garfield (Green Line)"
+            case .ashlandOrangeLine: return "Ashland (Orange Line)"
+            case .grandRedLine: return "Grand (Red Line)"
+            case .cermakMcCormickPlaceGreenLine: return "Cermak-McCormick Place (Green Line)"
+            case .polkPinkLine: return "Polk (Pink Line)"
+            case .damenBrownLine: return "Damen (Brown Line)"
+            case .pulaskiPinkLine: return "Pulaski (Pink Line)"
+            case .thirtyFifthArcherOrangeLine: return "35th/Archer (Orange Line)"
+            case .southBoulevardPurpleLine: return "South Boulevard (Purple Line)"
+            case .mainPurpleLine: return "Main (Purple Line)"
+            case .jacksonRedLine: return "Jackson (Red Line)"
+            case .argyleRedLine: return "Argyle (Red Line)"
+            case .haroldWashingtonLibraryStateVanBurenBrownOrangePurplePinklines: return "Harold Washington Library-State/Van Buren (Brown, Orange, Purple & Pink lines)"
+            case .austinBlueLine: return "Austin (Blue Line)"
+            case .washingtonBlueLine: return "Washington (Blue Line)"
+            case .kedzieHomanBlueLine: return "Kedzie-Homan (Blue Line)"
+            case .sixtyThirdRedLine: return "63rd (Red Line)"
+            case .kedzieOrangeLine: return "Kedzie (Orange Line)"
+            case .laramieGreenLine: return "Laramie (Green Line)"
+            case .eightySeventhRedLine: return "87th (Red Line)"
+            case .westernBlueLineForestParkBranch: return "Western (Blue Line - Forest Park Branch)"
+            case .westernBrownLine: return "Western (Brown Line)"
+            case .californiaBlueLine: return "California (Blue Line)"
+            case .forestParkBlueLine: return "Forest Park (Blue Line)"
+            case .rosemontBlueLine: return "Rosemont (Blue Line)"
+            case .adamsWabashBrownGreenOrangePinkPurplelines: return "Adams/Wabash (Brown, Green, Orange, Pink & Purple lines)"
+            case .berwynRedLine: return "Berwyn (Red Line)"
+            case .harlemBlueLineOHareBranch: return "Harlem (Blue Line - O'Hare Branch)"
+            case .belmontBlueLine: return "Belmont (Blue Line)"
+            case .clarkDivisionRedLine: return "Clark/Division (Red Line)"
+            case .indianaGreenLine: return "Indiana (Green Line)"
+            case .kostnerPinkLine: return "Kostner (Pink Line)"
+            case .dempsterSkokieYellowLine: return "Dempster-Skokie  (Yellow Line)"
+            case .morganGreenPinklines: return "Morgan (Green & Pink lines)"
+            case .ciceroBlueLine: return "Cicero (Blue Line)"
+            case .oaktonSkokieYellowLine: return "Oakton-Skokie (Yellow Line)"
+            case .cottageGroveGreenLine: return "Cottage Grove (Green Line)"
+            case .midwayOrangeLine: return "Midway (Orange Line)"
+            case .centralPurpleLine: return "Central (Purple Line)"
+            case .pulaskiGreenLine: return "Pulaski (Green Line)"
+            case .ridgelandGreenLine: return "Ridgeland (Green Line)"
+            case .lindenPurpleLine: return "Linden (Purple Line)"
+            case .garfieldRedLine: return "Garfield (Red Line)"
+            case .northClybournRedLine: return "North/Clybourn (Red Line)"
+            case .oakParkBlueLine: return "Oak Park (Blue Line)"
+            case .irvingParkBrownLine: return "Irving Park (Brown Line)"
+            case .franciscoBrownLine: return "Francisco (Brown Line)"
+            case .laSalleVanBurenBrownOrangePurplePinklines: return "LaSalle/Van Buren (Brown, Orange, Purple & Pink lines)"
+            case .californiaPinkLine: return "California (Pink Line)"
+            case .westernPinkLine: return "Western (Pink Line)"
+            case .sixtyNinthRedLine: return "69th (Red Line)"
+            case .washingtonWellsBrownOrangePurplePinklines: return "Washington/Wells (Brown, Orange, Purple & Pink lines)"
+            case .harrisonRedLine: return "Harrison (Red Line)"
+            case .clintonGreenPinklines: return "Clinton (Green & Pink lines)"
+            case .kimballBrownLine: return "Kimball (Brown Line)"
+            case .addisonBrownLine: return "Addison (Brown Line)"
+            case .stateLakeBrownGreenOrangePinkPurplelines: return "State/Lake (Brown, Green, Orange, Pink & Purple lines)"
+            case .ciceroGreenLine: return "Cicero (Green Line)"
+            case .montroseBlueLine: return "Montrose (Blue Line)"
         }
     }
     
@@ -738,9 +886,9 @@ enum Terminal: String {
             case .clintonGreenPinklines: return 41160
             case .kimballBrownLine: return 41290
             case .addisonBrownLine: return 41440
-            case .stateLakeBrownGreenOrangePinkPurplelines: return 40570
-            case .ciceroGreenLine: return 40260
-            case .montroseBlueLine: return 40480
+            case .stateLakeBrownGreenOrangePinkPurplelines: return 40260
+            case .ciceroGreenLine: return 40480
+            case .montroseBlueLine: return 41330
         }
     }
     
@@ -886,9 +1034,9 @@ enum Terminal: String {
             case .clintonGreenPinklines: return "(41.885678, -87.641782)"
             case .kimballBrownLine: return "(41.967901, -87.713065)"
             case .addisonBrownLine: return "(41.947028, -87.674642)"
-            case .stateLakeBrownGreenOrangePinkPurplelines: return "(41.921939, -87.69689)"
-            case .ciceroGreenLine: return "(41.88574, -87.627835)"
-            case .montroseBlueLine: return "(41.886519, -87.744698)"
+            case .stateLakeBrownGreenOrangePinkPurplelines: return "(41.88574, -87.627835)"
+            case .ciceroGreenLine: return "(41.886519, -87.744698)"
+            case .montroseBlueLine: return "(41.961539, -87.743574)"
         }
     }
     
@@ -1034,9 +1182,9 @@ enum Terminal: String {
             case .clintonGreenPinklines: return 41.885678
             case .kimballBrownLine: return 41.967901
             case .addisonBrownLine: return 41.947028
-            case .stateLakeBrownGreenOrangePinkPurplelines: return 41.921939
-            case .ciceroGreenLine: return 41.88574
-            case .montroseBlueLine: return 41.886519
+            case .stateLakeBrownGreenOrangePinkPurplelines: return 41.88574
+            case .ciceroGreenLine: return 41.886519
+            case .montroseBlueLine: return 41.961539
         }
     }
     
@@ -1182,9 +1330,9 @@ enum Terminal: String {
             case .clintonGreenPinklines: return -87.641782
             case .kimballBrownLine: return -87.713065
             case .addisonBrownLine: return -87.674642
-            case .stateLakeBrownGreenOrangePinkPurplelines: return -87.69689
-            case .ciceroGreenLine: return -87.627835
-            case .montroseBlueLine: return -87.744698
+            case .stateLakeBrownGreenOrangePinkPurplelines: return -87.627835
+            case .ciceroGreenLine: return -87.744698
+            case .montroseBlueLine: return -87.743574
         }
     }
 }
