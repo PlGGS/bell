@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     let apiKey = "581954360bb24ae0bc667769dd6cad45"
     
     @IBOutlet weak var collectionViewLines: UICollectionView!
@@ -101,10 +101,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchText != "") {
+            filteredTerminals = Terminal.allCases.filter({$0.fullName.contains(searchText)})
+        }
+        else {
+            filteredTerminals = Terminal.allCases;
+        }
+        
+        tableViewLines.reloadData();
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let terminalvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalvc") as! TerminalViewController;
         
-        terminalvc.terminal = Terminal.allCases[tableViewLines.indexPathForSelectedRow!.row];
+        terminalvc.terminal = filteredTerminals[tableViewLines.indexPathForSelectedRow!.row];
 
         terminalvc.modalPresentationStyle = .popover;
         self.present(terminalvc, animated: true);
@@ -115,20 +126,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Terminal.allCases.count;
+        return filteredTerminals.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableViewLines.dequeueReusableCell(withIdentifier: "terminal", for: indexPath) as! TerminalTableViewCell;
         
-        print(indexPath.row);
-        let terminal = Terminal.allCases[indexPath.row];
+        let terminal = filteredTerminals[indexPath.row];
         
-        cell.lblName.text = terminal.fullName;
+        cell.lblName.text = terminal.shortName;
         cell.lblLines.text = terminal.lines.joined(separator: ", ");
-        if (terminal.isADAComplient == false) {
-            cell.imgIsADAComplient.isHidden = true;
-        }
+        cell.imgIsADAComplient.isHidden = (terminal.isADAComplient) ? false : true;
         
         return cell;
     }
