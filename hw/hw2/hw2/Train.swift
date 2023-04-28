@@ -21,10 +21,10 @@ class Train: Codable {
     let isScheduled: String; ///THIS MEANS PREDICTION IS NOT LIVE
     let isDelayed: String;
     let hasScheduleFault: String; ///Means that the train didn't leave when scheduled. If the train also isScheduled, this indicates that it might not leave on time
-    let flags: String?;
+    let flags: String?; ///Not currently in use (always returns null)
     let latitude: String;
     let longitude: String;
-    let heading: String?; ///Direction N, E, S, W in degrees 0 through 359
+    let heading: String?; ///Direction N, E, S, W in degrees 0 through 359 (null if haven't left yet)
     
     enum CodingKeys: String, CodingKey {
         case nextParentTerminalID = "staId"

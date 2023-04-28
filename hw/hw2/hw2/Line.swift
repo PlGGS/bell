@@ -7,25 +7,39 @@
 
 import Foundation
 
-enum Line: String {
-    case red = "Red"
-    case blue = "Blue"
-    case green = "Green"
-    case brown = "Brown"
-    case purple = "Purple"
-    case purpleexp = "PurpleExp"
-    case yellow = "Yellow"
-    case pink = "Pink"
-    case orange = "Orange"
+enum Line: CaseIterable {
+    case red
+    case blue
+    case green
+    case brown
+    case purple
+    case purpleexp
+    case yellow
+    case pink
+    case orange
     
-    var name: String {
+    var shortName: String {
+        switch self {
+            case .red: return "Red"
+            case .blue: return "Blue"
+            case .green: return "Green"
+            case .brown: return "Brown"
+            case .purple: return "Purple"
+            case .purpleexp: return "PurpleExp"
+            case .yellow: return "Yellow"
+            case .pink: return "Pink"
+            case .orange: return "Orange"
+        }
+    }
+    
+    var fullName: String {
         switch self {
             case .red: return "Red Line"
             case .blue: return "Blue Line"
             case .green: return "Green Line"
             case .brown: return "Brown Line"
             case .purple: return "Purple Line"
-            case .purpleexp: return "Purple Line Express (Rush Hour Only)"
+            case .purpleexp: return "Purple Line Express"
             case .yellow: return "Yellow Line"
             case .pink: return "Pink Line"
             case .orange: return "Orange Line"

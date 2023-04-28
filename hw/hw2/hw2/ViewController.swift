@@ -7,8 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     let apiKey = "581954360bb24ae0bc667769dd6cad45"
+    
+    @IBOutlet weak var collectionViewLines: UICollectionView!
+    
+    var selectedLineIndex = [-1];
     
     enum SerializationError: Error {
         case missing(String)
@@ -24,10 +28,73 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        getTerminalInfo(terminalID: Terminal.belmontRedBrownPurplelines.id);
+//        getTerminalInfo(terminalID: Terminal.belmontRedBrownPurplelines.id);
 //        getLineInfo(line: "red");
+        
+//        collectionViewLines.collectionViewLayout.invalidateLayout();
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 10
+        collectionViewLines.collectionViewLayout = layout
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return Line.allCases.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionViewLines.dequeueReusableCell(withReuseIdentifier: "mscvc", for: indexPath) as! MultipleSelectionCollectionViewCell;
+        
+        cell.lblSelection.text = Line.allCases[indexPath.row].fullName;
+        
+        if selectedLineIndex.contains(indexPath.item) {
+            if (Line.allCases[indexPath.row].shortName == "PurpleExp") {
+                cell.selectionView.backgroundColor = UIColor(named: "Purple");
+            }
+            else {
+                cell.selectionView.backgroundColor = UIColor(named: Line.allCases[indexPath.row].shortName)
+            }
+            
+            cell.lblSelection.textColor = UIColor.white;
+        }
+        else {
+            cell.selectionView.backgroundColor = UIColor.white;
+            cell.lblSelection.textColor = UIColor.darkGray;
+        }
+        
+        cell.lblSelection.sizeToFit();
+        
+        return cell;
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if (selectedLineIndex.contains(indexPath.item)) {
+            if let index = selectedLineIndex.firstIndex(of: indexPath.item) {
+                selectedLineIndex.remove(at: index);
+            }
+        }
+        else {
+            selectedLineIndex.append(indexPath.item);
+        }
+        
+        collectionViewLines.reloadData();
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cell = collectionViewLines.dequeueReusableCell(withReuseIdentifier: "mscvc", for: indexPath) as! MultipleSelectionCollectionViewCell;
+        
+        cell.lblSelection.text = Line.allCases[indexPath.row].fullName;
+        cell.lblSelection.sizeToFit();
+        let size = cell.lblSelection.frame.size;
+        
+        return CGSize(width: size.width + 20, height: size.height + 10)
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+    }
+    
     func getTerminalInfo(terminalID: Int) {
         guard let url = URL(string: "https://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=\(apiKey)&mapid=\(terminalID)&outputType=JSON") else {
             fatalError("Invalid URL");
