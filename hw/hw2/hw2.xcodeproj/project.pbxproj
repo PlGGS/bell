@@ -22,6 +22,7 @@
 		257004FB29FB527300E08371 /* MultipleSelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257004FA29FB527300E08371 /* MultipleSelectionCollectionViewCell.swift */; };
 		2589717529FB8B870076BA69 /* TerminalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2589717429FB8B870076BA69 /* TerminalTableViewCell.swift */; };
 		2589717729FB8E160076BA69 /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2589717629FB8E160076BA69 /* TerminalViewController.swift */; };
+		2589717929FBC0510076BA69 /* TrainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2589717829FBC0510076BA69 /* TrainTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		257004FA29FB527300E08371 /* MultipleSelectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		2589717429FB8B870076BA69 /* TerminalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalTableViewCell.swift; sourceTree = "<group>"; };
 		2589717629FB8E160076BA69 /* TerminalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
+		2589717829FBC0510076BA69 /* TrainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				257004F429F8E91600E08371 /* Terminal.swift */,
 				257004FA29FB527300E08371 /* MultipleSelectionCollectionViewCell.swift */,
 				257004C829F8A45700E08371 /* Main.storyboard */,
+				2589717829FBC0510076BA69 /* TrainTableViewCell.swift */,
 				257004CB29F8A45900E08371 /* Assets.xcassets */,
 				257004CD29F8A45900E08371 /* LaunchScreen.storyboard */,
 				257004D029F8A45900E08371 /* Info.plist */,
@@ -284,6 +287,7 @@
 				257004F929FB3E5900E08371 /* Line.swift in Sources */,
 				2589717529FB8B870076BA69 /* TerminalTableViewCell.swift in Sources */,
 				257004F729FA572400E08371 /* Train.swift in Sources */,
+				2589717929FBC0510076BA69 /* TrainTableViewCell.swift in Sources */,
 				257004C529F8A45700E08371 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

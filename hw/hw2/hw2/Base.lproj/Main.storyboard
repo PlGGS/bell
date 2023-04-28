@@ -246,11 +246,51 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kay-ya-zr8" userLabel="TopView">
                                                 <rect key="frame" x="0.0" y="0.0" width="430" height="150"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Station Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKW-ye-HzH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="430" height="150"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="aKW-ye-HzH" secondAttribute="trailing" id="Cdi-1d-dC2"/>
+                                                    <constraint firstItem="aKW-ye-HzH" firstAttribute="top" secondItem="kay-ya-zr8" secondAttribute="top" id="gsA-In-4G7"/>
+                                                    <constraint firstItem="aKW-ye-HzH" firstAttribute="leading" secondItem="kay-ya-zr8" secondAttribute="leading" id="vhi-gu-mWg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="aKW-ye-HzH" secondAttribute="bottom" id="waG-ZF-Vqx"/>
+                                                </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X0Q-s9-RtZ" userLabel="BotView">
                                                 <rect key="frame" x="0.0" y="150" width="430" height="654"/>
+                                                <subviews>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jaZ-gO-41b">
+                                                        <rect key="frame" x="0.0" y="0.0" width="430" height="654"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <prototypes>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="train" id="nLL-tn-36G" customClass="TrainTableViewCell" customModule="hw2" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="50" width="430" height="100"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nLL-tn-36G" id="hPx-Rk-s7U">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="430" height="100"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </tableViewCellContentView>
+                                                            </tableViewCell>
+                                                        </prototypes>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="vLJ-QF-74M" id="DoP-eG-ES7"/>
+                                                            <outlet property="delegate" destination="vLJ-QF-74M" id="Y4Z-ky-3XZ"/>
+                                                        </connections>
+                                                    </tableView>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="jaZ-gO-41b" firstAttribute="top" secondItem="X0Q-s9-RtZ" secondAttribute="top" id="9vo-Xg-bUT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jaZ-gO-41b" secondAttribute="trailing" id="Gie-2X-k6x"/>
+                                                    <constraint firstItem="jaZ-gO-41b" firstAttribute="leading" secondItem="X0Q-s9-RtZ" secondAttribute="leading" id="jrs-Ih-VxR"/>
+                                                    <constraint firstAttribute="bottom" secondItem="jaZ-gO-41b" secondAttribute="bottom" id="v0s-ua-nGZ"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
