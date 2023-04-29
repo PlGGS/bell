@@ -36,7 +36,6 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
         lblName.text = terminal.fullName
         
         getTerminalInfo(terminalID: terminal.id);
-//        getLineInfo(line: "red");
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -54,7 +53,7 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
             
             cell.train = train;
             
-            cell.lblDestination.text = train.destinationString.split(separator: " ").dropFirst(2).joined(separator: " ");
+            cell.lblDestination.text = train.destinationString;
             
             if (train.isApproaching == "1") {
                 cell.lblMinsOrDue.text = "Due";
@@ -69,7 +68,7 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         let cell = tableViewTrains.dequeueReusableCell(withIdentifier: "error", for: indexPath) as! ErrorTableViewCell;
-        cell.lblError.text = self.dataError;
+        cell.lblError.text = (self.dataError == "") ? "No trains to show" : self.dataError;
         return cell;
     }
     
@@ -149,32 +148,6 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
                 DispatchQueue.main.async{
                     self.tableViewTrains.reloadData();
                 }
-            }
-        }.resume();
-    }
-    
-    func getLineInfo(line: String) {
-        guard let url = URL(string: "https://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=\(apiKey)&rt=\(line)&outputType=JSON") else {
-            fatalError("Invalid URL")
-        }
-
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard (error == nil) else {
-                print(error!);
-                return
-            }
-            guard let data = data else {
-                print("Data is empty");
-                return
-            }
-            
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                    // Process the JSON data
-                    print(json);
-                }
-            } catch let error as NSError {
-                print("Failed to load: \(error.localizedDescription)");
             }
         }.resume();
     }
