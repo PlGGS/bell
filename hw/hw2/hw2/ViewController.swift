@@ -17,16 +17,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 10
-        collectionViewLines.collectionViewLayout = layout
+        let layout = UICollectionViewFlowLayout();
+        layout.scrollDirection = .horizontal;
+        layout.minimumLineSpacing = 5;
+        layout.minimumInteritemSpacing = 10;
+        collectionViewLines.collectionViewLayout = layout;
         
         filteredTerminals = Terminal.allCases;
-        
-        tableViewLines.delegate = self;
-        tableViewLines.dataSource = self;
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -78,16 +75,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.lblSelection.sizeToFit();
         let size = cell.lblSelection.frame.size;
         
-        return CGSize(width: size.width + 20, height: size.height + 10)
+        return CGSize(width: size.width + 20, height: size.height + 10);
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8);
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if (searchText != "") {
-            filteredTerminals = Terminal.allCases.filter({$0.fullName.contains(searchText)})
+            filteredTerminals = Terminal.allCases.filter({$0.fullName.contains(searchText)});
         }
         else {
             filteredTerminals = Terminal.allCases;

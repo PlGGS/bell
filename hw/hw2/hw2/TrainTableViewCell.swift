@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
+class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //Set by TerminalViewController
     var train: Train? = nil;
     
@@ -17,6 +17,19 @@ class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     @IBOutlet weak var lblMinsOrDue: UILabel!
     @IBOutlet weak var lblStaticMinutes: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib();
+        
+        let layout = UICollectionViewFlowLayout();
+        layout.scrollDirection = .horizontal;
+        layout.minimumLineSpacing = 5;
+        layout.minimumInteritemSpacing = 10;
+        collectionViewTrains.collectionViewLayout = layout;
+        
+        collectionViewTrains.dataSource = self;
+        collectionViewTrains.delegate = self;
+    }
+    
     var selectedTrainIndex = [-1]; //TODO actually make this collection view pull from the trains array, which probably means passing it
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -24,26 +37,26 @@ class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionViewTrains.dequeueReusableCell(withReuseIdentifier: "tscvc", for: indexPath) as! MultipleSelectionCollectionViewCell;
+        let cell = collectionViewTrains.dequeueReusableCell(withReuseIdentifier: "tscvc", for: indexPath) as! TrainStatsCollectionViewCell;
         
-        cell.lblSelection.text = Line.allCases[indexPath.row].fullName;
+        cell.lblStat.text = Line.allCases[indexPath.row].fullName;
 
         if selectedTrainIndex.contains(indexPath.item) {
             if (Line.allCases[indexPath.row].shortName == "PurpleExp") {
-                cell.selectionView.backgroundColor = UIColor(named: "Purple");
+                cell.statView.backgroundColor = UIColor(named: "Purple");
             }
             else {
-                cell.selectionView.backgroundColor = UIColor(named: Line.allCases[indexPath.row].shortName)
+                cell.statView.backgroundColor = UIColor(named: Line.allCases[indexPath.row].shortName)
             }
 
-            cell.lblSelection.textColor = UIColor.white;
+            cell.lblStat.textColor = UIColor.white;
         }
         else {
-            cell.selectionView.backgroundColor = UIColor.white;
-            cell.lblSelection.textColor = UIColor.darkGray;
+            cell.statView.backgroundColor = UIColor.white;
+            cell.lblStat.textColor = UIColor.darkGray;
         }
 
-        cell.lblSelection.sizeToFit();
+        cell.lblStat.sizeToFit();
         
         return cell;
     }
@@ -62,16 +75,16 @@ class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cell = collectionViewTrains.dequeueReusableCell(withReuseIdentifier: "mscvc", for: indexPath) as! MultipleSelectionCollectionViewCell;
+        let cell = collectionViewTrains.dequeueReusableCell(withReuseIdentifier: "tscvc", for: indexPath) as! TrainStatsCollectionViewCell;
         
-        cell.lblSelection.text = Line.allCases[indexPath.row].fullName;
-        cell.lblSelection.sizeToFit();
-        let size = cell.lblSelection.frame.size;
+        cell.lblStat.text = Line.allCases[indexPath.row].fullName;
+        cell.lblStat.sizeToFit();
+        let size = cell.lblStat.frame.size;
         
-        return CGSize(width: size.width + 20, height: size.height + 10)
+        return CGSize(width: size.width + 20, height: size.height + 10);
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0);
     }
 }
