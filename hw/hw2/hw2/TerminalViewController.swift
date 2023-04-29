@@ -60,10 +60,6 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
                 cell.lblStaticMinutes.isHidden = true;
             }
             else {
-                print("yo the time this prediction was made is: " + (train.timeOfPrediction ?? "idk"));
-                print("yo the time this train is predicted to arrive is: " + (train.predictedArrivalTime ?? "idk"));
-                print();
-                
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                 

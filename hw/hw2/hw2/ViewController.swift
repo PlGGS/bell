@@ -48,9 +48,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cell.lblSelection.textColor = UIColor.white;
         }
         else {
-            cell.selectionView.backgroundColor = UIColor.white;
+            cell.selectionView.backgroundColor = UIColor.systemBackground;
             cell.selectionView.layer.borderColor = UIColor.lightGray.cgColor;
-            cell.lblSelection.textColor = UIColor.darkGray;
+            cell.lblSelection.textColor = UIColor(named: "Text");
         }
         
         cell.lblSelection.sizeToFit();
