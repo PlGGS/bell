@@ -11,7 +11,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var collectionViewLines: UICollectionView!
     @IBOutlet weak var tableViewLines: UITableView!
     
-    var selectedLineIndex = [-1];
+    var selectedLineIndexes = [Int]();
     var filteredTerminals = [Terminal]()
 
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         cell.lblSelection.text = Line.allCases[indexPath.row].fullName;
         
-        if selectedLineIndex.contains(indexPath.item) {
+        if selectedLineIndexes.contains(indexPath.item) {
             if (Line.allCases[indexPath.row].shortName == "PurpleExp") {
                 cell.selectionView.backgroundColor = UIColor(named: "Purple");
             }
@@ -58,16 +58,32 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if (selectedLineIndex.contains(indexPath.item)) {
-            if let index = selectedLineIndex.firstIndex(of: indexPath.item) {
-                selectedLineIndex.remove(at: index);
-            }
+        if (selectedLineIndexes.contains(indexPath.item) == false) {
+            selectedLineIndexes.append(indexPath.item);
         }
         else {
-            selectedLineIndex.append(indexPath.item);
+            if let index = selectedLineIndexes.firstIndex(of: indexPath.item) {
+                selectedLineIndexes.remove(at: index);
+            }
         }
         
+        filterTerminals();
+        
         collectionViewLines.reloadData();
+        tableViewLines.reloadData();
+    }
+    
+    func filterTerminals() {
+        if (selectedLineIndexes == []) {
+            filteredTerminals = Terminal.allCases;
+        }
+        else {
+            filteredTerminals = [];
+            
+            for index in selectedLineIndexes {
+                filteredTerminals += Terminal.allCases.filter({$0.lines.contains(Line.allCases[index].shortName)});
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
