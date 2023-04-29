@@ -105,7 +105,7 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
                     self.errorNumber = ctatt["errNm"] as? String
                     
                     guard let etas = ctatt["eta"] as? [Any] else {
-                        throw SerializationError.missing("eta")
+                        return; //There are no trains to show I guess
                     }
                     
                     let decoder = JSONDecoder();
@@ -131,12 +131,6 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
                     DispatchQueue.main.async{
                         self.tableViewTrains.reloadData();
                     }
-                }
-            } catch SerializationError.missing(let msg) {
-                print("Missing \(msg)");
-                self.dataError = "Missing \(msg) in JSON Object :(";
-                DispatchQueue.main.async{
-                    self.tableViewTrains.reloadData();
                 }
             } catch SerializationError.invalid(let msg, let data) {
                 self.dataError = "Invalid \(msg): \(data) :(";
