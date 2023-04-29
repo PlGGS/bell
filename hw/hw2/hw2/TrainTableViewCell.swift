@@ -8,10 +8,14 @@
 import UIKit
 
 class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
-    //The following are set by TerminalViewController
+    //Set by TerminalViewController
     var train: Train? = nil;
     
     @IBOutlet weak var collectionViewTrains: UICollectionView!
+    @IBOutlet weak var imgDestination: UIImageView!
+    @IBOutlet weak var lblDestination: UILabel!
+    @IBOutlet weak var lblMinsOrDue: UILabel!
+    @IBOutlet weak var lblStaticMinutes: UILabel!
     
     var selectedTrainIndex = [-1]; //TODO actually make this collection view pull from the trains array, which probably means passing it
     

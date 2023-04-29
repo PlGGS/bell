@@ -425,6 +425,10 @@
                                                                 </tableViewCellContentView>
                                                                 <connections>
                                                                     <outlet property="collectionViewTrains" destination="2aa-Nv-5nW" id="Ooa-vA-hwv"/>
+                                                                    <outlet property="imgDestination" destination="dLT-aj-WkG" id="bA9-Rb-hpQ"/>
+                                                                    <outlet property="lblDestination" destination="KVB-cy-6Ie" id="Cek-KJ-eOn"/>
+                                                                    <outlet property="lblMinsOrDue" destination="dWz-Zu-RBe" id="LMb-px-qnp"/>
+                                                                    <outlet property="lblStaticMinutes" destination="zWj-yS-6ru" id="sfJ-9f-Ndz"/>
                                                                 </connections>
                                                             </tableViewCell>
                                                         </prototypes>

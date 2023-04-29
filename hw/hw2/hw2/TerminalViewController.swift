@@ -58,24 +58,12 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableViewTrains.dequeueReusableCell(withIdentifier: "train", for: indexPath) as! TrainTableViewCell;
-        
         let train = trains[indexPath.row];
+        
         cell.train = train;
         
-        
-//        cell.collectionViewTrains.reloadData(); .text = train.runNumber;
-//        if (train.lines.count > 2) {
-//            cell.lblLines.text = terminal.lines.dropLast().joined(separator: ", ") + ", and " + terminal.lines.last! + " lines";
-//        }
-//        else if (terminal.lines.count == 2) {
-//            cell.lblLines.text = terminal.lines[0] + " and " + terminal.lines[1] + " lines";
-//        }
-//        else {
-//            cell.lblLines.text = terminal.lines[0];
-//        }
-//        cell.lblLines.text?.replace("PurpleExp", with: "Purple (Express)")
-//
-//        cell.imgIsADAComplient.isHidden = (terminal.isADAComplient) ? false : true;
+        cell.lblDestination.text = train.destinationString.split(separator: " ").dropFirst(2).joined(separator: " ");
+        cell.lblMinsOrDue.text = "1";
         
         return cell;
     }
