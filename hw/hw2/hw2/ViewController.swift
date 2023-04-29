@@ -13,6 +13,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var selectedLineIndexes = [Int]();
     var filteredTerminals = [Terminal]()
+    var searchString = "";
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -67,13 +68,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
         }
         
-        filterTerminals();
+        filterTerminals(self.searchString);
         
         collectionViewLines.reloadData();
         tableViewLines.reloadData();
     }
     
-    func filterTerminals() {
+    func filterTerminals(_ search: String) {
         if (selectedLineIndexes == []) {
             filteredTerminals = Terminal.allCases;
         }
@@ -83,6 +84,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             for index in selectedLineIndexes {
                 filteredTerminals += Terminal.allCases.filter({$0.lines.contains(Line.allCases[index].shortName)});
             }
+        }
+        
+        if (search != "") {
+            filteredTerminals = filteredTerminals.filter({$0.fullName.contains(search)});
         }
     }
     
@@ -101,13 +106,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if (searchText != "") {
-            filteredTerminals = Terminal.allCases.filter({$0.fullName.contains(searchText)});
-        }
-        else {
-            filteredTerminals = Terminal.allCases;
-        }
-        
+        self.searchString = searchText;
+        filterTerminals(self.searchString);
         tableViewLines.reloadData();
     }
     
