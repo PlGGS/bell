@@ -27,7 +27,7 @@ class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
         let layout = UICollectionViewFlowLayout();
         layout.scrollDirection = .horizontal;
         layout.minimumLineSpacing = 5;
-        layout.minimumInteritemSpacing = 10;
+        layout.minimumInteritemSpacing = 5;
         collectionViewTrains.collectionViewLayout = layout;
         
         collectionViewTrains.dataSource = self;
@@ -47,21 +47,6 @@ class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
         
         cell.lblStat.textColor = UIColor.white;
         cell.statView.backgroundColor = UIColor(named:stats[0]);
-
-//        if selectedTrainIndex.contains(indexPath.item) {
-//            if (Line.allCases[indexPath.row].shortName == "PurpleExp") {
-//                cell.statView.backgroundColor = UIColor(named: "Purple");
-//            }
-//            else {
-//                cell.statView.backgroundColor = UIColor(named: Line.allCases[indexPath.row].shortName)
-//            }
-//
-//            cell.lblStat.textColor = UIColor.white;
-//        }
-//        else {
-//            cell.statView.backgroundColor = UIColor.white;
-//            cell.lblStat.textColor = UIColor.darkGray;
-//        }
 
         cell.lblStat.sizeToFit();
         

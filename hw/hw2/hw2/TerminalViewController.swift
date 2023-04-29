@@ -28,6 +28,8 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var tableViewTrains: UITableView!
     
+    var dataError = "";
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -37,44 +39,37 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
 //        getLineInfo(line: "red");
     }
     
-    
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let terminalvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalvc") as! TerminalViewController;
-//
-//        terminalvc.terminal = trains[tableViewLines.indexPathForSelectedRow!.row];
-//
-//        terminalvc.modalPresentationStyle = .popover;
-//        self.present(terminalvc, animated: true);
-//    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trains.count;
+        return (trains.isEmpty) ? 1 : trains.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableViewTrains.dequeueReusableCell(withIdentifier: "train", for: indexPath) as! TrainTableViewCell;
-        let train = trains[indexPath.row];
-        
-        cell.train = train;
-        
-        cell.lblDestination.text = train.destinationString.split(separator: " ").dropFirst(2).joined(separator: " ");
-        
-        print(train.isApproaching);
-        if (train.isApproaching == "1") {
-            cell.lblMinsOrDue.text = "Due";
-            cell.lblStaticMinutes.isHidden = true;
+        if (trains.isEmpty == false) {
+            let cell = tableViewTrains.dequeueReusableCell(withIdentifier: "train", for: indexPath) as! TrainTableViewCell;
+            let train = trains[indexPath.row];
+            
+            cell.train = train;
+            
+            cell.lblDestination.text = train.destinationString.split(separator: " ").dropFirst(2).joined(separator: " ");
+            
+            if (train.isApproaching == "1") {
+                cell.lblMinsOrDue.text = "Due";
+                cell.lblStaticMinutes.isHidden = true;
+            }
+            else {
+                cell.lblMinsOrDue.text = "1"; //TODO set this based on prediction
+                cell.lblStaticMinutes.isHidden = false;
+            }
+            
+            return cell;
         }
-        else {
-            cell.lblMinsOrDue.text = "1"; //TODO set this based on prediction
-            cell.lblStaticMinutes.isHidden = false;
-        }
         
-        
+        let cell = tableViewTrains.dequeueReusableCell(withIdentifier: "error", for: indexPath) as! ErrorTableViewCell;
+        cell.lblError.text = self.dataError;
         return cell;
     }
     
@@ -85,19 +80,23 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard (error == nil) else {
-                print(error!);
+                self.dataError = error!.localizedDescription;
+                DispatchQueue.main.async{
+                    self.tableViewTrains.reloadData();
+                }
                 return;
             }
             guard let data = data else {
-                print("Data is empty");
+                self.dataError = "Error fetching JSON Object :(";
+                DispatchQueue.main.async{
+                    self.tableViewTrains.reloadData();
+                }
                 return;
             }
             
             do {
                 if let json =
                     try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
-                    
-//                    print(json)
                     
                     guard let ctatt = json["ctatt"] as? [String:Any] else {
                         throw SerializationError.missing("ctatt")
@@ -113,7 +112,6 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
                     let decoder = JSONDecoder();
                     for eta in etas {
                         do {
-//                            print(eta);
                             let eta = try JSONSerialization.data(withJSONObject: eta, options: [])
                             let train = try decoder.decode(Train.self, from: eta);
                             self.trains.append(train);
@@ -137,10 +135,20 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             } catch SerializationError.missing(let msg) {
                 print("Missing \(msg)");
+                self.dataError = "Missing \(msg) in JSON Object :(";
+                DispatchQueue.main.async{
+                    self.tableViewTrains.reloadData();
+                }
             } catch SerializationError.invalid(let msg, let data) {
-                print("Invalid \(msg): \(data)");
+                self.dataError = "Invalid \(msg): \(data) :(";
+                DispatchQueue.main.async{
+                    self.tableViewTrains.reloadData();
+                }
             } catch let error as NSError {
-                print(error.localizedDescription);
+                self.dataError = error.localizedDescription;
+                DispatchQueue.main.async{
+                    self.tableViewTrains.reloadData();
+                }
             }
         }.resume();
     }

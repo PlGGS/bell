@@ -352,13 +352,13 @@
                                                                             <rect key="frame" x="20" y="50" width="282" height="50"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVB-cy-6Ie">
-                                                                                    <rect key="frame" x="35" y="0.0" width="221" height="50"/>
+                                                                                    <rect key="frame" x="24.666666666666671" y="0.0" width="206.66666666666663" height="50"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.right.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="dLT-aj-WkG">
-                                                                                    <rect key="frame" x="0.0" y="13" width="30" height="25"/>
+                                                                                    <rect key="frame" x="0.0" y="13" width="19.666666666666668" height="25"/>
                                                                                 </imageView>
                                                                             </subviews>
                                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -429,6 +429,47 @@
                                                                     <outlet property="lblDestination" destination="KVB-cy-6Ie" id="Cek-KJ-eOn"/>
                                                                     <outlet property="lblMinsOrDue" destination="dWz-Zu-RBe" id="LMb-px-qnp"/>
                                                                     <outlet property="lblStaticMinutes" destination="zWj-yS-6ru" id="sfJ-9f-Ndz"/>
+                                                                </connections>
+                                                            </tableViewCell>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="error" id="s8e-HJ-Pla" customClass="ErrorTableViewCell" customModule="hw2" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="150" width="430" height="100"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="s8e-HJ-Pla" id="Ghm-dx-NzE">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="430" height="100"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="641-ff-v9Z" userLabel="PredictionView">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="430" height="100"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYh-3v-bSF" userLabel="Lbl Error">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="430" height="100"/>
+                                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                            <constraints>
+                                                                                <constraint firstItem="lYh-3v-bSF" firstAttribute="top" secondItem="641-ff-v9Z" secondAttribute="top" id="7N1-9w-dmR"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="lYh-3v-bSF" secondAttribute="bottom" id="CyX-I7-neC"/>
+                                                                                <constraint firstItem="lYh-3v-bSF" firstAttribute="width" secondItem="641-ff-v9Z" secondAttribute="width" id="GIo-28-nYh"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="lYh-3v-bSF" secondAttribute="trailing" id="Gql-GV-2fU"/>
+                                                                                <constraint firstItem="lYh-3v-bSF" firstAttribute="height" secondItem="641-ff-v9Z" secondAttribute="height" id="IE4-eQ-60Q"/>
+                                                                                <constraint firstItem="lYh-3v-bSF" firstAttribute="leading" secondItem="641-ff-v9Z" secondAttribute="leading" id="oWk-nU-O6A"/>
+                                                                            </constraints>
+                                                                        </view>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="bottom" secondItem="641-ff-v9Z" secondAttribute="bottom" id="KBK-E0-V4U"/>
+                                                                        <constraint firstItem="641-ff-v9Z" firstAttribute="leading" secondItem="Ghm-dx-NzE" secondAttribute="leading" id="N18-aQ-Dro"/>
+                                                                        <constraint firstItem="641-ff-v9Z" firstAttribute="width" secondItem="Ghm-dx-NzE" secondAttribute="width" id="dnL-Em-IXa"/>
+                                                                        <constraint firstItem="641-ff-v9Z" firstAttribute="height" secondItem="Ghm-dx-NzE" secondAttribute="height" id="dx1-kw-Z6I"/>
+                                                                        <constraint firstItem="641-ff-v9Z" firstAttribute="top" secondItem="Ghm-dx-NzE" secondAttribute="top" id="hag-4O-EgZ"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="641-ff-v9Z" secondAttribute="trailing" id="q1j-oA-LWN"/>
+                                                                    </constraints>
+                                                                </tableViewCellContentView>
+                                                                <connections>
+                                                                    <outlet property="lblError" destination="lYh-3v-bSF" id="5Qf-Jq-4zU"/>
                                                                 </connections>
                                                             </tableViewCell>
                                                         </prototypes>

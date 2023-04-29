@@ -74,6 +74,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         tableViewLines.reloadData();
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchString = searchText;
+        filterTerminals(self.searchString);
+        tableViewLines.reloadData();
+    }
+    
     func filterTerminals(_ search: String) {
         if (selectedLineIndexes == []) {
             filteredTerminals = Terminal.allCases;
@@ -103,12 +109,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8);
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchString = searchText;
-        filterTerminals(self.searchString);
-        tableViewLines.reloadData();
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
