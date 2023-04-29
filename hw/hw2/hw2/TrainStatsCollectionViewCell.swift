@@ -13,7 +13,7 @@ class TrainStatsCollectionViewCell : UICollectionViewCell {
     
     override func layoutSubviews() {
         statView.layer.cornerRadius = 10;
-        statView.layer.borderWidth = 1
-        statView.layer.borderColor = UIColor.lightGray.cgColor
+        statView.layer.borderWidth = 1;
+        statView.layer.borderColor = UIColor.systemBackground.cgColor;
     }
 }

@@ -13,7 +13,7 @@ class MultipleSelectionCollectionViewCell : UICollectionViewCell {
     
     override func layoutSubviews() {
         selectionView.layer.cornerRadius = 10;
-        selectionView.layer.borderWidth = 1
-        selectionView.layer.borderColor = UIColor.lightGray.cgColor
+        selectionView.layer.borderWidth = 1;
+//        selectionView.layer.borderColor = UIColor.lightGray.cgColor;
     }
 }

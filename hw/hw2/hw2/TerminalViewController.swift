@@ -63,7 +63,17 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
         cell.train = train;
         
         cell.lblDestination.text = train.destinationString.split(separator: " ").dropFirst(2).joined(separator: " ");
-        cell.lblMinsOrDue.text = "1";
+        
+        print(train.isApproaching);
+        if (train.isApproaching == "1") {
+            cell.lblMinsOrDue.text = "Due";
+            cell.lblStaticMinutes.isHidden = true;
+        }
+        else {
+            cell.lblMinsOrDue.text = "1"; //TODO set this based on prediction
+            cell.lblStaticMinutes.isHidden = false;
+        }
+        
         
         return cell;
     }

@@ -17,8 +17,12 @@ class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     @IBOutlet weak var lblMinsOrDue: UILabel!
     @IBOutlet weak var lblStaticMinutes: UILabel!
     
+    var stats: [String] = Array(repeating: "", count: 3);
+    
     override func awakeFromNib() {
         super.awakeFromNib();
+        
+        stats[2] = "Delayed";
         
         let layout = UICollectionViewFlowLayout();
         layout.scrollDirection = .horizontal;
@@ -33,28 +37,31 @@ class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     var selectedTrainIndex = [-1]; //TODO actually make this collection view pull from the trains array, which probably means passing it
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Line.allCases.count
+        return (train!.isDelayed == "1") ? 3 : 2;
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionViewTrains.dequeueReusableCell(withReuseIdentifier: "tscvc", for: indexPath) as! TrainStatsCollectionViewCell;
         
-        cell.lblStat.text = Line.allCases[indexPath.row].fullName;
+        cell.lblStat.text = stats[indexPath.row];
+        
+        cell.lblStat.textColor = UIColor.white;
+        cell.statView.backgroundColor = UIColor(named:stats[0]);
 
-        if selectedTrainIndex.contains(indexPath.item) {
-            if (Line.allCases[indexPath.row].shortName == "PurpleExp") {
-                cell.statView.backgroundColor = UIColor(named: "Purple");
-            }
-            else {
-                cell.statView.backgroundColor = UIColor(named: Line.allCases[indexPath.row].shortName)
-            }
-
-            cell.lblStat.textColor = UIColor.white;
-        }
-        else {
-            cell.statView.backgroundColor = UIColor.white;
-            cell.lblStat.textColor = UIColor.darkGray;
-        }
+//        if selectedTrainIndex.contains(indexPath.item) {
+//            if (Line.allCases[indexPath.row].shortName == "PurpleExp") {
+//                cell.statView.backgroundColor = UIColor(named: "Purple");
+//            }
+//            else {
+//                cell.statView.backgroundColor = UIColor(named: Line.allCases[indexPath.row].shortName)
+//            }
+//
+//            cell.lblStat.textColor = UIColor.white;
+//        }
+//        else {
+//            cell.statView.backgroundColor = UIColor.white;
+//            cell.lblStat.textColor = UIColor.darkGray;
+//        }
 
         cell.lblStat.sizeToFit();
         
@@ -62,22 +69,16 @@ class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if (selectedTrainIndex.contains(indexPath.item)) {
-            if let index = selectedTrainIndex.firstIndex(of: indexPath.item) {
-                selectedTrainIndex.remove(at: index);
-            }
-        }
-        else {
-            selectedTrainIndex.append(indexPath.item);
-        }
-        
-        collectionViewTrains.reloadData();
+//        collectionViewTrains.reloadData();
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cell = collectionViewTrains.dequeueReusableCell(withReuseIdentifier: "tscvc", for: indexPath) as! TrainStatsCollectionViewCell;
         
-        cell.lblStat.text = Line.allCases[indexPath.row].fullName;
+        stats[0] = Line(rawValue: train!.lineName)!.shortName;
+        stats[1] = "#\(train!.runNumber)";
+        
+        cell.lblStat.text = stats[indexPath.row];
         cell.lblStat.sizeToFit();
         let size = cell.lblStat.frame.size;
         

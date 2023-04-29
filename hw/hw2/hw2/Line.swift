@@ -7,16 +7,16 @@
 
 import Foundation
 
-enum Line: CaseIterable {
-    case red
-    case blue
-    case green
-    case brown
-    case purple
-    case purpleexp
-    case yellow
-    case pink
-    case orange
+enum Line: String, CaseIterable {
+    case red = "Red"
+    case blue = "Blue"
+    case green = "G"
+    case brown = "Brn"
+    case purple = "P"
+    case purpleexp = "Pexp"
+    case yellow = "Y"
+    case pink = "Pink"
+    case orange = "Org"
     
     var shortName: String {
         switch self {

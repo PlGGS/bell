@@ -43,10 +43,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 cell.selectionView.backgroundColor = UIColor(named: Line.allCases[indexPath.row].shortName)
             }
             
+            cell.selectionView.layer.borderColor = UIColor.systemBackground.cgColor;
             cell.lblSelection.textColor = UIColor.white;
         }
         else {
             cell.selectionView.backgroundColor = UIColor.white;
+            cell.selectionView.layer.borderColor = UIColor.lightGray.cgColor;
             cell.lblSelection.textColor = UIColor.darkGray;
         }
         
