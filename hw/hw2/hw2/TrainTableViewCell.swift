@@ -60,8 +60,8 @@ class TrainTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cell = collectionViewTrains.dequeueReusableCell(withReuseIdentifier: "tscvc", for: indexPath) as! TrainStatsCollectionViewCell;
         
-        stats[0] = Line(rawValue: train!.lineName)!.shortName;
-        stats[1] = "#\(train!.runNumber)";
+        stats[0] = Line(rawValue: train!.lineName ?? "???")!.shortName;
+        stats[1] = "#" + (train!.runNumber ?? "???");
         
         cell.lblStat.text = stats[indexPath.row];
         cell.lblStat.sizeToFit();

@@ -60,7 +60,22 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
                 cell.lblStaticMinutes.isHidden = true;
             }
             else {
-                cell.lblMinsOrDue.text = "1"; //TODO set this based on prediction
+                print("yo the time this prediction was made is: " + (train.timeOfPrediction ?? "idk"));
+                print("yo the time this train is predicted to arrive is: " + (train.predictedArrivalTime ?? "idk"));
+                print();
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                
+                guard let time1 = dateFormatter.date(from: train.timeOfPrediction!),
+                      let time2 = dateFormatter.date(from: train.predictedArrivalTime!) else {
+                    fatalError("Invalid date format")
+                }
+                
+                let diffSeconds = time2.timeIntervalSince(time1)
+                let diffMinutes = diffSeconds / 60
+                
+                cell.lblMinsOrDue.text = String(format: "%.0f", diffMinutes);
                 cell.lblStaticMinutes.isHidden = false;
             }
             

@@ -6,24 +6,24 @@
 //
 
 class Train: Codable {
-    let nextParentTerminalID: String; ///Parent terminal ids correspond to the generic internal name for a terminal
-    let nextDirectedTerminalID: String; ///Directed terminal ids correspond to the unique, internal, line-specific terminal identifiers
-    let nextParentTerminalShortName: String;
-    let destinationString: String; ///Final destination of the train (Ex: Howard)
-    let runNumber: String; ///Ex: 420
-    let lineName: String; ///Ex: "Red" "Brn"
-    let destinationDirectedTerminalID: String;
-    let destinationTerminalShortName: String;
-    let routeDirection: String; ///Ex: 1 (northbound) or 5 (southbound)
-    let timeOfPrediction: String;
-    let predictedArrivalTime: String;
-    let isApproaching: String;
-    let isScheduled: String; ///THIS MEANS PREDICTION IS NOT LIVE
-    let isDelayed: String;
-    let hasScheduleFault: String; ///Means that the train didn't leave when scheduled. If the train also isScheduled, this indicates that it might not leave on time
+    let nextParentTerminalID: String?; ///Parent terminal ids correspond to the generic internal name for a terminal
+    let nextDirectedTerminalID: String?; ///Directed terminal ids correspond to the unique, internal, line-specific terminal identifiers
+    let nextParentTerminalShortName: String?;
+    let destinationString: String?; ///Final destination of the train (Ex: Howard)
+    let runNumber: String?; ///Ex: 420
+    let lineName: String?; ///Ex: "Red" "Brn"
+    let destinationDirectedTerminalID: String?;
+    let destinationTerminalShortName: String?;
+    let routeDirection: String?; ///Ex: 1 (northbound) or 5 (southbound)
+    let timeOfPrediction: String?;
+    let predictedArrivalTime: String?;
+    let isApproaching: String?;
+    let isScheduled: String?; ///THIS MEANS PREDICTION IS NOT LIVE
+    let isDelayed: String?;
+    let hasScheduleFault: String?; ///Means that the train didn't leave when scheduled. If the train also isScheduled, this indicates that it might not leave on time
     let flags: String?; ///Not currently in use (always returns null)
-    let latitude: String;
-    let longitude: String;
+    let latitude: String?;
+    let longitude: String?;
     let heading: String?; ///Direction N, E, S, W in degrees 0 through 359 (null if haven't left yet)
     
     enum CodingKeys: String, CodingKey {
@@ -65,18 +65,10 @@ class Train: Codable {
         isScheduled = try container.decode(String.self, forKey: .isScheduled)
         isDelayed = try container.decode(String.self, forKey: .isDelayed)
         hasScheduleFault = try container.decode(String.self, forKey: .hasScheduleFault)
-        if let flags = try? container.decodeIfPresent(String.self, forKey: .flags) {
-            self.flags = flags
-        } else {
-            self.flags = nil
-        }
+        flags = try? container.decodeIfPresent(String.self, forKey: .flags)
         latitude = try container.decode(String.self, forKey: .latitude)
         longitude = try container.decode(String.self, forKey: .longitude)
-        if let heading = try? container.decodeIfPresent(String.self, forKey: .heading) {
-            self.heading = heading
-        } else {
-            self.heading = nil
-        }
+        heading = try? container.decodeIfPresent(String.self, forKey: .heading)
     }
     
     func encode(to encoder: Encoder) throws {
