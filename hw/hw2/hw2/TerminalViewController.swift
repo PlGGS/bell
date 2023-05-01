@@ -18,8 +18,8 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
     var timestamp: String?;
     var errorCode: String?;
     var errorNumber: String?;
-    var dataAvailable = false
-    var trains: [Train] = []
+    var dataAvailable = false;
+    var trains: [Train] = [];
     
     //These gets passed in from main vc
     public var terminal: Terminal = Terminal.howardRedPurpleYellowlines;
@@ -42,10 +42,12 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
         return 1;
     }
     
+    ///Determines whether or not to populate the UITableView with train etas or a single error cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (trains.isEmpty) ? 1 : trains.count;
     }
     
+    ///Populates each UITableViewCell with infromation about an upcoming train
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (trains.isEmpty == false) {
             let cell = tableViewTrains.dequeueReusableCell(withIdentifier: "train", for: indexPath) as! TrainTableViewCell;
@@ -61,15 +63,15 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
             }
             else {
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss";
                 
                 guard let time1 = dateFormatter.date(from: train.timeOfPrediction!),
                       let time2 = dateFormatter.date(from: train.predictedArrivalTime!) else {
-                    fatalError("Invalid date format")
+                    fatalError("Invalid date format");
                 }
                 
-                let diffSeconds = time2.timeIntervalSince(time1)
-                let diffMinutes = diffSeconds / 60
+                let diffSeconds = time2.timeIntervalSince(time1);
+                let diffMinutes = diffSeconds / 60;
                 
                 cell.lblMinsOrDue.text = String(format: "%.0f", diffMinutes);
                 cell.lblStaticMinutes.isHidden = false;
@@ -83,6 +85,7 @@ class TerminalViewController: UIViewController, UITableViewDelegate, UITableView
         return cell;
     }
     
+    ///Fetches JSON data for each upcoming train at a specified parent terminal by ID
     func getTerminalInfo(terminalID: Int) {
         guard let url = URL(string: "https://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=\(apiKey)&mapid=\(terminalID)&outputType=JSON") else {
             fatalError("Invalid URL");

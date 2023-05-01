@@ -31,6 +31,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return Line.allCases.count
     }
     
+    ///Provides text content for each MultipleSelectionCollectionViewCell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionViewLines.dequeueReusableCell(withReuseIdentifier: "mscvc", for: indexPath) as! MultipleSelectionCollectionViewCell;
         
@@ -58,6 +59,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell;
     }
     
+    ///Handles selection of each MultipleSelectionCollectionViewCell and filtering the tableView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (selectedLineIndexes.contains(indexPath.item) == false) {
             selectedLineIndexes.append(indexPath.item);
@@ -74,12 +76,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         tableViewLines.reloadData();
     }
     
+    ///Handles filtering based on input in the search bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchString = searchText;
         filterTerminals(self.searchString);
         tableViewLines.reloadData();
     }
     
+    ///Filters the tableView based on selected lines and search text input
     func filterTerminals(_ search: String) {
         if (selectedLineIndexes == []) {
             filteredTerminals = Terminal.allCases;
@@ -97,6 +101,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    ///Sizes each MultipleSelectionCollectionViewCell appropriately based on string length and padding
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cell = collectionViewLines.dequeueReusableCell(withReuseIdentifier: "mscvc", for: indexPath) as! MultipleSelectionCollectionViewCell;
         
@@ -111,6 +116,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8);
     }
     
+    ///Displays TerminalViewController as popover on selection of terminal UITableViewCell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let terminalvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalvc") as! TerminalViewController;
         
@@ -128,6 +134,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return filteredTerminals.count;
     }
     
+    ///Populates each UITableViewCell with infromation about a CTA L terminal
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableViewLines.dequeueReusableCell(withIdentifier: "terminal", for: indexPath) as! TerminalTableViewCell;
         

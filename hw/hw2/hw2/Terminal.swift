@@ -5,8 +5,6 @@
 //  Created by Blake Boris on 4/26/23.
 //
 
-import Foundation
-
 enum Terminal: CaseIterable {
     case ciceroPinkLine
     case centralParkPinkLine
