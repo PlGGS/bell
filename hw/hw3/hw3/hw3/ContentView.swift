@@ -59,31 +59,40 @@ struct LineView: View {
             }
         )
     }
+    @State private var searchText = ""
     
     var body: some View {
-        Toggle("Wheelchair Friendly?", isOn: $showIsADACompliant)
-            .padding(.horizontal, 20)
-        Slider(value: $firstStopIndex, in: 0...Double(line.stops.count - 1), step: 1)
-            .padding(.horizontal, 20)
-        List(line.stops.indices, id: \.self) { index in
-            let stop = line.stops[index]
-            
-            if stopsRange.wrappedValue.contains(Double(index)) {
-                NavigationLink(destination: Text(stop.fullName)) {
-                    HStack {
-                        Text(stop.fullName)
-                        if showIsADACompliant && stop.isADACompliant {
-                            Image(systemName: "figure.roll")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 24, height: 24)
+        VStack {
+            Toggle("Wheelchair Friendly?", isOn: $showIsADACompliant)
+                .padding(.horizontal, 20)
+            Slider(value: $firstStopIndex, in: 0...Double(line.stops.count - 1), step: 1)
+                .padding(.horizontal, 20)
+            TextField("Search", text: $searchText)
+                .padding(8)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
+                .padding(.horizontal, 20)
+            List(line.stops.indices, id: \.self) { index in
+                let stop = line.stops[index]
+                
+                if stopsRange.wrappedValue.contains(Double(index)) {
+                    if searchText.isEmpty || stop.fullName.localizedCaseInsensitiveContains(searchText) {
+                        NavigationLink(destination: Text(stop.fullName)) {
+                            HStack {
+                                Text(stop.fullName)
+                                if showIsADACompliant && stop.isADACompliant {
+                                    Image(systemName: "figure.roll")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 24, height: 24)
+                                }
+                                Spacer()
+                            }
                         }
-                        Spacer()
                     }
                 }
             }
         }
-        .navigationTitle(line.fullName)
     }
 }
 
