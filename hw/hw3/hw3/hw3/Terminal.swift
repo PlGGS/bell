@@ -6,10 +6,6 @@
 //
 
 enum Terminal: CaseIterable, Identifiable {
-//    var id: Self {
-//        self
-//    }
-    
     case ciceroPinkLine
     case centralParkPinkLine
     case halstedGreenLine

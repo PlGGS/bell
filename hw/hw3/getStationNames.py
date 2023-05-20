@@ -1,4 +1,3 @@
-import requests
 from bs4 import BeautifulSoup
 
 table = '''<table class="wikitable plainrowheaders">
@@ -163,27 +162,3 @@ for row in table.find_all('tr'):
 
 for stop in stops:
     print("\"" + stop + "\"", end=', ')
-
-
-required init(from decoder: Decoder) throws {
-        let container = try? decoder.decodeIfPresent(keyedBy: CodingKeys.self)
-        nextParentTerminalID = try? container.decodeIfPresent(String.self, forKey: .nextParentTerminalID)
-        nextDirectedTerminalID = try? container.decodeIfPresent(String.self, forKey: .nextDirectedTerminalID)
-        nextParentTerminalShortName = try? container.decodeIfPresent(String.self, forKey: .nextParentTerminalShortName)
-        destinationString = try? container.decodeIfPresent(String.self, forKey: .destinationString)
-        runNumber = try? container.decodeIfPresent(String.self, forKey: .runNumber)
-        lineName = try? container.decodeIfPresent(String.self, forKey: .lineName)
-        destinationDirectedTerminalID = try? container.decodeIfPresent(String.self, forKey: .destinationDirectedTerminalID)
-        destinationTerminalShortName = try? container.decodeIfPresent(String.self, forKey: .destinationTerminalShortName)
-        routeDirection = try? container.decodeIfPresent(String.self, forKey: .routeDirection)
-        timeOfPrediction = try? container.decodeIfPresent(String.self, forKey: .timeOfPrediction)
-        predictedArrivalTime = try? container.decodeIfPresent(String.self, forKey: .predictedArrivalTime)
-        isApproaching = try? container.decodeIfPresent(String.self, forKey: .isApproaching)
-        isScheduled = try? container.decodeIfPresent(String.self, forKey: .isScheduled)
-        isDelayed = try? container.decodeIfPresent(String.self, forKey: .isDelayed)
-        hasScheduleFault = try? container.decodeIfPresent(String.self, forKey: .hasScheduleFault)
-        flags = try? container.decodeIfPresent(String.self, forKey: .flags)
-        latitude = try? container.decodeIfPresent(String.self, forKey: .latitude)
-        longitude = try? container.decodeIfPresent(String.self, forKey: .longitude)
-        heading = try? container.decodeIfPresent(String.self, forKey: .heading)
-    }
