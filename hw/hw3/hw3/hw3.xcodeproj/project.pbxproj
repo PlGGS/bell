@@ -14,10 +14,10 @@
 		255C01762A11B68C008DBCAC /* hw3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C01752A11B68C008DBCAC /* hw3Tests.swift */; };
 		255C01802A11B68C008DBCAC /* hw3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C017F2A11B68C008DBCAC /* hw3UITests.swift */; };
 		255C01822A11B68C008DBCAC /* hw3UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C01812A11B68C008DBCAC /* hw3UITestsLaunchTests.swift */; };
-		255C018F2A15B55A008DBCAC /* Wine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C018E2A15B55A008DBCAC /* Wine.swift */; };
 		255C01912A15CCFB008DBCAC /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C01902A15CCFB008DBCAC /* Train.swift */; };
 		255C01932A15CD1B008DBCAC /* Terminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C01922A15CD1B008DBCAC /* Terminal.swift */; };
 		255C01952A15CD66008DBCAC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C01942A15CD66008DBCAC /* Line.swift */; };
+		255C01972A183DDE008DBCAC /* TerminalRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C01962A183DDE008DBCAC /* TerminalRequestData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,10 +49,10 @@
 		255C017B2A11B68C008DBCAC /* hw3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hw3UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		255C017F2A11B68C008DBCAC /* hw3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hw3UITests.swift; sourceTree = "<group>"; };
 		255C01812A11B68C008DBCAC /* hw3UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hw3UITestsLaunchTests.swift; sourceTree = "<group>"; };
-		255C018E2A15B55A008DBCAC /* Wine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wine.swift; sourceTree = "<group>"; };
 		255C01902A15CCFB008DBCAC /* Train.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Train.swift; sourceTree = "<group>"; };
 		255C01922A15CD1B008DBCAC /* Terminal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terminal.swift; sourceTree = "<group>"; };
 		255C01942A15CD66008DBCAC /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		255C01962A183DDE008DBCAC /* TerminalRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalRequestData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,10 +105,10 @@
 			children = (
 				255C01632A11B68B008DBCAC /* hw3App.swift */,
 				255C01652A11B68B008DBCAC /* ContentView.swift */,
-				255C018E2A15B55A008DBCAC /* Wine.swift */,
 				255C01902A15CCFB008DBCAC /* Train.swift */,
 				255C01922A15CD1B008DBCAC /* Terminal.swift */,
 				255C01942A15CD66008DBCAC /* Line.swift */,
+				255C01962A183DDE008DBCAC /* TerminalRequestData.swift */,
 				255C01672A11B68B008DBCAC /* Assets.xcassets */,
 				255C01692A11B68B008DBCAC /* hw3.entitlements */,
 				255C016A2A11B68B008DBCAC /* Preview Content */,
@@ -273,10 +273,10 @@
 			files = (
 				255C01912A15CCFB008DBCAC /* Train.swift in Sources */,
 				255C01932A15CD1B008DBCAC /* Terminal.swift in Sources */,
+				255C01972A183DDE008DBCAC /* TerminalRequestData.swift in Sources */,
 				255C01662A11B68B008DBCAC /* ContentView.swift in Sources */,
 				255C01952A15CD66008DBCAC /* Line.swift in Sources */,
 				255C01642A11B68B008DBCAC /* hw3App.swift in Sources */,
-				255C018F2A15B55A008DBCAC /* Wine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

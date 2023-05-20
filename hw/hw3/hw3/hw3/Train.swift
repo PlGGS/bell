@@ -5,7 +5,7 @@
 //  Created by Blake Boris on 4/27/23.
 //
 
-class Train: Codable {
+class Train: Codable, Identifiable {
     let nextParentTerminalID: String?; ///Parent terminal ids correspond to the generic internal name for a terminal
     let nextDirectedTerminalID: String?; ///Directed terminal ids correspond to the unique, internal, line-specific terminal identifiers
     let nextParentTerminalShortName: String?;
@@ -50,24 +50,24 @@ class Train: Codable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        nextParentTerminalID = try container.decode(String.self, forKey: .nextParentTerminalID)
-        nextDirectedTerminalID = try container.decode(String.self, forKey: .nextDirectedTerminalID)
-        nextParentTerminalShortName = try container.decode(String.self, forKey: .nextParentTerminalShortName)
-        destinationString = try container.decode(String.self, forKey: .destinationString)
-        runNumber = try container.decode(String.self, forKey: .runNumber)
-        lineName = try container.decode(String.self, forKey: .lineName)
-        destinationDirectedTerminalID = try container.decode(String.self, forKey: .destinationDirectedTerminalID)
-        destinationTerminalShortName = try container.decode(String.self, forKey: .destinationTerminalShortName)
-        routeDirection = try container.decode(String.self, forKey: .routeDirection)
-        timeOfPrediction = try container.decode(String.self, forKey: .timeOfPrediction)
-        predictedArrivalTime = try container.decode(String.self, forKey: .predictedArrivalTime)
-        isApproaching = try container.decode(String.self, forKey: .isApproaching)
-        isScheduled = try container.decode(String.self, forKey: .isScheduled)
-        isDelayed = try container.decode(String.self, forKey: .isDelayed)
-        hasScheduleFault = try container.decode(String.self, forKey: .hasScheduleFault)
+        nextParentTerminalID = try? container.decodeIfPresent(String.self, forKey: .nextParentTerminalID)
+        nextDirectedTerminalID = try? container.decodeIfPresent(String.self, forKey: .nextDirectedTerminalID)
+        nextParentTerminalShortName = try? container.decodeIfPresent(String.self, forKey: .nextParentTerminalShortName)
+        destinationString = try? container.decodeIfPresent(String.self, forKey: .destinationString)
+        runNumber = try? container.decodeIfPresent(String.self, forKey: .runNumber)
+        lineName = try? container.decodeIfPresent(String.self, forKey: .lineName)
+        destinationDirectedTerminalID = try? container.decodeIfPresent(String.self, forKey: .destinationDirectedTerminalID)
+        destinationTerminalShortName = try? container.decodeIfPresent(String.self, forKey: .destinationTerminalShortName)
+        routeDirection = try? container.decodeIfPresent(String.self, forKey: .routeDirection)
+        timeOfPrediction = try? container.decodeIfPresent(String.self, forKey: .timeOfPrediction)
+        predictedArrivalTime = try? container.decodeIfPresent(String.self, forKey: .predictedArrivalTime)
+        isApproaching = try? container.decodeIfPresent(String.self, forKey: .isApproaching)
+        isScheduled = try? container.decodeIfPresent(String.self, forKey: .isScheduled)
+        isDelayed = try? container.decodeIfPresent(String.self, forKey: .isDelayed)
+        hasScheduleFault = try? container.decodeIfPresent(String.self, forKey: .hasScheduleFault)
         flags = try? container.decodeIfPresent(String.self, forKey: .flags)
-        latitude = try container.decode(String.self, forKey: .latitude)
-        longitude = try container.decode(String.self, forKey: .longitude)
+        latitude = try? container.decodeIfPresent(String.self, forKey: .latitude)
+        longitude = try? container.decodeIfPresent(String.self, forKey: .longitude)
         heading = try? container.decodeIfPresent(String.self, forKey: .heading)
     }
     

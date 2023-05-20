@@ -77,7 +77,7 @@ struct LineView: View {
                 
                 if stopsRange.wrappedValue.contains(Double(index)) {
                     if searchText.isEmpty || stop.fullName.localizedCaseInsensitiveContains(searchText) {
-                        NavigationLink(destination: Text(stop.fullName)) {
+                        NavigationLink(destination: StopView(stop: stop)) {
                             HStack {
                                 Text(stop.fullName)
                                 if showIsADACompliant && stop.isADACompliant {
@@ -92,6 +92,7 @@ struct LineView: View {
                     }
                 }
             }
+            .navigationTitle("Stops")
         }
     }
 }
@@ -114,20 +115,23 @@ struct StopRow: View {
 struct StopView: View {
     var stop: Terminal
     
+    @StateObject private var trdata = TerminalRequestData()
+    
     var body: some View {
         Button(stop.shortName) {
             ()
         }
-//        NavigationStack {
-//            List(Terminal.allCases) { stop in
-//                NavigationLink(value: stop) {
-//                    StopRow(stop: stop)
-//                }
-//            }
-//            .navigationTitle(stop.shortName)
-//            .navigationDestination(for: Terminal.self) { stop in
-//                StopView(line: line)
-//            }
-//        }
+        List(trdata.trains) { train in
+            Button(action: {
+                // Perform an action when the item is tapped
+                print("Item tapped: \(train.runNumber ?? "???")")
+            }) {
+                Text(train.runNumber ?? "???")
+            }
+        }
+        .navigationTitle("Trains")
+        .task {
+            await trdata.getTerminalInfo(terminalID: stop.id)
+        }
     }
 }
