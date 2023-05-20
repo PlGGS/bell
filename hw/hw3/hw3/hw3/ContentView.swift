@@ -27,6 +27,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView();
         LineView(line: Line.red);
+        StopView(stop: Terminal.howardRedPurpleYellowlines)
     }
 }
 
@@ -35,7 +36,6 @@ struct LineRow: View {
     
     var body: some View {
         HStack {
-//            Image(line.type.rawValue)
             VStack(alignment: .leading) {
                 Text(line.fullName).font(.title2)
                 Text(line.serviceString).font(.subheadline).foregroundColor(.secondary)
@@ -102,7 +102,6 @@ struct StopRow: View {
     
     var body: some View {
         HStack {
-//            Image(line.type.rawValue)
             VStack(alignment: .leading) {
                 Text(stop.fullName).font(.title2)
                 Text(stop.coords).font(.subheadline).foregroundColor(.secondary)
@@ -118,20 +117,77 @@ struct StopView: View {
     @StateObject private var trdata = TerminalRequestData()
     
     var body: some View {
-        Button(stop.shortName) {
-            ()
-        }
+        Spacer()
+        Spacer()
+        Label("Select a train to be notified when it is approaching the station you selected.", systemImage: "info.circle")
         List(trdata.trains) { train in
-            Button(action: {
-                // Perform an action when the item is tapped
-                print("Item tapped: \(train.runNumber ?? "???")")
-            }) {
-                Text(train.runNumber ?? "???")
-            }
+            TrainButtonRow(train: train)
         }
-        .navigationTitle("Trains")
+        .navigationTitle(stop.shortName)
         .task {
             await trdata.getTerminalInfo(terminalID: stop.id)
+        }
+    }
+}
+
+struct TrainButtonRow: View {
+    var train: Train
+    
+    var body: some View {
+        Button(action: {
+            
+        }) {
+            HStack {
+                VStack(alignment: .leading) {
+                    TrainRowTop(train: train)
+                    Text("\(train.getDirection())").font(.caption).foregroundColor(.secondary)
+                }
+                Spacer()
+                TrainArrivalTime(train: train)
+                    .alignmentGuide(HorizontalAlignment.trailing) { _ in 20 }
+            }
+        }
+    }
+}
+
+struct TrainRowTop: View {
+    var train: Train
+    
+    private var lineName: String {
+        Line(rawValue: train.lineName!)!.shortName
+    }
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "train.side.rear.car")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 30, height: 30)
+                .foregroundColor(Color(lineName))
+            Text("\(lineName) line run #\(train.runNumber!)").font(.title2).foregroundColor(Color.primary)
+        }
+    }
+}
+
+struct TrainArrivalTime: View {
+    var train: Train
+    
+    private var lineName: String {
+        Line(rawValue: train.lineName!)!.shortName
+    }
+    private var timeTillArrival: String {
+        train.getTimeTillArrival()
+    }
+    
+    var body: some View {
+        VStack(alignment: .center) {
+            if timeTillArrival != "Due" {
+                Text(timeTillArrival).font(.title).foregroundColor(Color.primary)
+                Text("minutes").font(.subheadline).foregroundColor(.secondary)
+            }
+            else {
+                Text(timeTillArrival).font(.title).foregroundColor(Color.primary)
+            }
         }
     }
 }

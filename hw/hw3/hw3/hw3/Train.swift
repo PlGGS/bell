@@ -5,6 +5,8 @@
 //  Created by Blake Boris on 4/27/23.
 //
 
+import Foundation
+
 class Train: Codable, Identifiable {
     let nextParentTerminalID: String?; ///Parent terminal ids correspond to the generic internal name for a terminal
     let nextDirectedTerminalID: String?; ///Directed terminal ids correspond to the unique, internal, line-specific terminal identifiers
@@ -92,5 +94,47 @@ class Train: Codable, Identifiable {
         try container.encode(latitude, forKey: .latitude)
         try container.encode(longitude, forKey: .longitude)
         try container.encode(heading, forKey: .heading)
+    }
+    
+    func getDirection() -> String {
+        switch Int(heading ?? "-1")! {
+            case 0...22, 338...360:
+                return "North towards \(destinationString!)"
+            case 23...67:
+                return "Northeast towards \(destinationString!)"
+            case 68...112:
+                return "East towards \(destinationString!)"
+            case 113...157:
+                return "Southeast towards \(destinationString!)"
+            case 158...202:
+                return "South towards \(destinationString!)"
+            case 203...247:
+                return "Southwest towards \(destinationString!)"
+            case 248...292:
+                return "West towards \(destinationString!)"
+            case 293...337:
+                return "Northwest towards \(destinationString!)"
+            default:
+            return (isScheduled! == "1") ? "Scheduled: \(destinationString!)" : destinationString!
+        }
+    }
+    
+    func getTimeTillArrival() -> String {
+        if isApproaching == "1" {
+            return "Due"
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
+        guard let time1 = dateFormatter.date(from: timeOfPrediction!),
+              let time2 = dateFormatter.date(from: predictedArrivalTime!) else {
+            fatalError("Invalid date format")
+        }
+        
+        let diffSeconds = time2.timeIntervalSince(time1)
+        let diffMinutes = diffSeconds / 60
+        
+        return String(format: "%.0f", diffMinutes)
     }
 }
