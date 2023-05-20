@@ -97,35 +97,34 @@ struct LineView: View {
     }
 }
 
-struct StopRow: View {
-    var stop: Terminal
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(stop.fullName).font(.title2)
-                Text(stop.coords).font(.subheadline).foregroundColor(.secondary)
-            }
-            Spacer()
-        }
-    }
-}
-
 struct StopView: View {
     var stop: Terminal
     
-    @StateObject private var trdata = TerminalRequestData()
+    @StateObject private var trdata: TerminalRequestData = TerminalRequestData()
+    @State private var terminalInfoString: String = "";
     
     var body: some View {
-        Spacer()
-        Spacer()
-        Label("Select a train to be notified when it is approaching the station you selected.", systemImage: "info.circle")
-        List(trdata.trains) { train in
-            TrainButtonRow(train: train)
+        VStack {
+            if trdata.trains.isEmpty {
+                if terminalInfoString != "" {
+                    Text(terminalInfoString)
+                }
+                else {
+                    Text("No terminal information available.")
+                }
+            } else {
+                Spacer()
+                Spacer()
+                Label("Select a train to be notified when it is approaching the station you selected.", systemImage: "info.circle")
+                List(trdata.trains) { train in
+                    TrainButtonRow(train: train)
+                }
+            }
         }
         .navigationTitle(stop.shortName)
         .task {
-            await trdata.getTerminalInfo(terminalID: stop.id)
+            let infoString = await trdata.getTerminalInfo(terminalID: stop.id)
+            self.terminalInfoString = infoString ?? ""
         }
     }
 }

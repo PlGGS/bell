@@ -99,21 +99,21 @@ class Train: Codable, Identifiable {
     func getDirection() -> String {
         switch Int(heading ?? "-1")! {
             case 0...22, 338...360:
-                return "North towards \(destinationString!)"
+                return "North: \(destinationString!)"
             case 23...67:
-                return "Northeast towards \(destinationString!)"
+                return "Northeast: \(destinationString!)"
             case 68...112:
-                return "East towards \(destinationString!)"
+                return "East: \(destinationString!)"
             case 113...157:
-                return "Southeast towards \(destinationString!)"
+                return "Southeast: \(destinationString!)"
             case 158...202:
-                return "South towards \(destinationString!)"
+                return "South: \(destinationString!)"
             case 203...247:
-                return "Southwest towards \(destinationString!)"
+                return "Southwest: \(destinationString!)"
             case 248...292:
-                return "West towards \(destinationString!)"
+                return "West: \(destinationString!)"
             case 293...337:
-                return "Northwest towards \(destinationString!)"
+                return "Northwest: \(destinationString!)"
             default:
             return (isScheduled! == "1") ? "Scheduled: \(destinationString!)" : destinationString!
         }

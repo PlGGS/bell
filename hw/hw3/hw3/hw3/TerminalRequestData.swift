@@ -19,11 +19,10 @@ class TerminalRequestData: ObservableObject {
     public var errorCode: String?;
     public var errorNumber: String?;
     public var dataError: String?;
-    public var dataAvailable = false;
     @Published var trains: [Train] = [];
     
     ///Fetches JSON data for each upcoming train at a specified parent terminal by ID
-    func getTerminalInfo(terminalID: Int) async {
+    func getTerminalInfo(terminalID: Int) async -> String? {
         guard let url = URL(string: "https://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=\(apiKey)&mapid=\(terminalID)&outputType=JSON") else {
             fatalError("Invalid URL");
         }
@@ -74,8 +73,6 @@ class TerminalRequestData: ObservableObject {
                             print("ETA Missing: \"\(error.localizedDescription)\" \(eta)");
                         }
                     }
-                    
-                    self.dataAvailable = true;
                 }
             } catch SerializationError.invalid(let msg, let data) {
                 self.dataError = "Invalid \(msg): \(data) :(";
@@ -83,5 +80,7 @@ class TerminalRequestData: ObservableObject {
                 self.dataError = error.localizedDescription;
             }
         }.resume();
+        
+        return self.dataError
     }
 }
