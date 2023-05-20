@@ -133,13 +133,25 @@ struct StopView: View {
 struct TrainButtonRow: View {
     var train: Train
     
+    @State private var showAlert = false
+    private var lineName: String {
+        Line(rawValue: train.lineName!)!.shortName
+    }
+    
     var body: some View {
         Button(action: {
-            
+            showAlert = true
         }) {
             HStack {
                 VStack(alignment: .leading) {
-                    TrainRowTop(train: train)
+                    HStack {
+                        Image(systemName: "train.side.rear.car")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(Color(lineName))
+                        Text("\(lineName) line run #\(train.runNumber!)").font(.title2).foregroundColor(Color.primary)
+                    }
                     Text("\(train.getDirection())").font(.caption).foregroundColor(.secondary)
                 }
                 Spacer()
@@ -147,24 +159,12 @@ struct TrainButtonRow: View {
                     .alignmentGuide(HorizontalAlignment.trailing) { _ in 20 }
             }
         }
-    }
-}
-
-struct TrainRowTop: View {
-    var train: Train
-    
-    private var lineName: String {
-        Line(rawValue: train.lineName!)!.shortName
-    }
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "train.side.rear.car")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 30, height: 30)
-                .foregroundColor(Color(lineName))
-            Text("\(lineName) line run #\(train.runNumber!)").font(.title2).foregroundColor(Color.primary)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("You'll be notified for \(lineName) line run #\(train.runNumber!)"),
+                message: Text("Not really lol I'm lazyyyyyyyyyyyyy"),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 }
