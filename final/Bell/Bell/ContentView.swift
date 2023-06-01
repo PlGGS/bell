@@ -16,14 +16,71 @@ struct ContentView_Previews: PreviewProvider {
 
 struct ContentView: View {
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.92323320, longitude: -87.65379270), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+    @State private var sheetHeightOffset = CGFloat.zero
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             Map(coordinateRegion: $region).edgesIgnoringSafeArea(.all)
-//            Image(systemName: "globe")
-//                .imageScale(.large)
-//                .foregroundColor(.accentColor)
-            NearbyListView()
+            VStack {
+                CustomSheetView(sheetHeightOffset: $sheetHeightOffset)
+                    .transition(.move(edge: .bottom))
+                    .animation(.easeInOut)
+                    .offset(y: sheetHeightOffset)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                print(value.location.y)
+                                if value.location.y >= 175 {
+                                    sheetHeightOffset = value.location.y - 175
+                                }
+                            }
+                            .onEnded { value in
+//                                if value.location.y > 376.5 {
+//                                    sheetHeightOffset = 376.5
+//                                }
+                                if value.location.y < 175 {
+                                    sheetHeightOffset = 0
+                                }
+                            }
+                    )
+            }
+            
+        }
+        .edgesIgnoringSafeArea(.bottom)
+    }
+}
+
+struct CustomSheetView: View {
+    @Binding var sheetHeightOffset: CGFloat
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Spacer()
+                Button(action: {
+                    sheetHeightOffset = 0
+                    print(sheetHeightOffset)
+                }) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 24))
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Circle())
+                }
+                .background(Color.blue)
+                .clipShape(Circle())
+                .padding(30)
+            }
+            VStack {
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(.gray)
+                    .frame(width: 50, height: 5)
+                    .padding(.top)
+                NearbyListView()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black.opacity(0.6))
+            .clipShape(RoundedRectangle(cornerRadius: 15))
         }
     }
 }
@@ -66,7 +123,6 @@ struct NearbyListView: View {
 //                    }
                 }
             }
-            .navigationTitle("Stops")
         }
     }
 }
