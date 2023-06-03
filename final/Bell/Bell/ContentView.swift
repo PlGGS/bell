@@ -27,6 +27,7 @@ struct ContentView: View {
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.92323320, longitude: -87.65379270), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
     @State private var sheetHeightOffset: CGFloat = 0
     @State private var isKeyboardVisible: Bool = false
+    @StateObject private var location = Location()
     
     let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.4;
     let sheetGrabOffset: Double = 0.18;
@@ -42,7 +43,15 @@ struct ContentView: View {
         GeometryReader { geo in
             ZStack(alignment: .bottomLeading) {
                 MapView(region: region, lines: Line.allCases)
-                      .edgesIgnoringSafeArea(.all)
+                    .edgesIgnoringSafeArea(.all)
+                    .alert(isPresented: locationServicesUnavailable(), content: {
+                        Alert(
+                            title: Text("Location Services Disabled"),
+                            message: Text("Please enable Location Services in Settings."),
+                            primaryButton: .default(Text("Settings"), action: location.openSettings),
+                            secondaryButton: .cancel()
+                        )
+                    })
                 VStack {
                     CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
                         .transition(.move(edge: .bottom))
@@ -70,6 +79,13 @@ struct ContentView: View {
                 sheetHeightOffset = initialSheetHeightOffset
             }
         }
+    }
+    
+    private func locationServicesUnavailable() -> Binding<Bool> {
+        Binding<Bool>(
+            get: { location.manager == nil },
+            set: { _ in }
+        )
     }
 }
 
