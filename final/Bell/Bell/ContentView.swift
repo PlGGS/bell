@@ -30,7 +30,7 @@ struct ContentView: View {
     
     let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.4;
     let sheetGrabOffset: Double = 0.18;
-    let sheetHideOffset: Double = 0.9;
+    let sheetHideHeight: Double = UIScreen.main.bounds.height * 0.8;
     
     var body: some View {
         GeometryReader { geo in
@@ -44,7 +44,7 @@ struct ContentView: View {
                     }
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
+                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
                         .transition(.move(edge: .bottom))
                         .animation(.easeInOut)
                         .offset(y: sheetHeightOffset)
@@ -56,8 +56,8 @@ struct ContentView: View {
                                     }
                                 }
                                 .onEnded { value in
-                                    if value.location.y > geo.size.height * sheetHideOffset {
-                                        sheetHeightOffset = geo.size.height * sheetHideOffset
+                                    if value.location.y > sheetHideHeight {
+                                        sheetHeightOffset = sheetHideHeight
                                     }
                                 }
                         )
@@ -74,6 +74,7 @@ struct ContentView: View {
 
 struct CustomSheetView: View {
     var initialSheetHeightOffset: CGFloat
+    var sheetHideHeight: CGFloat
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
     
@@ -82,14 +83,23 @@ struct CustomSheetView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    sheetHeightOffset = initialSheetHeightOffset
-                    print(sheetHeightOffset)
+                    if sheetHeightOffset < sheetHideHeight {
+                        //if the sheet isn't being hidden, we navigate to the settings page
+                        //TODO navigate to settings page
+                    }
+                    else {
+                        //otherwise, we simply move the sheet back up
+                        sheetHeightOffset = initialSheetHeightOffset
+                    }
                 }) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 24))
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Circle())
+                    if sheetHeightOffset < sheetHideHeight {
+                        //if the sheet isn't being hidden, we show the settings icon
+                        UpAndSettingsButtonView(systemImageName: "gear")
+                    }
+                    else {
+                        //otherwise, we show an up arrow
+                        UpAndSettingsButtonView(systemImageName: "arrow.up.circle")
+                    }
                 }
                 .background(Color.blue)
                 .clipShape(Circle())
@@ -107,6 +117,18 @@ struct CustomSheetView: View {
             .background(Color(UIColor.systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 15))
         }
+    }
+}
+
+struct UpAndSettingsButtonView: View {
+    var systemImageName: String
+    
+    var body: some View {
+        Image(systemName: systemImageName)
+            .font(.system(size: 24))
+            .foregroundColor(.white)
+            .padding()
+            .background(Circle())
     }
 }
 
