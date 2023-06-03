@@ -41,7 +41,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottomLeading) {
-                MapView(region: region)
+                MapView(region: region, lines: Line.allCases)
                       .edgesIgnoringSafeArea(.all)
                 VStack {
                     CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
@@ -75,14 +75,15 @@ struct ContentView: View {
 
 struct MapView: UIViewRepresentable {
     let region: MKCoordinateRegion
-//    let lineCoordinates: [CLLocation]
+    let lines: [Line]
     let mapView = MKMapView()
 
     // Create the MKMapView using UIKit.
     func makeUIView(context: Context) -> MKMapView {
         mapView.delegate = context.coordinator
         mapView.region = region
-        addTransitLines()
+        mapView.showsUserLocation = true
+        addTransitLines(lines)
         return mapView
     }
 
@@ -94,8 +95,8 @@ struct MapView: UIViewRepresentable {
         MapCoordinator(self)
     }
     
-    func addTransitLines() {
-        for line in Line.allCases {
+    func addTransitLines(_ lines: [Line]) {
+        for line in lines {
             var coordinates: [CLLocationCoordinate2D] = []
             
             for stop in line.stops {
