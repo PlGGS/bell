@@ -46,7 +46,7 @@ struct ContentView: View {
                         )
                     })
                 VStack {
-                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
+                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location)
                         .transition(.move(edge: .bottom))
                         .animation(.easeInOut)
                         .offset(y: sheetHeightOffset)
@@ -109,7 +109,7 @@ struct MapView: UIViewRepresentable {
             var coordinates: [CLLocationCoordinate2D] = []
             
             for stop in line.stops {
-                coordinates.append(CLLocationCoordinate2D(latitude: stop.xcoord, longitude: stop.ycoord))
+                coordinates.append(CLLocationCoordinate2D(latitude: stop.latitude, longitude: stop.longitude))
             }
             
             let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
@@ -124,6 +124,7 @@ struct CustomSheetView: View {
     var sheetHideHeight: CGFloat
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
+    var location = Location()
     
     var body: some View {
         VStack(spacing: 20) {
@@ -158,7 +159,7 @@ struct CustomSheetView: View {
                     .fill(.gray)
                     .frame(width: 50, height: 5)
                     .padding(.top)
-                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
+                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(UIColor.systemBackground))
@@ -183,12 +184,18 @@ struct NearbyListView: View {
     var initialSheetHeightOffset: CGFloat
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
+    var location = Location()
     
     //TODO maybe add a toggle for only showing accessible stops in a settings menu
 //    @State private var showIsADACompliant = true
     @State private var firstStopIndex: Double = 0.0
     @State private var searchText = ""
     @State private var scrollOffset: CGFloat = 0.0
+    
+    var userRadius: Double = 0.25 //Miles
+    var userRadialRegion: RadialRegion {
+        return RadialRegion(latitude: location.region.center.latitude, longitude: location.region.center.longitude, radiusInMiles: userRadius)
+    }
     
     var body: some View {
         VStack {
@@ -206,10 +213,9 @@ struct NearbyListView: View {
             
             ScrollViewReader { scrollViewProxy in
                 //TODO change 'Terminal.allCases.indices' to stops within a certain radius of the user's location
-                List(Terminal.allCases.indices, id: \.self) { index in
-                    let stop = Terminal.allCases[index]
-
-                    if stop.fullName.localizedCaseInsensitiveContains(searchText) ||
+                List(userRadialRegion.getTerminals(), id: \.self) { stop in
+                    if  searchText.isEmpty ||
+                        stop.fullName.localizedCaseInsensitiveContains(searchText) ||
                         stop.lines.contains(where: { lineName in
                             return lineName.localizedCaseInsensitiveContains(searchText)
                         }) {
@@ -244,7 +250,6 @@ struct NearbyListView: View {
                             UIApplication.shared.endEditing()
                         }
                 )
-                Spacer()
             }
         }
     }

@@ -1038,7 +1038,7 @@ enum Terminal: CaseIterable, Identifiable {
         }
     }
     
-    var xcoord: Double {
+    var latitude: Double {
         switch self {
             case .ciceroPinkLine: return 41.85182
             case .centralParkPinkLine: return 41.853839
@@ -1186,7 +1186,7 @@ enum Terminal: CaseIterable, Identifiable {
         }
     }
     
-    var ycoord: Double {
+    var longitude: Double {
         switch self {
             case .ciceroPinkLine: return -87.745336
             case .centralParkPinkLine: return -87.714842
