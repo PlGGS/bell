@@ -16,6 +16,7 @@
 		25C1476D2A281E9D000020A0 /* BellUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C1476C2A281E9D000020A0 /* BellUITestsLaunchTests.swift */; };
 		25C1477E2A2834F1000020A0 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C1477D2A2834F1000020A0 /* Line.swift */; };
 		25C147802A2834F7000020A0 /* Terminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C1477F2A2834F7000020A0 /* Terminal.swift */; };
+		25C147882A2ACAF3000020A0 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C147872A2ACAF3000020A0 /* MapCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		25C1476C2A281E9D000020A0 /* BellUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		25C1477D2A2834F1000020A0 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		25C1477F2A2834F7000020A0 /* Terminal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Terminal.swift; sourceTree = "<group>"; };
+		25C147872A2ACAF3000020A0 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				25C1477F2A2834F7000020A0 /* Terminal.swift */,
 				25C1474E2A281E9D000020A0 /* BellApp.swift */,
 				25C147502A281E9D000020A0 /* ContentView.swift */,
+				25C147872A2ACAF3000020A0 /* MapCoordinator.swift */,
 				25C147522A281E9D000020A0 /* Assets.xcassets */,
 				25C147542A281E9D000020A0 /* Bell.entitlements */,
 				25C147552A281E9D000020A0 /* Preview Content */,
@@ -268,6 +271,7 @@
 				25C1477E2A2834F1000020A0 /* Line.swift in Sources */,
 				25C147802A2834F7000020A0 /* Terminal.swift in Sources */,
 				25C147512A281E9D000020A0 /* ContentView.swift in Sources */,
+				25C147882A2ACAF3000020A0 /* MapCoordinator.swift in Sources */,
 				25C1474F2A281E9D000020A0 /* BellApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

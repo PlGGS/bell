@@ -32,17 +32,17 @@ struct ContentView: View {
     let sheetGrabOffset: Double = 0.18;
     let sheetHideHeight: Double = UIScreen.main.bounds.height * 0.8;
     
+    private var mapView: MKMapView {
+        let mapView = MKMapView()
+        mapView.setRegion(region, animated: true)
+        return mapView
+    }
+    
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottomLeading) {
-                Map(coordinateRegion: $region)
-                    .onTapGesture {
-                        if isKeyboardVisible {
-                            UIApplication.shared.endEditing()
-                            sheetHeightOffset = initialSheetHeightOffset
-                        }
-                    }
-                    .edgesIgnoringSafeArea(.all)
+                MapView(region: region)
+                      .edgesIgnoringSafeArea(.all)
                 VStack {
                     CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
                         .transition(.move(edge: .bottom))
@@ -51,6 +51,7 @@ struct ContentView: View {
                         .gesture(
                             DragGesture(coordinateSpace: .local)
                                 .onChanged { value in
+                                    UIApplication.shared.endEditing()
                                     if value.location.y >= geo.size.height * sheetGrabOffset {
                                         sheetHeightOffset = value.location.y - geo.size.height * sheetGrabOffset
                                     }
@@ -68,6 +69,42 @@ struct ContentView: View {
             .onAppear {
                 sheetHeightOffset = initialSheetHeightOffset
             }
+        }
+    }
+}
+
+struct MapView: UIViewRepresentable {
+    let region: MKCoordinateRegion
+//    let lineCoordinates: [CLLocation]
+    let mapView = MKMapView()
+
+    // Create the MKMapView using UIKit.
+    func makeUIView(context: Context) -> MKMapView {
+        mapView.delegate = context.coordinator
+        mapView.region = region
+        addTransitLines()
+        return mapView
+    }
+
+    // We don't need to worry about this as the view will never be updated.
+    func updateUIView(_ view: MKMapView, context: Context) {}
+
+    // Link it to the coordinator which is defined below.
+    func makeCoordinator() -> MapCoordinator {
+        MapCoordinator(self)
+    }
+    
+    func addTransitLines() {
+        for line in Line.allCases {
+            var coordinates: [CLLocationCoordinate2D] = []
+            
+            for stop in line.stops {
+                coordinates.append(CLLocationCoordinate2D(latitude: stop.xcoord, longitude: stop.ycoord))
+            }
+            
+            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+            polyline.title = line.shortName
+            mapView.addOverlay(polyline)
         }
     }
 }
