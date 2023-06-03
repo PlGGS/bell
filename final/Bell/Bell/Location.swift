@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
-import CoreLocation
+import MapKit
 
 class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
+    @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.92323320, longitude: -87.65379270), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+    
     var manager: CLLocationManager?
     
     override init() {
@@ -41,8 +43,7 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
                     secondaryButton: .cancel()
                 )
             case .authorizedAlways, .authorizedWhenInUse:
-                //TODO add this case
-                break
+            region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: region.span)
             @unknown default:
                 break
         }

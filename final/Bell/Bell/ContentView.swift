@@ -24,25 +24,18 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct ContentView: View {
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.92323320, longitude: -87.65379270), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
     @State private var sheetHeightOffset: CGFloat = 0
     @State private var isKeyboardVisible: Bool = false
-    @StateObject private var location = Location()
+    @ObservedObject private var location = Location()
     
     let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.4;
     let sheetGrabOffset: Double = 0.18;
     let sheetHideHeight: Double = UIScreen.main.bounds.height * 0.8;
     
-    private var mapView: MKMapView {
-        let mapView = MKMapView()
-        mapView.setRegion(region, animated: true)
-        return mapView
-    }
-    
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottomLeading) {
-                MapView(region: region, lines: Line.allCases)
+                MapView(region: location.region, lines: Line.allCases)
                     .edgesIgnoringSafeArea(.all)
                     .alert(isPresented: locationServicesUnavailable(), content: {
                         Alert(
