@@ -20,7 +20,7 @@ extension UIApplication {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        StopView(stop: Terminal.howardRedPurpleYellowlines)
+        StopView(stop: Terminal.howardRedPurpleYellowlines, mapView: MapView(isCenterCloseToUserLocation: Binding.constant(false)))
     }
 }
 
@@ -150,7 +150,7 @@ struct CustomSheetView: View {
                     .fill(.gray)
                     .frame(width: 50, height: 5)
                     .padding(.top)
-                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location)
+                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location, mapView: mapView)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(UIColor.systemBackground))
@@ -176,6 +176,7 @@ struct NearbyListView: View {
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
     var location: Location
+    var mapView: MapView
     
     //TODO maybe add a toggle for only showing accessible stops in a settings menu
 //    @State private var showIsADACompliant = true
@@ -212,7 +213,7 @@ struct NearbyListView: View {
                                     return lineName.localizedCaseInsensitiveContains(searchText)
                                 }) {
                             //TODO add this navigation link back in with new stopview
-                            NavigationLink(destination: StopView(stop: stop)) {
+                            NavigationLink(destination: StopView(stop: stop, mapView: mapView)) {
                                 HStack {
                                     Text(stop.fullName)
                                         .listRowBackground(Color.clear)
@@ -265,6 +266,7 @@ struct StopRow: View {
 
 struct StopView: View {
     var stop: Terminal
+    var mapView: MapView
     
     @StateObject private var trdata: TerminalRequestData = TerminalRequestData()
     @State private var terminalInfoString: String = "";
@@ -283,7 +285,7 @@ struct StopView: View {
                 Spacer()
                 Label("Select a train to be notified when it is approaching the station you selected.", systemImage: "info.circle")
                 List(trdata.trains) { train in
-                    TrainButtonRow(train: train)
+                    TrainButtonRow(train: train, mapView: mapView)
                 }
             }
         }
@@ -291,12 +293,16 @@ struct StopView: View {
         .task {
             let infoString = await trdata.getTerminalInfo(terminalID: stop.id)
             self.terminalInfoString = infoString ?? ""
+            
+            //Remove any old train annotations if they're still on the map
+            mapView.removeTrainAnnotations()
         }
     }
 }
 
 struct TrainButtonRow: View {
     var train: Train
+    var mapView: MapView
     
     @State private var showAlert = false
     private var lineName: String {
@@ -323,6 +329,9 @@ struct TrainButtonRow: View {
                 TrainArrivalTime(train: train)
                     .alignmentGuide(HorizontalAlignment.trailing) { _ in 20 }
             }
+        }
+        .task {
+            mapView.placeTrainAnnotation(train: train)
         }
         .alert(isPresented: $showAlert) {
             Alert(

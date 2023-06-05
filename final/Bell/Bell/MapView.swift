@@ -14,6 +14,9 @@ struct MapView: UIViewRepresentable {
     let view = MKMapView()
     let lines: [Line] = Line.allCases
     
+    @State private var userPinAnnotation: MKAnnotation = MKPointAnnotation()
+    var trainAnnotations: [MKAnnotation] = []
+    
     func makeUIView(context: Context) -> MKMapView {
         view.delegate = context.coordinator
         view.region = MKCoordinateRegion()
@@ -47,10 +50,7 @@ struct MapView: UIViewRepresentable {
         let tolerance: Double = 0.01
 
         let latitudeDifference = abs(view.region.center.latitude - userLocation.latitude)
-        print("latitudeDifference \(latitudeDifference)")
-        
         let longitudeDifference = abs(view.region.center.longitude - userLocation.longitude)
-        print("longitudeDifference \(longitudeDifference)")
         
         let out = (latitudeDifference <= tolerance && longitudeDifference <= tolerance)
         
@@ -72,7 +72,26 @@ struct MapView: UIViewRepresentable {
     func placeDotAnnotation(_ centerCoordinate: CLLocationCoordinate2D) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = centerCoordinate
-        view.removeAnnotations(view.annotations)
+        
+        view.removeAnnotation(userPinAnnotation)
+        view.addAnnotation(annotation)
+        
+        userPinAnnotation = annotation
+    }
+    
+    func removeTrainAnnotations() {
+        for annotation in trainAnnotations {
+            view.removeAnnotation(annotation)
+        }
+    }
+    
+    func placeTrainAnnotation(train: Train) {
+        let latitude = Double(train.latitude ?? "0.0")!
+        let longitude = Double(train.longitude ?? "0.0")!
+        
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let annotation = TrainAnnotation(coordinate: coordinate, lineName: Line(rawValue: train.lineName!)!.shortName, runNumber: train.runNumber ?? "???")
+        
         view.addAnnotation(annotation)
     }
     
