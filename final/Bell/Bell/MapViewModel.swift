@@ -10,14 +10,12 @@ import MapKit
 
 class MapViewModel: ObservableObject {
     @Published var view = MKMapView()
-    let lines: [Line] = Line.allCases
+    @Published var lines: [Line] = Line.allCases
     
-    var isCenterCloseToUserLocation: Bool = false
-    var userPinLatitude: Double = 0.0
-    var userPinLongitude: Double = 0.0
+    @Published var isCenterCloseToUserLocation: Bool = false
     
-    var userPinAnnotation: MKAnnotation = MKPointAnnotation()
-    var trainAnnotations: [MKAnnotation] = []
+    @Published var userPinAnnotation: MKAnnotation = MKPointAnnotation()
+    @Published var trainAnnotations: [MKAnnotation] = []
 
     func addTransitLines(_ lines: [Line]) {
         for line in lines {

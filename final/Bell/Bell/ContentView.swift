@@ -189,9 +189,20 @@ struct NearbyListView: View {
     @State private var searchText = ""
     @State private var scrollOffset: CGFloat = 0.0
     
+    var userPinRegion: MKCoordinateRegion {
+        mapViewModel.view.region
+    }
+    
+    var userPinLatitude: Double {
+        return userPinRegion.center.latitude
+    }
+    var userPinLongitude: Double {
+        return userPinRegion.center.longitude
+    }
+    
     var userRadius: Double = 0.25 //Miles
     var userRadialRegion: RadialRegion {
-        return RadialRegion(latitude: mapViewModel.view.region.center.latitude, longitude: mapViewModel.view.region.center.longitude, radiusInMiles: userRadius)
+        return RadialRegion(latitude: userPinLatitude, longitude: userPinLongitude, radiusInMiles: userRadius)
     }
     
     var body: some View {
