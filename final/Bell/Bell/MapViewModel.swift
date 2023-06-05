@@ -11,7 +11,6 @@ import MapKit
 class MapViewModel: ObservableObject {
     @Published var view = MKMapView()
     @Published var location: Location = Location()
-    @Published var lines: [Line] = Line.allCases
     
     @Published var isCenterCloseToUserLocation: Bool = false
     
@@ -21,8 +20,18 @@ class MapViewModel: ObservableObject {
     @Published var isSelectingTerminal: Bool = true
     @Published var selectedTerminal: Terminal? = nil
     @Published var userPinLocationWhenTerminalSelected: CLLocationCoordinate2D = CLLocationCoordinate2D()
+    
+    var lineOverlays: [MKPolyline] = []
 
-    func addTransitLines(_ lines: [Line]) {
+    func removeTransitLines() {
+        view.removeOverlays(lineOverlays)
+        lineOverlays = []
+    }
+    
+    func drawTransitLines(_ lines: [Line]) {
+        //we always want to remove lines before adding new ones
+        removeTransitLines()
+        
         for line in lines {
             var coordinates: [CLLocationCoordinate2D] = []
             
@@ -32,6 +41,8 @@ class MapViewModel: ObservableObject {
             
             let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
             polyline.title = line.shortName
+            
+            lineOverlays.append(polyline)
             view.addOverlay(polyline)
         }
     }

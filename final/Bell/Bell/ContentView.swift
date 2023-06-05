@@ -203,8 +203,8 @@ struct NearbyListView: View {
                     List(userRadialRegion.getTerminals(), id: \.self) { stop in
                         if  searchText.isEmpty ||
                                 stop.fullName.localizedCaseInsensitiveContains(searchText) ||
-                                stop.lines.contains(where: { lineName in
-                                    return lineName.localizedCaseInsensitiveContains(searchText)
+                                stop.lines.contains(where: { line in
+                                    return line.shortName.localizedCaseInsensitiveContains(searchText)
                                 }) {
                             NavigationLink(destination: StopView(stop: stop).environmentObject(mapViewModel)) {
                                 HStack {
@@ -273,15 +273,16 @@ struct StopView: View {
         .onAppear {
             mapViewModel.isSelectingTerminal = false
             mapViewModel.selectedTerminal = stop
+            
+            //only force unwrapping selectedTerminal because we just set it above
+            mapViewModel.drawTransitLines(mapViewModel.selectedTerminal!.lines)
         }
         .onDisappear {
             mapViewModel.removeTrainAnnotations()
             
             mapViewModel.isSelectingTerminal = true
-//            mapViewModel.selectedTerminal = nil
             
-            //Update the previous user pin location just in case the user selects another stop without moving the map to update the region
-//            mapViewModel.updatePrevUserPinLocation()
+            mapViewModel.drawTransitLines(Line.allCases)
         }
         .navigationTitle(stop.shortName)
         .task {

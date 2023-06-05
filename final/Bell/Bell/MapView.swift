@@ -16,7 +16,7 @@ struct MapView: UIViewRepresentable {
         mapViewModel.view.region = MKCoordinateRegion()
         mapViewModel.view.showsUserLocation = true
         mapViewModel.view.userTrackingMode = .follow
-        mapViewModel.addTransitLines(mapViewModel.lines)
+        mapViewModel.drawTransitLines(Line.allCases)
         return mapViewModel.view
     }
 
