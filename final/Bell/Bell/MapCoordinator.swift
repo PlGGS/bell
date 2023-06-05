@@ -51,7 +51,12 @@ class MapCoordinator: NSObject, MKMapViewDelegate, ObservableObject {
         if let routePolyline = overlay as? MKPolyline {
             let renderer = MKPolylineRenderer(polyline: routePolyline)
             renderer.strokeColor = UIColor(Color(routePolyline.title ?? "Black"))
-            renderer.lineWidth = 3
+            renderer.lineWidth = 4
+            
+            if parent.mapViewModel.selectedTerminal != nil && parent.mapViewModel.isSelectingTerminal == false {
+                renderer.lineWidth = 7
+            }
+            
             return renderer
         }
         
