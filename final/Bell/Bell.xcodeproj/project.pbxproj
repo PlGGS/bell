@@ -23,6 +23,7 @@
 		25C147922A2C912E000020A0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C147912A2C912E000020A0 /* MapView.swift */; };
 		25C147942A2D3C90000020A0 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C147932A2D3C90000020A0 /* MapCoordinator.swift */; };
 		25C147962A2D8570000020A0 /* TrainAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C147952A2D8570000020A0 /* TrainAnnotation.swift */; };
+		25C147982A2DC0EE000020A0 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C147972A2DC0EE000020A0 /* MapViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		25C147912A2C912E000020A0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		25C147932A2D3C90000020A0 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		25C147952A2D8570000020A0 /* TrainAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainAnnotation.swift; sourceTree = "<group>"; };
+		25C147972A2DC0EE000020A0 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				25C1477F2A2834F7000020A0 /* Terminal.swift */,
 				25C1474E2A281E9D000020A0 /* BellApp.swift */,
 				25C147502A281E9D000020A0 /* ContentView.swift */,
+				25C147972A2DC0EE000020A0 /* MapViewModel.swift */,
 				25C1478F2A2BF17C000020A0 /* Train.swift */,
 				25C1478D2A2BEF90000020A0 /* TerminalRequestData.swift */,
 				25C147912A2C912E000020A0 /* MapView.swift */,
@@ -297,6 +300,7 @@
 				25C147902A2BF17C000020A0 /* Train.swift in Sources */,
 				25C1474F2A281E9D000020A0 /* BellApp.swift in Sources */,
 				25C147962A2D8570000020A0 /* TrainAnnotation.swift in Sources */,
+				25C147982A2DC0EE000020A0 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

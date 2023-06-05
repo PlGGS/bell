@@ -13,7 +13,7 @@ extension Double {
     }
 }
 
-struct RadialRegion {
+class RadialRegion: ObservableObject {
     let centerCoordinates: CLLocation
     let radius: Double //Miles
     

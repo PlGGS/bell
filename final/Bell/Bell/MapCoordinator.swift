@@ -21,9 +21,9 @@ class MapCoordinator: NSObject, MKMapViewDelegate, ObservableObject {
         regionUpdateQueue.async {
             DispatchQueue.main.async {
                 if let centerCoordinate = mapView.centerCoordinate as Optional {
-                    self.parent.updateRegion(centerCoordinate)
-                    self.parent.placeDotAnnotation(centerCoordinate)
-                    self.parent.isCenterCloseToUserLocation(centerCoordinate)
+                    self.parent.mapViewModel.updateRegion(centerCoordinate)
+                    self.parent.mapViewModel.placeDotAnnotation(centerCoordinate)
+                    self.parent.mapViewModel.isCenterCloseToUserLocation(centerCoordinate)
                 }
             }
         }

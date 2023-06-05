@@ -8,7 +8,6 @@
 import SwiftUI
 import MapKit
 
-
 //https://stackoverflow.com/questions/56491386/how-to-hide-keyboard-when-using-swiftui
 extension UIApplication {
     ///Hides the keyboard
@@ -20,29 +19,28 @@ extension UIApplication {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        StopView(stop: Terminal.howardRedPurpleYellowlines, mapView: MapView(isCenterCloseToUserLocation: Binding.constant(false)))
+        StopView(stop: Terminal.howardRedPurpleYellowlines)
     }
 }
 
 struct ContentView: View {
     @State private var sheetHeightOffset: CGFloat = 0
     @State private var isKeyboardVisible: Bool = false
-    private var mapView: MapView = MapView(isCenterCloseToUserLocation: Binding.constant(false))
+    @StateObject var mapViewModel = MapViewModel()
     @ObservedObject private var location = Location()
     @State private var isCenterCloseToUserLocation = false
+    @State private var userPinLatitude: Double = 0.0
+    @State private var userPinLongitude: Double = 0.0
     
     let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.4;
     let sheetGrabOffset: Double = 0.18;
     let sheetHideHeight: Double = UIScreen.main.bounds.height * 0.8;
     
-    init() {
-        mapView.isCenterCloseToUserLocation = isCenterCloseToUserLocation
-    }
-    
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottomLeading) {
-                mapView
+                MapView()
+                    .environmentObject(mapViewModel)
                     .edgesIgnoringSafeArea(.all)
                     .alert(isPresented: locationServicesUnavailable(), content: {
                         Alert(
@@ -53,7 +51,8 @@ struct ContentView: View {
                         )
                     })
                 VStack {
-                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location, mapView: mapView, isCenterCloseToUserLocation: $isCenterCloseToUserLocation)
+                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location)
+                        .environmentObject(mapViewModel)
                         .transition(.move(edge: .bottom))
                         .animation(.easeInOut)
                         .offset(y: sheetHeightOffset)
@@ -95,8 +94,8 @@ struct CustomSheetView: View {
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
     var location: Location
-    var mapView: MapView
-    @Binding var isCenterCloseToUserLocation: Bool
+    
+    @EnvironmentObject var mapViewModel: MapViewModel
     
     var body: some View {
         VStack(spacing: 20) {
@@ -104,13 +103,17 @@ struct CustomSheetView: View {
                 Button(action: {
                     if let locationManager = location.manager {
                         if let location = locationManager.location {
-                            mapView.recenterDotAnnotation(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
-                            mapView.recenterMap()
+                            print("\(mapViewModel.view.region.center.latitude) \(location.coordinate.latitude)")
+                            print("\(mapViewModel.view.region.center.longitude) \(location.coordinate.longitude)")
+                            print()
+                            
+                            mapViewModel.recenterDotAnnotation(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+                            mapViewModel.recenterMap()
                         }
                     }
                 }) {
                     //TODO figure out why this isn't working
-                    if isCenterCloseToUserLocation {
+                    if mapViewModel.isCenterCloseToUserLocation {
                         UpAndSettingsButtonView(systemImageName: "location.fill")
                     }
                     else {
@@ -150,7 +153,8 @@ struct CustomSheetView: View {
                     .fill(.gray)
                     .frame(width: 50, height: 5)
                     .padding(.top)
-                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location, mapView: mapView)
+                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location)
+                    .environmentObject(mapViewModel)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(UIColor.systemBackground))
@@ -176,7 +180,8 @@ struct NearbyListView: View {
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
     var location: Location
-    var mapView: MapView
+    
+    @EnvironmentObject var mapViewModel: MapViewModel
     
     //TODO maybe add a toggle for only showing accessible stops in a settings menu
 //    @State private var showIsADACompliant = true
@@ -186,7 +191,7 @@ struct NearbyListView: View {
     
     var userRadius: Double = 0.25 //Miles
     var userRadialRegion: RadialRegion {
-        return RadialRegion(latitude: location.region.center.latitude, longitude: location.region.center.longitude, radiusInMiles: userRadius)
+        return RadialRegion(latitude: mapViewModel.view.region.center.latitude, longitude: mapViewModel.view.region.center.longitude, radiusInMiles: userRadius)
     }
     
     var body: some View {
@@ -205,15 +210,13 @@ struct NearbyListView: View {
                     .background(Color.clear)
                 
                 ScrollViewReader { scrollViewProxy in
-                    //TODO change 'Terminal.allCases.indices' to stops within a certain radius of the user's location
                     List(userRadialRegion.getTerminals(), id: \.self) { stop in
                         if  searchText.isEmpty ||
                                 stop.fullName.localizedCaseInsensitiveContains(searchText) ||
                                 stop.lines.contains(where: { lineName in
                                     return lineName.localizedCaseInsensitiveContains(searchText)
                                 }) {
-                            //TODO add this navigation link back in with new stopview
-                            NavigationLink(destination: StopView(stop: stop, mapView: mapView)) {
+                            NavigationLink(destination: StopView(stop: stop).environmentObject(mapViewModel)) {
                                 HStack {
                                     Text(stop.fullName)
                                         .listRowBackground(Color.clear)
@@ -250,26 +253,12 @@ struct NearbyListView: View {
     }
 }
 
-struct StopRow: View {
-    var stop: Terminal
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(stop.fullName).font(.title2)
-                Text(String(stop.id)).font(.subheadline).foregroundColor(.secondary)
-            }
-            Spacer()
-        }
-    }
-}
-
 struct StopView: View {
     var stop: Terminal
-    var mapView: MapView
     
     @StateObject private var trdata: TerminalRequestData = TerminalRequestData()
     @State private var terminalInfoString: String = "";
+    @EnvironmentObject var mapViewModel: MapViewModel
     
     var body: some View {
         VStack {
@@ -285,7 +274,8 @@ struct StopView: View {
                 Spacer()
                 Label("Select a train to be notified when it is approaching the station you selected.", systemImage: "info.circle")
                 List(trdata.trains) { train in
-                    TrainButtonRow(train: train, mapView: mapView)
+                    TrainButtonRow(train: train)
+                        .environmentObject(mapViewModel)
                 }
             }
         }
@@ -295,19 +285,19 @@ struct StopView: View {
             self.terminalInfoString = infoString ?? ""
             
             //Remove any old train annotations if they're still on the map
-            mapView.removeTrainAnnotations()
+            mapViewModel.removeTrainAnnotations()
         }
     }
 }
 
 struct TrainButtonRow: View {
     var train: Train
-    var mapView: MapView
     
     @State private var showAlert = false
     private var lineName: String {
         Line(rawValue: train.lineName!)!.shortName
     }
+    @EnvironmentObject var mapViewModel: MapViewModel
     
     var body: some View {
         Button(action: {
@@ -331,7 +321,7 @@ struct TrainButtonRow: View {
             }
         }
         .task {
-            mapView.placeTrainAnnotation(train: train)
+            mapViewModel.placeTrainAnnotation(train: train)
         }
         .alert(isPresented: $showAlert) {
             Alert(
