@@ -8,14 +8,14 @@
 import Foundation
 
 class Train: Codable, Identifiable {
-    let nextParentTerminalID: String?; ///Parent terminal ids correspond to the generic internal name for a terminal
+    let nextParentTerminalID: String?; ///Parent terminal ids correspond to the generic internal name for a terminal (mapid)
     let nextDirectedTerminalID: String?; ///Directed terminal ids correspond to the unique, internal, line-specific terminal identifiers
     let nextParentTerminalShortName: String?;
     let destinationString: String?; ///Final destination of the train (Ex: Howard)
     let runNumber: String?; ///Ex: 420
     let lineName: String?; ///Ex: "Red" "Brn"
-    let destinationDirectedTerminalID: String?;
-    let destinationTerminalShortName: String?;
+    let destinationDirectedTerminalID: String?; ///final destination terminal id
+    let destinationTerminalShortName: String?; ///final destination terminal name
     let routeDirection: String?; ///Ex: 1 (northbound) or 5 (southbound)
     let timeOfPrediction: String?;
     let predictedArrivalTime: String?;
@@ -29,6 +29,7 @@ class Train: Codable, Identifiable {
     let heading: String?; ///Direction N, E, S, W in degrees 0 through 359 (null if haven't left yet)
 
     var annotation: TrainAnnotation?
+    var etas: [Train]? //This is of type Train, but that's just to keep things simple since the follow api response is almost identical to the arrivals api
     
     enum CodingKeys: String, CodingKey {
         case nextParentTerminalID = "staId"
@@ -73,7 +74,6 @@ class Train: Codable, Identifiable {
         latitude = try? container.decodeIfPresent(String.self, forKey: .latitude)
         longitude = try? container.decodeIfPresent(String.self, forKey: .longitude)
         heading = try? container.decodeIfPresent(String.self, forKey: .heading)
-        annotation = nil
     }
     
     func encode(to encoder: Encoder) throws {

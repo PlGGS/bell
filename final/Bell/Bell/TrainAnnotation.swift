@@ -13,27 +13,20 @@ class TrainAnnotation: NSObject, MKAnnotation {
     var title: String?
     var lineName: String
     var runNumber: String
-    var nextParentTerminalID: Int
+    var etas: [Train]?
     
     //step size for interpolating to destinationTerminal
     let stepSize: Double = 0.001
     
     let annotationQueue = DispatchQueue(label: "com.example.annotationQueue")
     
-    init(coordinate: CLLocationCoordinate2D, lineName: String, runNumber: String, nextParentTerminalID: String) {
+    init(coordinate: CLLocationCoordinate2D, lineName: String, runNumber: String, etas: [Train]?) {
         self.coordinate = coordinate
         self.lineName = lineName
         self.runNumber = runNumber
-//        self.title = "#\(runNumber)"
-        
-        //force unwrapping, because every train should have a nextParentTerminalID
-        self.nextParentTerminalID = Int(nextParentTerminalID)!
+        self.title = "#\(runNumber)"
+        self.etas = etas
         super.init()
-        self.title = "Next: \(nextTerminal()!.shortName)"
-    }
-    
-    func nextTerminal() -> Terminal? {
-        return Terminal(rawValue: nextParentTerminalID)
     }
     
     func getVector(towards: CLLocationCoordinate2D) -> CLLocationCoordinate2D {
@@ -52,5 +45,16 @@ class TrainAnnotation: NSObject, MKAnnotation {
         )
         
         coordinate = newCoordinate
+    }
+    
+    func nextTerminal() -> Terminal? {
+        guard let etas else { return nil }
+        
+        if etas.isEmpty == false {
+            let id = Int(etas[0].nextParentTerminalID ?? "?????") ?? 0
+            return Terminal(rawValue: id)
+        }
+        
+        return nil
     }
 }

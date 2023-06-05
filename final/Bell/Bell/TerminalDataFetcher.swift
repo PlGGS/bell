@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TerminalRequestData: ObservableObject {
+class TerminalDataFetcher: ObservableObject {
     let apiKey = "581954360bb24ae0bc667769dd6cad45";
     
     enum SerializationError: Error {

@@ -266,7 +266,7 @@ struct NearbyListView: View {
 struct StopView: View {
     var stop: Terminal
     
-    @StateObject private var trdata: TerminalRequestData = TerminalRequestData()
+    @StateObject private var trdata: TerminalDataFetcher = TerminalDataFetcher()
     @State private var terminalInfoString: String = "";
     
     @EnvironmentObject var mapViewModel: MapViewModel
@@ -283,9 +283,6 @@ struct StopView: View {
             } else {
                 List(trdata.trains) { train in
                     TrainButtonRow(train: train)
-                        .onAppear {
-                            train.annotation = mapViewModel.createTrainAnnotation(train: train)
-                        }
                         .environmentObject(mapViewModel)
                 }
             }
@@ -314,6 +311,9 @@ struct StopView: View {
 
 struct TrainButtonRow: View {
     var train: Train
+    
+    @StateObject private var trdata: TrainDataFetcher = TrainDataFetcher()
+    @State private var terminalInfoString: String = "";
     
     private var lineName: String {
         Line(rawValue: train.lineName!)!.shortName
@@ -348,26 +348,31 @@ struct TrainButtonRow: View {
             }
         }
         .task {
-            mapViewModel.placeTrainAnnotation(train: train)
-            
-            if let annotation = train.annotation {
-                DispatchQueue.main.async {
-                    var isRunning = true
-                    
-                    func performMoveCoordinate() {
-                        guard isRunning else { return }
+            if let etas = await trdata.getTrainEtas(train: train) {
+                train.etas = etas
+                
+                train.annotation = mapViewModel.createTrainAnnotation(train: train)
+                mapViewModel.placeTrainAnnotation(train: train)
+                
+                if let annotation = train.annotation {
+                    DispatchQueue.main.async {
+                        var isMoving = true
+                        
+                        @MainActor func performMoveCoordinate() {
+                            guard isMoving else { return }
 
-                        if let nextTerminal = annotation.nextTerminal() {
-                            annotation.moveCoordinate(towards: CLLocationCoordinate2D(latitude: nextTerminal.latitude, longitude: nextTerminal.longitude))
+                            if let nextTerminal = annotation.nextTerminal() {
+                                annotation.moveCoordinate(towards: CLLocationCoordinate2D(latitude: nextTerminal.latitude, longitude: nextTerminal.longitude))
 
-                            let delay: TimeInterval = 0.008333333 // 83.3333 milliseconds (120 times per second)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                                performMoveCoordinate()
+                                let delay: TimeInterval = 0.008333333 // 83.3333 milliseconds (120 times per second)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                                    performMoveCoordinate()
+                                }
                             }
                         }
-                    }
 
-                    performMoveCoordinate()
+                        performMoveCoordinate()
+                    }
                 }
             }
         }
