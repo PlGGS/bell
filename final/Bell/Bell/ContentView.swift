@@ -281,9 +281,6 @@ struct StopView: View {
                     Text("No terminal information available.")
                 }
             } else {
-                Spacer()
-                Spacer()
-                Label("Select a train to be notified when it is approaching the station you selected.", systemImage: "info.circle")
                 List(trdata.trains) { train in
                     TrainButtonRow(train: train)
                         .environmentObject(mapViewModel)
@@ -315,15 +312,20 @@ struct StopView: View {
 struct TrainButtonRow: View {
     var train: Train
     
-    @State private var showAlert = false
     private var lineName: String {
         Line(rawValue: train.lineName!)!.shortName
     }
+    
     @EnvironmentObject var mapViewModel: MapViewModel
     
     var body: some View {
         Button(action: {
-            showAlert = true
+            let trainLatitude = Double(train.latitude ?? "0.0") ?? 0.0
+            let trainLongitude = Double(train.longitude ?? "0.0") ?? 0.0
+            let trainLocation = CLLocationCoordinate2D(latitude: trainLatitude, longitude: trainLongitude)
+            
+            mapViewModel.placeDotAnnotation(trainLocation)
+            mapViewModel.moveMap(to: trainLocation)
         }) {
             HStack {
                 VStack(alignment: .leading) {
@@ -344,13 +346,6 @@ struct TrainButtonRow: View {
         }
         .task {
             mapViewModel.placeTrainAnnotation(train: train)
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("You'll be notified for \(lineName) line run #\(train.runNumber!)"),
-                message: Text("Not really lol I'm lazyyyyyyyyyyyyy"),
-                dismissButton: .default(Text("OK"))
-            )
         }
     }
 }

@@ -94,8 +94,12 @@ class MapViewModel: ObservableObject {
     func recenterMap() {
         if let userLocation = view.userLocation.location {
             let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-            view.region = MKCoordinateRegion(center: center, span: view.region.span)
+            moveMap(to: center)
         }
+    }
+    
+    func moveMap(to: CLLocationCoordinate2D) {
+        view.region = MKCoordinateRegion(center: to, span: view.region.span)
     }
     
     func placeDotAnnotation(_ centerCoordinate: CLLocationCoordinate2D) {
