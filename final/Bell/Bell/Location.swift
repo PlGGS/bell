@@ -54,10 +54,10 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func openSettings() {
-        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
-        
-        if UIApplication.shared.canOpenURL(settingsUrl) {
-            UIApplication.shared.open(settingsUrl)
+        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl)
+            }
         }
     }
 }

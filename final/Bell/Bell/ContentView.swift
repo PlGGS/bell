@@ -16,18 +16,10 @@ extension UIApplication {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-        StopView(stop: Terminal.howardRedPurpleYellowlines)
-    }
-}
-
 struct ContentView: View {
     @State private var sheetHeightOffset: CGFloat = 0
     @State private var isKeyboardVisible: Bool = false
     @StateObject var mapViewModel = MapViewModel()
-    @ObservedObject private var location = Location()
     @State private var isCenterCloseToUserLocation = false
     @State private var userPinLatitude: Double = 0.0
     @State private var userPinLongitude: Double = 0.0
@@ -46,12 +38,12 @@ struct ContentView: View {
                         Alert(
                             title: Text("Location Services Disabled"),
                             message: Text("Please enable Location Services in Settings."),
-                            primaryButton: .default(Text("Settings"), action: location.openSettings),
+                            primaryButton: .default(Text("Settings"), action: mapViewModel.location.openSettings),
                             secondaryButton: .cancel()
                         )
                     })
                 VStack {
-                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location)
+                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
                         .environmentObject(mapViewModel)
                         .transition(.move(edge: .bottom))
                         .animation(.easeInOut)
@@ -82,7 +74,7 @@ struct ContentView: View {
     
     private func locationServicesUnavailable() -> Binding<Bool> {
         Binding<Bool>(
-            get: { location.manager == nil },
+            get: { mapViewModel.location.manager == nil },
             set: { _ in }
         )
     }
@@ -93,7 +85,6 @@ struct CustomSheetView: View {
     var sheetHideHeight: CGFloat
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
-    var location: Location
     
     @EnvironmentObject var mapViewModel: MapViewModel
     
@@ -101,16 +92,8 @@ struct CustomSheetView: View {
         VStack(spacing: 20) {
             HStack {
                 Button(action: {
-                    if let locationManager = location.manager {
-                        if let location = locationManager.location {
-                            print("\(mapViewModel.view.region.center.latitude) \(location.coordinate.latitude)")
-                            print("\(mapViewModel.view.region.center.longitude) \(location.coordinate.longitude)")
-                            print()
-                            
-                            mapViewModel.recenterDotAnnotation(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
-                            mapViewModel.recenterMap()
-                        }
-                    }
+                    mapViewModel.recenterDotAnnotation()
+                    mapViewModel.recenterMap()
                 }) {
                     //TODO figure out why this isn't working
                     if mapViewModel.isCenterCloseToUserLocation {
@@ -153,7 +136,7 @@ struct CustomSheetView: View {
                     .fill(.gray)
                     .frame(width: 50, height: 5)
                     .padding(.top)
-                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location)
+                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
                     .environmentObject(mapViewModel)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -179,7 +162,6 @@ struct NearbyListView: View {
     var initialSheetHeightOffset: CGFloat
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
-    var location: Location
     
     @EnvironmentObject var mapViewModel: MapViewModel
     

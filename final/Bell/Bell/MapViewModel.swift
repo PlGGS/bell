@@ -10,6 +10,7 @@ import MapKit
 
 class MapViewModel: ObservableObject {
     @Published var view = MKMapView()
+    @Published var location: Location = Location()
     @Published var lines: [Line] = Line.allCases
     
     @Published var isCenterCloseToUserLocation: Bool = false
@@ -32,19 +33,24 @@ class MapViewModel: ObservableObject {
     }
     
     func isCenterCloseToUserLocation(_ userLocation: CLLocationCoordinate2D) -> Bool {
-        let tolerance: Double = 0.01
+        let tolerance: Double = 0.0001
 
         let latitudeDifference = abs(view.region.center.latitude - userLocation.latitude)
         let longitudeDifference = abs(view.region.center.longitude - userLocation.longitude)
         
         let out = (latitudeDifference <= tolerance && longitudeDifference <= tolerance)
         
-        isCenterCloseToUserLocation = out
         return out
     }
     
     func updateRegion(_ centerCoordinate: CLLocationCoordinate2D) {
         view.region.center = centerCoordinate
+        
+        if let locationManager = location.manager {
+            if let location = locationManager.location  {
+                isCenterCloseToUserLocation = isCenterCloseToUserLocation(location.coordinate)
+            }
+        }
     }
     
     func recenterMap() {
@@ -80,7 +86,15 @@ class MapViewModel: ObservableObject {
         view.addAnnotation(annotation)
     }
     
-    func recenterDotAnnotation(_ userCoordinate: CLLocationCoordinate2D) {
-        placeDotAnnotation(userCoordinate)
+    func recenterDotAnnotation() {
+        if let locationManager = location.manager {
+            if let location = locationManager.location {
+//                print("\(view.region.center.latitude) \(location.coordinate.longitude)")
+//                print("\(view.region.center.latitude) \(location.coordinate.longitude)")
+//                print()
+                
+                placeDotAnnotation(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+            }
+        }
     }
 }

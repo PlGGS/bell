@@ -23,7 +23,6 @@ class MapCoordinator: NSObject, MKMapViewDelegate, ObservableObject {
                 if let centerCoordinate = mapView.centerCoordinate as Optional {
                     self.parent.mapViewModel.updateRegion(centerCoordinate)
                     self.parent.mapViewModel.placeDotAnnotation(centerCoordinate)
-                    self.parent.mapViewModel.isCenterCloseToUserLocation(centerCoordinate)
                 }
             }
         }
