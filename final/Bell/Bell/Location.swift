@@ -22,7 +22,7 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    private  func checkLocationAuthorization() {
+    private func checkLocationAuthorization() {
         guard let locationManager = manager else { return }
 
         switch locationManager.authorizationStatus {

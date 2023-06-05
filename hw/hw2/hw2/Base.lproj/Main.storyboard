@@ -280,7 +280,7 @@
                                                                             <rect key="frame" x="20" y="0.0" width="290" height="50"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="train.side.rear.car" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1Q1-Ov-Qyf">
-                                                                                    <rect key="frame" x="0.0" y="-3.5527136788005009e-15" width="50" height="50"/>
+                                                                                    <rect key="frame" x="0.0" y="-1.6666666666666696" width="50" height="53.333333333333343"/>
                                                                                 </imageView>
                                                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2aa-Nv-5nW" userLabel="collectionViewTrains">
                                                                                     <rect key="frame" x="50" y="0.0" width="240" height="50"/>
@@ -352,7 +352,7 @@
                                                                             <rect key="frame" x="20" y="50" width="290" height="50"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.right.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="dLT-aj-WkG">
-                                                                                    <rect key="frame" x="0.0" y="16" width="20" height="20"/>
+                                                                                    <rect key="frame" x="0.0" y="15.999999999999998" width="20" height="20"/>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVB-cy-6Ie">
                                                                                     <rect key="frame" x="25" y="0.0" width="265" height="50"/>

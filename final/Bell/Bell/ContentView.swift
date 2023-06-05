@@ -20,22 +20,29 @@ extension UIApplication {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+        StopView(stop: Terminal.howardRedPurpleYellowlines)
     }
 }
 
 struct ContentView: View {
     @State private var sheetHeightOffset: CGFloat = 0
     @State private var isKeyboardVisible: Bool = false
+    private var mapView: MapView = MapView(isCenterCloseToUserLocation: Binding.constant(false))
     @ObservedObject private var location = Location()
+    @State private var isCenterCloseToUserLocation = false
     
     let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.4;
     let sheetGrabOffset: Double = 0.18;
     let sheetHideHeight: Double = UIScreen.main.bounds.height * 0.8;
     
+    init() {
+        mapView.isCenterCloseToUserLocation = isCenterCloseToUserLocation
+    }
+    
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottomLeading) {
-                MapView(region: location.region, lines: Line.allCases)
+                mapView
                     .edgesIgnoringSafeArea(.all)
                     .alert(isPresented: locationServicesUnavailable(), content: {
                         Alert(
@@ -46,7 +53,7 @@ struct ContentView: View {
                         )
                     })
                 VStack {
-                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location)
+                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible, location: location, mapView: mapView, isCenterCloseToUserLocation: $isCenterCloseToUserLocation)
                         .transition(.move(edge: .bottom))
                         .animation(.easeInOut)
                         .offset(y: sheetHeightOffset)
@@ -82,53 +89,37 @@ struct ContentView: View {
     }
 }
 
-struct MapView: UIViewRepresentable {
-    let region: MKCoordinateRegion
-    let lines: [Line]
-    let mapView = MKMapView()
-
-    // Create the MKMapView using UIKit.
-    func makeUIView(context: Context) -> MKMapView {
-        mapView.delegate = context.coordinator
-        mapView.region = region
-        mapView.showsUserLocation = true
-        addTransitLines(lines)
-        return mapView
-    }
-
-    // We don't need to worry about this as the view will never be updated.
-    func updateUIView(_ view: MKMapView, context: Context) {}
-
-    // Link it to the coordinator which is defined below.
-    func makeCoordinator() -> MapCoordinator {
-        MapCoordinator(self)
-    }
-    
-    func addTransitLines(_ lines: [Line]) {
-        for line in lines {
-            var coordinates: [CLLocationCoordinate2D] = []
-            
-            for stop in line.stops {
-                coordinates.append(CLLocationCoordinate2D(latitude: stop.latitude, longitude: stop.longitude))
-            }
-            
-            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
-            polyline.title = line.shortName
-            mapView.addOverlay(polyline)
-        }
-    }
-}
-
 struct CustomSheetView: View {
     var initialSheetHeightOffset: CGFloat
     var sheetHideHeight: CGFloat
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
-    var location = Location()
+    var location: Location
+    var mapView: MapView
+    @Binding var isCenterCloseToUserLocation: Bool
     
     var body: some View {
         VStack(spacing: 20) {
             HStack {
+                Button(action: {
+                    if let locationManager = location.manager {
+                        if let location = locationManager.location {
+                            mapView.recenterDotAnnotation(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+                            mapView.recenterMap()
+                        }
+                    }
+                }) {
+                    //TODO figure out why this isn't working
+                    if isCenterCloseToUserLocation {
+                        UpAndSettingsButtonView(systemImageName: "location.fill")
+                    }
+                    else {
+                        UpAndSettingsButtonView(systemImageName: "location")
+                    }
+                }
+                .background(Color.blue)
+                .clipShape(Circle())
+                .padding(20)
                 Spacer()
                 Button(action: {
                     if sheetHeightOffset < sheetHideHeight {
@@ -184,7 +175,7 @@ struct NearbyListView: View {
     var initialSheetHeightOffset: CGFloat
     @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
-    var location = Location()
+    var location: Location
     
     //TODO maybe add a toggle for only showing accessible stops in a settings menu
 //    @State private var showIsADACompliant = true
@@ -198,58 +189,61 @@ struct NearbyListView: View {
     }
     
     var body: some View {
-        VStack {
-            //TODO navigate to searchview with animation when tapped like the Transit app
-            TextField("Line or destination", text: $searchText)
-                .onTapGesture {
-                    isKeyboardVisible = true
-                    sheetHeightOffset = 0
-                }
-                .padding(8)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding(.horizontal, 20)
-                .background(Color.clear)
-            
-            ScrollViewReader { scrollViewProxy in
-                //TODO change 'Terminal.allCases.indices' to stops within a certain radius of the user's location
-                List(userRadialRegion.getTerminals(), id: \.self) { stop in
-                    if  searchText.isEmpty ||
-                        stop.fullName.localizedCaseInsensitiveContains(searchText) ||
-                        stop.lines.contains(where: { lineName in
-                            return lineName.localizedCaseInsensitiveContains(searchText)
-                        }) {
-                        //TODO add this navigation link back in with new stopview
-    //                    NavigationLink(destination: StopView(stop: stop)) {
-                        HStack {
-                            Text(stop.fullName)
-                                .listRowBackground(Color.clear)
-                            if stop.isADACompliant {
-                                Image(systemName: "figure.roll")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 24, height: 24)
-                                    .background(Color.clear)
+        NavigationView {
+            VStack {
+                //TODO navigate to searchview with animation when tapped like the Transit app
+                TextField("Line or destination", text: $searchText)
+                    .onTapGesture {
+                        isKeyboardVisible = true
+                        sheetHeightOffset = 0
+                    }
+                    .padding(8)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                    .padding(.horizontal, 20)
+                    .background(Color.clear)
+                
+                ScrollViewReader { scrollViewProxy in
+                    //TODO change 'Terminal.allCases.indices' to stops within a certain radius of the user's location
+                    List(userRadialRegion.getTerminals(), id: \.self) { stop in
+                        if  searchText.isEmpty ||
+                                stop.fullName.localizedCaseInsensitiveContains(searchText) ||
+                                stop.lines.contains(where: { lineName in
+                                    return lineName.localizedCaseInsensitiveContains(searchText)
+                                }) {
+                            //TODO add this navigation link back in with new stopview
+                            NavigationLink(destination: StopView(stop: stop)) {
+                                HStack {
+                                    Text(stop.fullName)
+                                        .listRowBackground(Color.clear)
+                                    if stop.isADACompliant {
+                                        Image(systemName: "figure.roll")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 24, height: 24)
+                                            .background(Color.clear)
+                                    }
+                                    Spacer()
+                                }
                             }
-                            Spacer()
                         }
                     }
+                    .overlay(
+                        GeometryReader { geometry in
+                            Color.clear
+                                .onChange(of: scrollOffset) { _ in
+                                    scrollViewProxy.scrollTo(scrollOffset, anchor: .top)
+                                }
+                        }
+                    )
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                scrollOffset -= value.translation.height
+                                UIApplication.shared.endEditing()
+                            }
+                    )
                 }
-                .overlay(
-                    GeometryReader { geometry in
-                        Color.clear
-                        .onChange(of: scrollOffset) { _ in
-                            scrollViewProxy.scrollTo(scrollOffset, anchor: .top)
-                        }
-                    }
-                )
-                .gesture(
-                    DragGesture()
-                        .onChanged { value in
-                            scrollOffset -= value.translation.height
-                            UIApplication.shared.endEditing()
-                        }
-                )
             }
         }
     }
@@ -265,6 +259,100 @@ struct StopRow: View {
                 Text(String(stop.id)).font(.subheadline).foregroundColor(.secondary)
             }
             Spacer()
+        }
+    }
+}
+
+struct StopView: View {
+    var stop: Terminal
+    
+    @StateObject private var trdata: TerminalRequestData = TerminalRequestData()
+    @State private var terminalInfoString: String = "";
+    
+    var body: some View {
+        VStack {
+            if trdata.trains.isEmpty {
+                if terminalInfoString != "" {
+                    Text(terminalInfoString)
+                }
+                else {
+                    Text("No terminal information available.")
+                }
+            } else {
+                Spacer()
+                Spacer()
+                Label("Select a train to be notified when it is approaching the station you selected.", systemImage: "info.circle")
+                List(trdata.trains) { train in
+                    TrainButtonRow(train: train)
+                }
+            }
+        }
+        .navigationTitle(stop.shortName)
+        .task {
+            let infoString = await trdata.getTerminalInfo(terminalID: stop.id)
+            self.terminalInfoString = infoString ?? ""
+        }
+    }
+}
+
+struct TrainButtonRow: View {
+    var train: Train
+    
+    @State private var showAlert = false
+    private var lineName: String {
+        Line(rawValue: train.lineName!)!.shortName
+    }
+    
+    var body: some View {
+        Button(action: {
+            showAlert = true
+        }) {
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Image(systemName: "train.side.rear.car")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(Color(lineName))
+                        Text("\(lineName) line run #\(train.runNumber!)").font(.title2).foregroundColor(Color.primary)
+                    }
+                    Text("\(train.getDirection())").font(.caption).foregroundColor(.secondary)
+                }
+                Spacer()
+                TrainArrivalTime(train: train)
+                    .alignmentGuide(HorizontalAlignment.trailing) { _ in 20 }
+            }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("You'll be notified for \(lineName) line run #\(train.runNumber!)"),
+                message: Text("Not really lol I'm lazyyyyyyyyyyyyy"),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+    }
+}
+
+struct TrainArrivalTime: View {
+    var train: Train
+    
+    private var lineName: String {
+        Line(rawValue: train.lineName!)!.shortName
+    }
+    private var timeTillArrival: String {
+        train.getTimeTillArrival()
+    }
+    
+    var body: some View {
+        VStack(alignment: .center) {
+            if timeTillArrival != "Due" {
+                Text(timeTillArrival).font(.title).foregroundColor(Color.primary)
+                Text("minutes").font(.subheadline).foregroundColor(.secondary)
+            }
+            else {
+                Text(timeTillArrival).font(.title).foregroundColor(Color.primary)
+            }
         }
     }
 }

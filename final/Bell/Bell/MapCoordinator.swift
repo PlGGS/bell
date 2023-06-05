@@ -8,11 +8,25 @@
 import SwiftUI
 import MapKit
 
-class MapCoordinator: NSObject, MKMapViewDelegate {
-    var parent: any UIViewRepresentable
+class MapCoordinator: NSObject, MKMapViewDelegate, ObservableObject {
+    var parent: MapView
+    
+    private var regionUpdateQueue = DispatchQueue(label: "com.blakeboris.Bell.regionUpdateQueue")
 
-    init(_ parent: any UIViewRepresentable) {
+    init(_ parent: MapView) {
         self.parent = parent
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        regionUpdateQueue.async {
+            DispatchQueue.main.async {
+                if let centerCoordinate = mapView.centerCoordinate as Optional {
+                    self.parent.updateRegion(centerCoordinate)
+                    self.parent.placeDotAnnotation(centerCoordinate)
+                    self.parent.isCenterCloseToUserLocation(centerCoordinate)
+                }
+            }
+        }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -23,6 +37,6 @@ class MapCoordinator: NSObject, MKMapViewDelegate {
             return renderer
         }
         
-        return MKOverlayRenderer()
+        return MKOverlayRenderer(overlay: overlay)
     }
 }
