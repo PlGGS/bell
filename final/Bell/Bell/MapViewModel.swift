@@ -117,7 +117,10 @@ class MapViewModel: ObservableObject {
         let longitude = Double(train.longitude ?? "0.0")!
         
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        return TrainAnnotation(coordinate: coordinate, lineName: Line(rawValue: train.lineName!)!.shortName, runNumber: train.runNumber ?? "???")
+        return TrainAnnotation(coordinate: coordinate,
+                               lineName: Line(rawValue: train.lineName!)!.shortName,
+                               runNumber: train.runNumber ?? "???",
+                               nextParentTerminalID: train.nextParentTerminalID ?? "?????")
     }
     
     func removeTrainAnnotations() {

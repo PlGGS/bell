@@ -5,150 +5,154 @@
 //  Created by Blake Boris on 4/26/23.
 //
 
-enum Terminal: CaseIterable, Identifiable {
-    case ciceroPinkLine
-    case centralParkPinkLine
-    case halstedGreenLine
-    case cumberlandBlueLine
-    case racineBlueLine
-    case paulinaBrownLine
-    case eighteenthPinkLine
-    case clarkLakeBlueBrownGreenOrangePurplePinklines
-    case jeffersonParkBlueLine
-    case diverseyBrownPurplelines
-    case montroseBrownLine
-    case uICHalstedBlueLine
-    case thirtyFifthBronzevilleIITGreenLine
-    case fosterPurpleLine
-    case quincyWellsBrownOrangePurplePinklines
-    case southportBrownLine
-    case loyolaRedLine
-    case fortySeventhRedLine
-    case brynMawrRedLine
-    case harlemBlueLineForestParkBranch
-    case howardRedPurpleYellowlines
-    case kedzieGreenLine
-    case kingDriveGreenLine
-    case ashlandsixtyThirdGreenLine
-    case ninetyFifthDanRyanRedLine
-    case westernBlueLineOHareBranch
-    case armitageBrownPurplelines
-    case rooseveltRedOrangeGreenlines
-    case belmontRedBrownPurplelines
-    case fiftyFourthCermakPinkLine
-    case dempsterPurpleLine
-    case fullertonRedBrownPurplelines
-    case lawrenceRedLine
-    case illinoisMedicalDistrictBlueLine
-    case lakeRedLine
-    case seventyNinthRedLine
-    case austinGreenLine
-    case clintonBlueLine
-    case wellingtonBrownPurplelines
-    case oakParkGreenLine
-    case chicagoRedLine
-    case sedgwickBrownPurplelines
-    case addisonBlueLine
-    case jacksonBlueLine
-    case kedziePinkLine
-    case monroeBlueLine
-    case rockwellBrownLine
-    case damenPinkLine
-    case pulaskiBlueLine
-    case harlemLakeGreenLine
-    case washingtonWabashBrownGreenOrangePurplePinklines
-    case californiaGreenLine
-    case morseRedLine
-    case westernOrangeLine
-    case grandBlueLine
-    case divisionBlueLine
-    case pulaskiOrangeLine
-    case sheridanRedLine
-    case chicagoBlueLine
-    case merchandiseMartBrownPurplelines
-    case oHareBlueLine
-    case fortyThirdGreenLine
-    case soxthirtyFifthRedLine
-    case loganSquareBlueLine
-    case damenBlueLine
-    case ashlandGreenPinklines
-    case irvingParkBlueLine
-    case wilsonRedPurplelines
-    case cermakChinatownRedLine
-    case laSalleBlueLine
-    case thorndaleRedLine
-    case granvilleRedLine
-    case addisonRedLine
-    case centralGreenLine
-    case conservatoryGreenLine
-    case noyesPurpleLine
-    case fortySeventhGreenLine
-    case jarvisRedLine
-    case halstedOrangeLine
-    case davisPurpleLine
-    case chicagoBrownPurplelines
-    case monroeRedLine
-    case kedzieBrownLine
-    case fiftyFirstGreenLine
-    case garfieldGreenLine
-    case ashlandOrangeLine
-    case grandRedLine
-    case cermakMcCormickPlaceGreenLine
-    case polkPinkLine
-    case damenBrownLine
-    case pulaskiPinkLine
-    case thirtyFifthArcherOrangeLine
-    case southBoulevardPurpleLine
-    case mainPurpleLine
-    case jacksonRedLine
-    case argyleRedLine
-    case haroldWashingtonLibraryStateVanBurenBrownOrangePurplePinklines
-    case austinBlueLine
-    case washingtonBlueLine
-    case kedzieHomanBlueLine
-    case sixtyThirdRedLine
-    case kedzieOrangeLine
-    case laramieGreenLine
-    case eightySeventhRedLine
-    case westernBlueLineForestParkBranch
-    case westernBrownLine
-    case californiaBlueLine
-    case forestParkBlueLine
-    case rosemontBlueLine
-    case adamsWabashBrownGreenOrangePinkPurplelines
-    case berwynRedLine
-    case harlemBlueLineOHareBranch
-    case belmontBlueLine
-    case clarkDivisionRedLine
-    case indianaGreenLine
-    case kostnerPinkLine
-    case dempsterSkokieYellowLine
-    case morganGreenPinklines
-    case ciceroBlueLine
-    case oaktonSkokieYellowLine
-    case cottageGroveGreenLine
-    case midwayOrangeLine
-    case centralPurpleLine
-    case pulaskiGreenLine
-    case ridgelandGreenLine
-    case lindenPurpleLine
-    case garfieldRedLine
-    case northClybournRedLine
-    case oakParkBlueLine
-    case irvingParkBrownLine
-    case franciscoBrownLine
-    case laSalleVanBurenBrownOrangePurplePinklines
-    case californiaPinkLine
-    case westernPinkLine
-    case sixtyNinthRedLine
-    case washingtonWellsBrownOrangePurplePinklines
-    case harrisonRedLine
-    case clintonGreenPinklines
-    case kimballBrownLine
-    case addisonBrownLine
-    case stateLakeBrownGreenOrangePinkPurplelines
-    case ciceroGreenLine
-    case montroseBlueLine
+enum Terminal: Int, CaseIterable, Identifiable {
+    var id: Self {
+        self
+    }
+    
+    case ciceroPinkLine = 40420
+    case centralParkPinkLine = 40780
+    case halstedGreenLine = 40940
+    case cumberlandBlueLine = 40230
+    case racineBlueLine = 40470
+    case paulinaBrownLine = 41310
+    case eighteenthPinkLine = 40830
+    case clarkLakeBlueBrownGreenOrangePurplePinklines = 40380
+    case jeffersonParkBlueLine = 41280
+    case diverseyBrownPurplelines = 40530
+    case montroseBrownLine = 41500
+    case uICHalstedBlueLine = 40350
+    case thirtyFifthBronzevilleIITGreenLine = 41120
+    case fosterPurpleLine = 40520
+    case quincyWellsBrownOrangePurplePinklines = 40040
+    case southportBrownLine = 40360
+    case loyolaRedLine = 41300
+    case fortySeventhRedLine = 41230
+    case brynMawrRedLine = 41380
+    case harlemBlueLineForestParkBranch = 40980
+    case howardRedPurpleYellowlines = 40900
+    case kedzieGreenLine = 41070
+    case kingDriveGreenLine = 41140
+    case ashlandsixtyThirdGreenLine = 40290
+    case ninetyFifthDanRyanRedLine = 40450
+    case westernBlueLineOHareBranch = 40670
+    case armitageBrownPurplelines = 40660
+    case rooseveltRedOrangeGreenlines = 41400
+    case belmontRedBrownPurplelines = 41320
+    case fiftyFourthCermakPinkLine = 40580
+    case dempsterPurpleLine = 40690
+    case fullertonRedBrownPurplelines = 41220
+    case lawrenceRedLine = 40770
+    case illinoisMedicalDistrictBlueLine = 40810
+    case lakeRedLine = 41660
+    case seventyNinthRedLine = 40240
+    case austinGreenLine = 41260
+    case clintonBlueLine = 40430
+    case wellingtonBrownPurplelines = 41210
+    case oakParkGreenLine = 41350
+    case chicagoRedLine = 41450
+    case sedgwickBrownPurplelines = 40800
+    case addisonBlueLine = 41240
+    case jacksonBlueLine = 40070
+    case kedziePinkLine = 41040
+    case monroeBlueLine = 40790
+    case rockwellBrownLine = 41010
+    case damenPinkLine = 40210
+    case pulaskiBlueLine = 40920
+    case harlemLakeGreenLine = 40020
+    case washingtonWabashBrownGreenOrangePurplePinklines = 41700
+    case californiaGreenLine = 41360
+    case morseRedLine = 40100
+    case westernOrangeLine = 40310
+    case grandBlueLine = 40490
+    case divisionBlueLine = 40320
+    case pulaskiOrangeLine = 40960
+    case sheridanRedLine = 40080
+    case chicagoBlueLine = 41410
+    case merchandiseMartBrownPurplelines = 40460
+    case oHareBlueLine = 40890
+    case fortyThirdGreenLine = 41270
+    case soxthirtyFifthRedLine = 40190
+    case loganSquareBlueLine = 41020
+    case damenBlueLine = 40590
+    case ashlandGreenPinklines = 40170
+    case irvingParkBlueLine = 40550
+    case wilsonRedPurplelines = 40540
+    case cermakChinatownRedLine = 41000
+    case laSalleBlueLine = 41340
+    case thorndaleRedLine = 40880
+    case granvilleRedLine = 40760
+    case addisonRedLine = 41420
+    case centralGreenLine = 40280
+    case conservatoryGreenLine = 41670
+    case noyesPurpleLine = 40400
+    case fortySeventhGreenLine = 41080
+    case jarvisRedLine = 41190
+    case halstedOrangeLine = 41130
+    case davisPurpleLine = 40050
+    case chicagoBrownPurplelines = 40710
+    case monroeRedLine = 41090
+    case kedzieBrownLine = 41180
+    case fiftyFirstGreenLine = 40130
+    case garfieldGreenLine = 40510
+    case ashlandOrangeLine = 41060
+    case grandRedLine = 40330
+    case cermakMcCormickPlaceGreenLine = 41690
+    case polkPinkLine = 41030
+    case damenBrownLine = 40090
+    case pulaskiPinkLine = 40150
+    case thirtyFifthArcherOrangeLine = 40120
+    case southBoulevardPurpleLine = 40840
+    case mainPurpleLine = 40270
+    case jacksonRedLine = 40560
+    case argyleRedLine = 41200
+    case haroldWashingtonLibraryStateVanBurenBrownOrangePurplePinklines = 40850
+    case austinBlueLine = 40010
+    case washingtonBlueLine = 40370
+    case kedzieHomanBlueLine = 40250
+    case sixtyThirdRedLine = 40910
+    case kedzieOrangeLine = 41150
+    case laramieGreenLine = 40700
+    case eightySeventhRedLine = 41430
+    case westernBlueLineForestParkBranch = 40220
+    case westernBrownLine = 41480
+    case californiaBlueLine = 40570
+    case forestParkBlueLine = 40390
+    case rosemontBlueLine = 40820
+    case adamsWabashBrownGreenOrangePinkPurplelines = 40680
+    case berwynRedLine = 40340
+    case harlemBlueLineOHareBranch = 40750
+    case belmontBlueLine = 40060
+    case clarkDivisionRedLine = 40630
+    case indianaGreenLine = 40300
+    case kostnerPinkLine = 40600
+    case dempsterSkokieYellowLine = 40140
+    case morganGreenPinklines = 41510
+    case ciceroBlueLine = 40970
+    case oaktonSkokieYellowLine = 41680
+    case cottageGroveGreenLine = 40720
+    case midwayOrangeLine = 40930
+    case centralPurpleLine = 41250
+    case pulaskiGreenLine = 40030
+    case ridgelandGreenLine = 40610
+    case lindenPurpleLine = 41050
+    case garfieldRedLine = 41170
+    case northClybournRedLine = 40650
+    case oakParkBlueLine = 40180
+    case irvingParkBrownLine = 41460
+    case franciscoBrownLine = 40870
+    case laSalleVanBurenBrownOrangePurplePinklines = 40160
+    case californiaPinkLine = 40440
+    case westernPinkLine = 40740
+    case sixtyNinthRedLine = 40990
+    case washingtonWellsBrownOrangePurplePinklines = 40730
+    case harrisonRedLine = 41490
+    case clintonGreenPinklines = 41160
+    case kimballBrownLine = 41290
+    case addisonBrownLine = 41440
+    case stateLakeBrownGreenOrangePinkPurplelines = 40260
+    case ciceroGreenLine = 40480
+    case montroseBlueLine = 41330
     
     var isADACompliant: Bool {
         switch self {
@@ -739,154 +743,6 @@ enum Terminal: CaseIterable, Identifiable {
             case .stateLakeBrownGreenOrangePinkPurplelines: return "State/Lake (Brown, Green, Orange, Pink & Purple lines)"
             case .ciceroGreenLine: return "Cicero (Green Line)"
             case .montroseBlueLine: return "Montrose (Blue Line)"
-        }
-    }
-    
-    var id: Int {
-        switch self {
-            case .ciceroPinkLine: return 40420
-            case .centralParkPinkLine: return 40780
-            case .halstedGreenLine: return 40940
-            case .cumberlandBlueLine: return 40230
-            case .racineBlueLine: return 40470
-            case .paulinaBrownLine: return 41310
-            case .eighteenthPinkLine: return 40830
-            case .clarkLakeBlueBrownGreenOrangePurplePinklines: return 40380
-            case .jeffersonParkBlueLine: return 41280
-            case .diverseyBrownPurplelines: return 40530
-            case .montroseBrownLine: return 41500
-            case .uICHalstedBlueLine: return 40350
-            case .thirtyFifthBronzevilleIITGreenLine: return 41120
-            case .fosterPurpleLine: return 40520
-            case .quincyWellsBrownOrangePurplePinklines: return 40040
-            case .southportBrownLine: return 40360
-            case .loyolaRedLine: return 41300
-            case .fortySeventhRedLine: return 41230
-            case .brynMawrRedLine: return 41380
-            case .harlemBlueLineForestParkBranch: return 40980
-            case .howardRedPurpleYellowlines: return 40900
-            case .kedzieGreenLine: return 41070
-            case .kingDriveGreenLine: return 41140
-            case .ashlandsixtyThirdGreenLine: return 40290
-            case .ninetyFifthDanRyanRedLine: return 40450
-            case .westernBlueLineOHareBranch: return 40670
-            case .armitageBrownPurplelines: return 40660
-            case .rooseveltRedOrangeGreenlines: return 41400
-            case .belmontRedBrownPurplelines: return 41320
-            case .fiftyFourthCermakPinkLine: return 40580
-            case .dempsterPurpleLine: return 40690
-            case .fullertonRedBrownPurplelines: return 41220
-            case .lawrenceRedLine: return 40770
-            case .illinoisMedicalDistrictBlueLine: return 40810
-            case .lakeRedLine: return 41660
-            case .seventyNinthRedLine: return 40240
-            case .austinGreenLine: return 41260
-            case .clintonBlueLine: return 40430
-            case .wellingtonBrownPurplelines: return 41210
-            case .oakParkGreenLine: return 41350
-            case .chicagoRedLine: return 41450
-            case .sedgwickBrownPurplelines: return 40800
-            case .addisonBlueLine: return 41240
-            case .jacksonBlueLine: return 40070
-            case .kedziePinkLine: return 41040
-            case .monroeBlueLine: return 40790
-            case .rockwellBrownLine: return 41010
-            case .damenPinkLine: return 40210
-            case .pulaskiBlueLine: return 40920
-            case .harlemLakeGreenLine: return 40020
-            case .washingtonWabashBrownGreenOrangePurplePinklines: return 41700
-            case .californiaGreenLine: return 41360
-            case .morseRedLine: return 40100
-            case .westernOrangeLine: return 40310
-            case .grandBlueLine: return 40490
-            case .divisionBlueLine: return 40320
-            case .pulaskiOrangeLine: return 40960
-            case .sheridanRedLine: return 40080
-            case .chicagoBlueLine: return 41410
-            case .merchandiseMartBrownPurplelines: return 40460
-            case .oHareBlueLine: return 40890
-            case .fortyThirdGreenLine: return 41270
-            case .soxthirtyFifthRedLine: return 40190
-            case .loganSquareBlueLine: return 41020
-            case .damenBlueLine: return 40590
-            case .ashlandGreenPinklines: return 40170
-            case .irvingParkBlueLine: return 40550
-            case .wilsonRedPurplelines: return 40540
-            case .cermakChinatownRedLine: return 41000
-            case .laSalleBlueLine: return 41340
-            case .thorndaleRedLine: return 40880
-            case .granvilleRedLine: return 40760
-            case .addisonRedLine: return 41420
-            case .centralGreenLine: return 40280
-            case .conservatoryGreenLine: return 41670
-            case .noyesPurpleLine: return 40400
-            case .fortySeventhGreenLine: return 41080
-            case .jarvisRedLine: return 41190
-            case .halstedOrangeLine: return 41130
-            case .davisPurpleLine: return 40050
-            case .chicagoBrownPurplelines: return 40710
-            case .monroeRedLine: return 41090
-            case .kedzieBrownLine: return 41180
-            case .fiftyFirstGreenLine: return 40130
-            case .garfieldGreenLine: return 40510
-            case .ashlandOrangeLine: return 41060
-            case .grandRedLine: return 40330
-            case .cermakMcCormickPlaceGreenLine: return 41690
-            case .polkPinkLine: return 41030
-            case .damenBrownLine: return 40090
-            case .pulaskiPinkLine: return 40150
-            case .thirtyFifthArcherOrangeLine: return 40120
-            case .southBoulevardPurpleLine: return 40840
-            case .mainPurpleLine: return 40270
-            case .jacksonRedLine: return 40560
-            case .argyleRedLine: return 41200
-            case .haroldWashingtonLibraryStateVanBurenBrownOrangePurplePinklines: return 40850
-            case .austinBlueLine: return 40010
-            case .washingtonBlueLine: return 40370
-            case .kedzieHomanBlueLine: return 40250
-            case .sixtyThirdRedLine: return 40910
-            case .kedzieOrangeLine: return 41150
-            case .laramieGreenLine: return 40700
-            case .eightySeventhRedLine: return 41430
-            case .westernBlueLineForestParkBranch: return 40220
-            case .westernBrownLine: return 41480
-            case .californiaBlueLine: return 40570
-            case .forestParkBlueLine: return 40390
-            case .rosemontBlueLine: return 40820
-            case .adamsWabashBrownGreenOrangePinkPurplelines: return 40680
-            case .berwynRedLine: return 40340
-            case .harlemBlueLineOHareBranch: return 40750
-            case .belmontBlueLine: return 40060
-            case .clarkDivisionRedLine: return 40630
-            case .indianaGreenLine: return 40300
-            case .kostnerPinkLine: return 40600
-            case .dempsterSkokieYellowLine: return 40140
-            case .morganGreenPinklines: return 41510
-            case .ciceroBlueLine: return 40970
-            case .oaktonSkokieYellowLine: return 41680
-            case .cottageGroveGreenLine: return 40720
-            case .midwayOrangeLine: return 40930
-            case .centralPurpleLine: return 41250
-            case .pulaskiGreenLine: return 40030
-            case .ridgelandGreenLine: return 40610
-            case .lindenPurpleLine: return 41050
-            case .garfieldRedLine: return 41170
-            case .northClybournRedLine: return 40650
-            case .oakParkBlueLine: return 40180
-            case .irvingParkBrownLine: return 41460
-            case .franciscoBrownLine: return 40870
-            case .laSalleVanBurenBrownOrangePurplePinklines: return 40160
-            case .californiaPinkLine: return 40440
-            case .westernPinkLine: return 40740
-            case .sixtyNinthRedLine: return 40990
-            case .washingtonWellsBrownOrangePurplePinklines: return 40730
-            case .harrisonRedLine: return 41490
-            case .clintonGreenPinklines: return 41160
-            case .kimballBrownLine: return 41290
-            case .addisonBrownLine: return 41440
-            case .stateLakeBrownGreenOrangePinkPurplelines: return 40260
-            case .ciceroGreenLine: return 40480
-            case .montroseBlueLine: return 41330
         }
     }
     

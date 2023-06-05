@@ -306,7 +306,7 @@ struct StopView: View {
         }
         .navigationTitle(stop.shortName)
         .task {
-            let infoString = await trdata.getTerminalInfo(terminalID: stop.id)
+            let infoString = await trdata.getTerminalInfo(terminalID: stop.rawValue)
             self.terminalInfoString = infoString ?? ""
         }
     }
@@ -349,6 +349,27 @@ struct TrainButtonRow: View {
         }
         .task {
             mapViewModel.placeTrainAnnotation(train: train)
+            
+            if let annotation = train.annotation {
+                DispatchQueue.main.async {
+                    var isRunning = true
+                    
+                    func performMoveCoordinate() {
+                        guard isRunning else { return }
+
+                        if let nextTerminal = annotation.nextTerminal() {
+                            annotation.moveCoordinate(towards: CLLocationCoordinate2D(latitude: nextTerminal.latitude, longitude: nextTerminal.longitude))
+
+                            let delay: TimeInterval = 0.008333333 // 83.3333 milliseconds (120 times per second)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                                performMoveCoordinate()
+                            }
+                        }
+                    }
+
+                    performMoveCoordinate()
+                }
+            }
         }
     }
 }
