@@ -16,7 +16,7 @@ class MapViewModel: ObservableObject {
     @Published var isCenterCloseToUserLocation: Bool = false
     
     @Published var userPinAnnotation: MKAnnotation = MKPointAnnotation()
-    @Published var trainAnnotations: [MKAnnotation] = []
+    @Published var trainAnnotations: [TrainAnnotation] = []
     
     @Published var isSelectingTerminal: Bool = true
     @Published var selectedTerminal: Terminal? = nil
@@ -99,6 +99,8 @@ class MapViewModel: ObservableObject {
         for annotation in trainAnnotations {
             view.removeAnnotation(annotation)
         }
+        
+        trainAnnotations = []
     }
     
     func placeTrainAnnotation(train: Train) {
@@ -108,6 +110,7 @@ class MapViewModel: ObservableObject {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let annotation = TrainAnnotation(coordinate: coordinate, lineName: Line(rawValue: train.lineName!)!.shortName, runNumber: train.runNumber ?? "???")
         
+        trainAnnotations.append(annotation)
         view.addAnnotation(annotation)
     }
     

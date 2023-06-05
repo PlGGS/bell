@@ -275,6 +275,8 @@ struct StopView: View {
             mapViewModel.selectedTerminal = stop
         }
         .onDisappear {
+            mapViewModel.removeTrainAnnotations()
+            
             mapViewModel.isSelectingTerminal = true
 //            mapViewModel.selectedTerminal = nil
             
@@ -285,9 +287,6 @@ struct StopView: View {
         .task {
             let infoString = await trdata.getTerminalInfo(terminalID: stop.id)
             self.terminalInfoString = infoString ?? ""
-            
-            //Remove any old train annotations if they're still on the map
-            mapViewModel.removeTrainAnnotations()
         }
     }
 }
