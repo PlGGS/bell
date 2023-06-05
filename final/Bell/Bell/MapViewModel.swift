@@ -21,6 +21,8 @@ class MapViewModel: ObservableObject {
     @Published var selectedTerminal: Terminal? = nil
     @Published var userPinLocationWhenTerminalSelected: CLLocationCoordinate2D = CLLocationCoordinate2D()
     
+    @Published var onlyShowAccessibleStops: Bool = false
+    
     var lineOverlays: [MKPolyline] = []
 
     func removeTransitLines() {

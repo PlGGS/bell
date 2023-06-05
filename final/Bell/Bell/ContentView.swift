@@ -88,6 +88,8 @@ struct CustomSheetView: View {
     
     @EnvironmentObject var mapViewModel: MapViewModel
     
+    @State private var presentSettingsView = false
+    
     var body: some View {
         VStack(spacing: 20) {
             HStack {
@@ -95,7 +97,6 @@ struct CustomSheetView: View {
                     mapViewModel.recenterDotAnnotation()
                     mapViewModel.recenterMap()
                 }) {
-                    //TODO figure out why this isn't working
                     if mapViewModel.isCenterCloseToUserLocation {
                         UpAndSettingsButtonView(systemImageName: "location.fill")
                     }
@@ -110,7 +111,7 @@ struct CustomSheetView: View {
                 Button(action: {
                     if sheetHeightOffset < sheetHideHeight {
                         //if the sheet isn't being hidden, we navigate to the settings page
-                        //TODO navigate to settings page
+                        presentSettingsView.toggle()
                     }
                     else {
                         //otherwise, we simply move the sheet back up
@@ -125,6 +126,10 @@ struct CustomSheetView: View {
                         //otherwise, we show an up arrow
                         UpAndSettingsButtonView(systemImageName: "arrow.up.circle")
                     }
+                }
+                .popover(isPresented: $presentSettingsView, arrowEdge: .top) {
+                    SettingsView()
+                        .environmentObject(mapViewModel)
                 }
                 .background(Color.blue)
                 .clipShape(Circle())
@@ -142,6 +147,21 @@ struct CustomSheetView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(UIColor.systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 15))
+        }
+    }
+}
+
+struct SettingsView: View {
+    @EnvironmentObject var mapViewModel: MapViewModel
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                Toggle("Only show accessible stops", isOn: $mapViewModel.onlyShowAccessibleStops)
+                    .padding(20)
+                Spacer()
+            }
+            .navigationBarTitle("Settings")
         }
     }
 }
@@ -165,8 +185,6 @@ struct NearbyListView: View {
     
     @EnvironmentObject var mapViewModel: MapViewModel
     
-    //TODO maybe add a toggle for only showing accessible stops in a settings menu
-//    @State private var showIsADACompliant = true
     @State private var firstStopIndex: Double = 0.0
     @State private var searchText = ""
     @State private var scrollOffset: CGFloat = 0.0
@@ -187,7 +205,6 @@ struct NearbyListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                //TODO navigate to searchview with animation when tapped like the Transit app
                 TextField("Line or destination", text: $searchText)
                     .onTapGesture {
                         isKeyboardVisible = true
@@ -201,23 +218,26 @@ struct NearbyListView: View {
                 
                 ScrollViewReader { scrollViewProxy in
                     List(userRadialRegion.getTerminals(), id: \.self) { stop in
-                        if  searchText.isEmpty ||
+                        if searchText.isEmpty ||
                                 stop.fullName.localizedCaseInsensitiveContains(searchText) ||
                                 stop.lines.contains(where: { line in
                                     return line.shortName.localizedCaseInsensitiveContains(searchText)
                                 }) {
-                            NavigationLink(destination: StopView(stop: stop).environmentObject(mapViewModel)) {
-                                HStack {
-                                    Text(stop.fullName)
-                                        .listRowBackground(Color.clear)
-                                    if stop.isADACompliant {
-                                        Image(systemName: "figure.roll")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 24, height: 24)
-                                            .background(Color.clear)
+                            if mapViewModel.onlyShowAccessibleStops && stop.isADACompliant ||
+                                    mapViewModel.onlyShowAccessibleStops == false {
+                                NavigationLink(destination: StopView(stop: stop).environmentObject(mapViewModel)) {
+                                    HStack {
+                                        Text(stop.fullName)
+                                            .listRowBackground(Color.clear)
+                                        if stop.isADACompliant {
+                                            Image(systemName: "figure.roll")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 24, height: 24)
+                                                .background(Color.clear)
+                                        }
+                                        Spacer()
                                     }
-                                    Spacer()
                                 }
                             }
                         }
