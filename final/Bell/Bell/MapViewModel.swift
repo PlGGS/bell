@@ -17,6 +17,10 @@ class MapViewModel: ObservableObject {
     
     @Published var userPinAnnotation: MKAnnotation = MKPointAnnotation()
     @Published var trainAnnotations: [MKAnnotation] = []
+    
+    @Published var isSelectingTerminal: Bool = true
+    @Published var selectedTerminal: Terminal? = nil
+    @Published var userPinLocationWhenTerminalSelected: CLLocationCoordinate2D = CLLocationCoordinate2D()
 
     func addTransitLines(_ lines: [Line]) {
         for line in lines {
@@ -44,11 +48,32 @@ class MapViewModel: ObservableObject {
     }
     
     func updateRegion(_ centerCoordinate: CLLocationCoordinate2D) {
+//        print("selectedTerminal: \(selectedTerminal)")
+//        print("isSelectingTerminal \(isSelectingTerminal)")
+//        print("nearby terminals: \(RadialRegion(latitude: view.region.center.latitude, longitude: view.region.center.longitude, radiusInMiles: 0.25).getTerminals())")
+//        print()
+        
         view.region.center = centerCoordinate
+//        print("center: \(view.region.center)")
+        
+        updatePrevUserPinLocation()
         
         if let locationManager = location.manager {
             if let location = locationManager.location  {
                 isCenterCloseToUserLocation = isCenterCloseToUserLocation(location.coordinate)
+            }
+        }
+    }
+    
+    func updatePrevUserPinLocation() {
+        if selectedTerminal == nil {
+            userPinLocationWhenTerminalSelected = view.region.center
+        }
+        else {
+            //user has backed out of a selected terminal
+            if isSelectingTerminal {
+                selectedTerminal = nil
+                userPinLocationWhenTerminalSelected = view.region.center
             }
         }
     }

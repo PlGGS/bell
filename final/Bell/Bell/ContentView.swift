@@ -171,20 +171,17 @@ struct NearbyListView: View {
     @State private var searchText = ""
     @State private var scrollOffset: CGFloat = 0.0
     
-    var userPinRegion: MKCoordinateRegion {
-        mapViewModel.view.region
-    }
-    
-    var userPinLatitude: Double {
-        return userPinRegion.center.latitude
-    }
-    var userPinLongitude: Double {
-        return userPinRegion.center.longitude
-    }
-    
     var userRadius: Double = 0.25 //Miles
     var userRadialRegion: RadialRegion {
-        return RadialRegion(latitude: userPinLatitude, longitude: userPinLongitude, radiusInMiles: userRadius)
+        //Only use the current user pin location if the user hasn't selected a stop yet
+        if mapViewModel.selectedTerminal == nil {
+            return RadialRegion(latitude: mapViewModel.view.region.center.latitude, longitude: mapViewModel.view.region.center.longitude, radiusInMiles: userRadius)
+        }
+        else {
+//            print("using prev lat long")
+//            print("prevLatitude: \(mapViewModel.userPinLocationWhenTerminalSelected.latitude) | prevLongitude: \(mapViewModel.userPinLocationWhenTerminalSelected.longitude)")
+            return RadialRegion(latitude: mapViewModel.userPinLocationWhenTerminalSelected.latitude, longitude: mapViewModel.userPinLocationWhenTerminalSelected.longitude, radiusInMiles: userRadius)
+        }
     }
     
     var body: some View {
@@ -251,6 +248,7 @@ struct StopView: View {
     
     @StateObject private var trdata: TerminalRequestData = TerminalRequestData()
     @State private var terminalInfoString: String = "";
+    
     @EnvironmentObject var mapViewModel: MapViewModel
     
     var body: some View {
@@ -271,6 +269,17 @@ struct StopView: View {
                         .environmentObject(mapViewModel)
                 }
             }
+        }
+        .onAppear {
+            mapViewModel.isSelectingTerminal = false
+            mapViewModel.selectedTerminal = stop
+        }
+        .onDisappear {
+            mapViewModel.isSelectingTerminal = true
+//            mapViewModel.selectedTerminal = nil
+            
+            //Update the previous user pin location just in case the user selects another stop without moving the map to update the region
+//            mapViewModel.updatePrevUserPinLocation()
         }
         .navigationTitle(stop.shortName)
         .task {

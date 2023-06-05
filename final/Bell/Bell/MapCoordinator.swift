@@ -35,7 +35,7 @@ class MapCoordinator: NSObject, MKMapViewDelegate, ObservableObject {
             if let trainAnnotation = annotation as? TrainAnnotation {
                 let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "train")
                 
-                print("Customizing annotation for \(trainAnnotation.lineName) line run #\(trainAnnotation.runNumber)")
+//                print("Customizing annotation for \(trainAnnotation.lineName) line run #\(trainAnnotation.runNumber)")
                 
                 let color = UIColor(Color(trainAnnotation.lineName))
                 annotationView.markerTintColor = UIColor(Color(color))
