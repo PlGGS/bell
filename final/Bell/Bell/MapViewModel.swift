@@ -120,7 +120,7 @@ class MapViewModel: ObservableObject {
         return TrainAnnotation(coordinate: coordinate,
                                lineName: Line(rawValue: train.lineName!)!.shortName,
                                runNumber: train.runNumber ?? "???",
-                               etas: train.etas)
+                               nextTerminal: train.nextTerminal)
     }
     
     func removeTrainAnnotations() {

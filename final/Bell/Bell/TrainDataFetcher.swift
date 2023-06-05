@@ -18,7 +18,7 @@ class TrainDataFetcher: ObservableObject {
     public var dataError: String?;
     
     ///Fetches JSON data for each upcoming terminal in a given train's route by runNumber
-    func getTrainEtas(train: Train) async -> [Train]? {
+    func getTrainEtas(train: Train) async -> Train? {
         guard let url = URL(string: "https://lapi.transitchicago.com/api/1.0/ttfollow.aspx?key=\(apiKey)&runnumber=\(train.runNumber ?? "???")&outputType=JSON") else {
             fatalError("Invalid URL")
         }
@@ -32,19 +32,23 @@ class TrainDataFetcher: ObservableObject {
             }
             
             guard let etas = ctatt["eta"] as? [[String: Any]] else {
-                return [] // There are no upcoming terminals
+                return nil // There are no upcoming terminals
             }
             
             let decoder = JSONDecoder()
-            let trainEtas = try etas.map { etaData -> Train in
+            let closestEta = try etas.map { etaData -> Train in
                 let eta = try decoder.decode(Train.self, from: JSONSerialization.data(withJSONObject: etaData))
                 return eta
-            }
+            }.min { (eta1, eta2) -> Bool in
+                let predictionTime1 = eta1.secondsTillArrival()
+                let predictionTime2 = eta2.secondsTillArrival()
+                return predictionTime1 < predictionTime2
+            } as Train?
             
-            return trainEtas
+            return closestEta
         } catch {
             self.dataError = error.localizedDescription
-            return []
+            return nil
         }
     }
 }

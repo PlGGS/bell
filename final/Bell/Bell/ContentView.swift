@@ -313,7 +313,6 @@ struct TrainButtonRow: View {
     var train: Train
     
     @StateObject private var trdata: TrainDataFetcher = TrainDataFetcher()
-    @State private var terminalInfoString: String = "";
     
     private var lineName: String {
         Line(rawValue: train.lineName!)!.shortName
@@ -348,8 +347,9 @@ struct TrainButtonRow: View {
             }
         }
         .task {
-            if let etas = await trdata.getTrainEtas(train: train) {
-                train.etas = etas
+            if let closestEta = await trdata.getTrainEtas(train: train) {
+                let id = Int(closestEta.nextParentTerminalID ?? "?????") ?? 0
+                train.nextTerminal = Terminal(rawValue: id)
                 
                 train.annotation = mapViewModel.createTrainAnnotation(train: train)
                 mapViewModel.placeTrainAnnotation(train: train)
@@ -361,7 +361,7 @@ struct TrainButtonRow: View {
                         @MainActor func performMoveCoordinate() {
                             guard isMoving else { return }
 
-                            if let nextTerminal = annotation.nextTerminal() {
+                            if let nextTerminal = annotation.nextTerminal {
                                 annotation.moveCoordinate(towards: CLLocationCoordinate2D(latitude: nextTerminal.latitude, longitude: nextTerminal.longitude))
 
                                 let delay: TimeInterval = 0.008333333 // 83.3333 milliseconds (120 times per second)

@@ -29,7 +29,7 @@ class Train: Codable, Identifiable {
     let heading: String?; ///Direction N, E, S, W in degrees 0 through 359 (null if haven't left yet)
 
     var annotation: TrainAnnotation?
-    var etas: [Train]? //This is of type Train, but that's just to keep things simple since the follow api response is almost identical to the arrivals api
+    var nextTerminal: Terminal?
     
     enum CodingKeys: String, CodingKey {
         case nextParentTerminalID = "staId"
@@ -122,11 +122,7 @@ class Train: Codable, Identifiable {
         }
     }
     
-    func getTimeTillArrival() -> String {
-        if isApproaching == "1" {
-            return "Due"
-        }
-        
+    func secondsTillArrival() -> Double {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         
@@ -136,7 +132,16 @@ class Train: Codable, Identifiable {
         }
         
         let diffSeconds = time2.timeIntervalSince(time1)
-        let diffMinutes = diffSeconds / 60
+        
+        return diffSeconds
+    }
+    
+    func getTimeTillArrival() -> String {
+        if isApproaching == "1" {
+            return "Due"
+        }
+        
+        let diffMinutes = secondsTillArrival() / 60
         
         return String(format: "%.0f", diffMinutes)
     }
