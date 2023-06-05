@@ -112,6 +112,14 @@ class MapViewModel: ObservableObject {
         userPinAnnotation = annotation
     }
     
+    func createTrainAnnotation(train: Train) -> TrainAnnotation {
+        let latitude = Double(train.latitude ?? "0.0")!
+        let longitude = Double(train.longitude ?? "0.0")!
+        
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        return TrainAnnotation(coordinate: coordinate, lineName: Line(rawValue: train.lineName!)!.shortName, runNumber: train.runNumber ?? "???")
+    }
+    
     func removeTrainAnnotations() {
         for annotation in trainAnnotations {
             view.removeAnnotation(annotation)
@@ -121,14 +129,10 @@ class MapViewModel: ObservableObject {
     }
     
     func placeTrainAnnotation(train: Train) {
-        let latitude = Double(train.latitude ?? "0.0")!
-        let longitude = Double(train.longitude ?? "0.0")!
-        
-        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let annotation = TrainAnnotation(coordinate: coordinate, lineName: Line(rawValue: train.lineName!)!.shortName, runNumber: train.runNumber ?? "???")
-        
-        trainAnnotations.append(annotation)
-        view.addAnnotation(annotation)
+        if let annotation = train.annotation {
+            trainAnnotations.append(annotation)
+            view.addAnnotation(annotation)
+        }
     }
     
     func recenterDotAnnotation() {

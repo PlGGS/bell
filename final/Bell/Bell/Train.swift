@@ -27,6 +27,8 @@ class Train: Codable, Identifiable {
     let latitude: String?;
     let longitude: String?;
     let heading: String?; ///Direction N, E, S, W in degrees 0 through 359 (null if haven't left yet)
+
+    var annotation: TrainAnnotation?
     
     enum CodingKeys: String, CodingKey {
         case nextParentTerminalID = "staId"
@@ -71,6 +73,7 @@ class Train: Codable, Identifiable {
         latitude = try? container.decodeIfPresent(String.self, forKey: .latitude)
         longitude = try? container.decodeIfPresent(String.self, forKey: .longitude)
         heading = try? container.decodeIfPresent(String.self, forKey: .heading)
+        annotation = nil
     }
     
     func encode(to encoder: Encoder) throws {

@@ -283,6 +283,9 @@ struct StopView: View {
             } else {
                 List(trdata.trains) { train in
                     TrainButtonRow(train: train)
+                        .onAppear {
+                            train.annotation = mapViewModel.createTrainAnnotation(train: train)
+                        }
                         .environmentObject(mapViewModel)
                 }
             }
@@ -320,12 +323,12 @@ struct TrainButtonRow: View {
     
     var body: some View {
         Button(action: {
-            let trainLatitude = Double(train.latitude ?? "0.0") ?? 0.0
-            let trainLongitude = Double(train.longitude ?? "0.0") ?? 0.0
-            let trainLocation = CLLocationCoordinate2D(latitude: trainLatitude, longitude: trainLongitude)
-            
-            mapViewModel.placeDotAnnotation(trainLocation)
-            mapViewModel.moveMap(to: trainLocation)
+            if let annotation = train.annotation {
+                let trainLocation = CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+                
+                mapViewModel.placeDotAnnotation(trainLocation)
+                mapViewModel.moveMap(to: trainLocation)
+            }
         }) {
             HStack {
                 VStack(alignment: .leading) {
