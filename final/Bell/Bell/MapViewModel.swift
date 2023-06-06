@@ -26,6 +26,7 @@ class MapViewModel: ObservableObject {
     
     @Published var onlyShowAccessibleStops: Bool = false
     @Published var searchBarFiltersNearbyStops: Bool = false
+    @Published var userRadialRegionRadius: Double = 0.25
     
     var lineOverlays: [MKPolyline] = []
 

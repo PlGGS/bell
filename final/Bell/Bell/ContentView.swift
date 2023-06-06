@@ -23,7 +23,7 @@ struct ContentView: View {
     @State private var userPinLatitude: Double = 0.0
     @State private var userPinLongitude: Double = 0.0
     
-    let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.4;
+    let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.5;
     let sheetGrabOffset: Double = 0.18;
     let sheetHideHeight: Double = UIScreen.main.bounds.height * 0.81;
     
@@ -58,7 +58,6 @@ struct ContentView: View {
                             DragGesture(coordinateSpace: .local)
                                 .onChanged { value in
                                     UIApplication.shared.endEditing()
-                                    print(mapViewModel.sheetHeightOffset)
                                     if value.location.y >= geo.size.height * sheetGrabOffset {
                                         mapViewModel.sheetHeightOffset = value.location.y - geo.size.height * sheetGrabOffset
                                     }
@@ -167,9 +166,21 @@ struct SettingsView: View {
         NavigationView {
             VStack {
                 Toggle("Only show accessible stops", isOn: $mapViewModel.onlyShowAccessibleStops)
-                    .padding(20)
+                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
                 Toggle("Limit search bar to filter nearby stops", isOn: $mapViewModel.searchBarFiltersNearbyStops)
-                    .padding(20)
+                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+                VStack {
+                    Slider(value: $mapViewModel.userRadialRegionRadius, in: 0.25...10.0, step: 0.05) {
+                        
+                    }
+                    HStack {
+                        Text("Nearby stops radius")
+                        Spacer()
+                        Text("\(String(format: "%.2f", mapViewModel.userRadialRegionRadius)) Miles")
+                    }
+                }
+                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+                
                 Spacer()
             }
             .navigationBarTitle("Settings")
@@ -200,7 +211,7 @@ struct NearbyListView: View {
     var userRadialRegion: RadialRegion {
         //Only use the current user pin location if the user hasn't selected a stop yet
         if mapViewModel.selectedTerminal == nil {
-            return RadialRegion(latitude: mapViewModel.view.region.center.latitude, longitude: mapViewModel.view.region.center.longitude, radiusInMiles: userRadius)
+            return RadialRegion(latitude: mapViewModel.view.region.center.latitude, longitude: mapViewModel.view.region.center.longitude, radiusInMiles: mapViewModel.userRadialRegionRadius)
         }
         else {
     //            print("using prev lat long")
@@ -251,7 +262,7 @@ struct StopList: View {
                     .cornerRadius(8)
                     .padding(.horizontal, 20)
                     .onTapGesture {
-                        mapViewModel.sheetHeightOffset = 1
+                        mapViewModel.sheetHeightOffset = 0
                         isKeyboardVisible = true
                     }
                 List(stops, id: \.self) { stop in
@@ -371,7 +382,7 @@ struct TrainButtonRow: View {
             if let annotation = train.annotation {
                 let trainLocation = CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
                 
-                print("\(lineName) line run #\(train.runNumber!) started out at \(train.latitude!), \(train.longitude!)")
+//                print("\(lineName) line run #\(train.runNumber!) started out at \(train.latitude!), \(train.longitude!)")
                 
                 mapViewModel.placeDotAnnotation(trainLocation)
                 mapViewModel.moveMap(to: trainLocation)
