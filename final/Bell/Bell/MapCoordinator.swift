@@ -42,6 +42,10 @@ class MapCoordinator: NSObject, MKMapViewDelegate, ObservableObject {
                 
                 let color = UIColor(Color(trainAnnotation.lineName))
                 annotationView.markerTintColor = UIColor(Color(color))
+                if let systemImage = UIImage(systemName: "train.side.rear.car") {
+                    let flippedImage = UIImage(cgImage: systemImage.cgImage!, scale: systemImage.scale, orientation: .upMirrored)
+                    annotationView.glyphImage = flippedImage
+                }
                 
                 return annotationView
             }

@@ -23,7 +23,7 @@ struct ContentView: View {
     @State private var userPinLatitude: Double = 0.0
     @State private var userPinLongitude: Double = 0.0
     
-    let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.5;
+    let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.48;
     let sheetGrabOffset: Double = 0.18;
     let sheetHideHeight: Double = UIScreen.main.bounds.height * 0.81;
     
