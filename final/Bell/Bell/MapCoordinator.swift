@@ -22,7 +22,10 @@ class MapCoordinator: NSObject, MKMapViewDelegate, ObservableObject {
             DispatchQueue.main.async {
                 if let centerCoordinate = mapView.centerCoordinate as Optional {
                     self.parent.mapViewModel.updateRegion(centerCoordinate)
-                    self.parent.mapViewModel.placeDotAnnotation(centerCoordinate)
+                    
+                    if self.parent.mapViewModel.selectedTerminal == nil {
+                        self.parent.mapViewModel.placeDotAnnotation(centerCoordinate)
+                    }
                 }
             }
         }

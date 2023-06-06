@@ -94,8 +94,11 @@ struct CustomSheetView: View {
         VStack(spacing: 20) {
             HStack {
                 Button(action: {
-                    mapViewModel.recenterDotAnnotation()
                     mapViewModel.recenterMap()
+                    
+                    if mapViewModel.selectedTerminal == nil {
+                        mapViewModel.recenterDotAnnotation()
+                    }
                 }) {
                     if mapViewModel.isCenterCloseToUserLocation {
                         UpAndSettingsButtonView(systemImageName: "location.fill")
@@ -356,7 +359,7 @@ struct TrainButtonRow: View {
                 train.annotation = mapViewModel.createTrainAnnotation(train: train)
                 mapViewModel.placeTrainAnnotation(train: train)
                 
-                print("\(train.lineName!) line run #\(train.runNumber!) says it started at \(train.latitude ?? "the station"), \(train.longitude ?? "the station")")
+//                print("\(train.lineName!) line run #\(train.runNumber!) says it started at \(train.latitude ?? "the station"), \(train.longitude ?? "the station")")
                 
                 if let annotation = train.annotation {
                     DispatchQueue.main.async {

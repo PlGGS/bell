@@ -50,10 +50,14 @@ class MapViewModel: ObservableObject {
     }
     
     func isCenterCloseToUserLocation(_ userLocation: CLLocationCoordinate2D) -> Bool {
+        areCloseEnough(one: view.region.center, two: userLocation)
+    }
+    
+    func areCloseEnough(one: CLLocationCoordinate2D, two: CLLocationCoordinate2D) -> Bool {
         let tolerance: Double = 0.0001
 
-        let latitudeDifference = abs(view.region.center.latitude - userLocation.latitude)
-        let longitudeDifference = abs(view.region.center.longitude - userLocation.longitude)
+        let latitudeDifference = abs(one.latitude - two.latitude)
+        let longitudeDifference = abs(one.longitude - two.longitude)
         
         let out = (latitudeDifference <= tolerance && longitudeDifference <= tolerance)
         
