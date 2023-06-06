@@ -11,6 +11,8 @@ import MapKit
 class MapViewModel: ObservableObject {
     @Published var view = MKMapView()
     @Published var location: Location = Location()
+    @Published var searchText = ""
+    @Published var searchStops: [Terminal] = Terminal.allCases
     
     @Published var sheetHeightOffset: CGFloat = 0
     @Published var isCenterCloseToUserLocation: Bool = false

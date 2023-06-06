@@ -202,61 +202,29 @@ struct CircleButtonView: View {
 
 struct NearbyListView: View {
     var initialSheetHeightOffset: CGFloat
-
+    
     @Binding var isKeyboardVisible: Bool
-
-    @State private var searchText = ""
-
-    var userRadius: Double = 0.25 //Miles
+    
+    @State private var stops: [Terminal] = []
+    @State private var firstStopIndex: Double = 0.0
+    @State private var scrollOffset: CGFloat = 0.0
+    
+    @EnvironmentObject var mapViewModel: MapViewModel
+    
     var userRadialRegion: RadialRegion {
         //Only use the current user pin location if the user hasn't selected a stop yet
         if mapViewModel.selectedTerminal == nil {
             return RadialRegion(latitude: mapViewModel.view.region.center.latitude, longitude: mapViewModel.view.region.center.longitude, radiusInMiles: mapViewModel.userRadialRegionRadius)
         }
         else {
-    //            print("using prev lat long")
-    //            print("prevLatitude: \(mapViewModel.userPinLocationWhenTerminalSelected.latitude) | prevLongitude: \(mapViewModel.userPinLocationWhenTerminalSelected.longitude)")
-            return RadialRegion(latitude: mapViewModel.userPinLocationWhenTerminalSelected.latitude, longitude: mapViewModel.userPinLocationWhenTerminalSelected.longitude, radiusInMiles: userRadius)
+            return RadialRegion(latitude: mapViewModel.userPinLocationWhenTerminalSelected.latitude, longitude: mapViewModel.userPinLocationWhenTerminalSelected.longitude, radiusInMiles: mapViewModel.userRadialRegionRadius)
         }
     }
-
-    @EnvironmentObject var mapViewModel: MapViewModel
-
+    
     var body: some View {
         NavigationView {
-            if searchText.isEmpty {
-                StopList(stops: userRadialRegion.getTerminals(), searchText: $searchText, isKeyboardVisible: $isKeyboardVisible)
-                    .environmentObject(mapViewModel)
-            }
-            else {
-                if mapViewModel.searchBarFiltersNearbyStops {
-                    StopList(stops: userRadialRegion.getTerminals(), searchText: $searchText, isKeyboardVisible: $isKeyboardVisible)
-                        .environmentObject(mapViewModel)
-                }
-                else {
-                    StopList(stops: Terminal.allCases, searchText: $searchText, isKeyboardVisible: $isKeyboardVisible)
-                        .environmentObject(mapViewModel)
-                }
-            }
-        }
-    }
-}
-
-struct StopList: View {
-    var stops: [Terminal]
-    @Binding var searchText: String
-    @Binding var isKeyboardVisible: Bool
-    
-    @EnvironmentObject var mapViewModel: MapViewModel
-    
-    @State private var firstStopIndex: Double = 0.0
-    
-    @State private var scrollOffset: CGFloat = 0.0
-    
-    var body: some View {
-        ScrollViewReader { scrollViewProxy in
             VStack {
-                TextField("Line or destination", text: $searchText)
+                TextField("Line or destination", text: $mapViewModel.searchText)
                     .padding(8)
                     .background(Color(.systemGray6))
                     .cornerRadius(8)
@@ -265,33 +233,44 @@ struct StopList: View {
                         mapViewModel.sheetHeightOffset = 0
                         isKeyboardVisible = true
                     }
-                List(stops, id: \.self) { stop in
-                    if searchText.isEmpty ||
-                        stop.fullName.localizedCaseInsensitiveContains(searchText) ||
-                        stop.lines.contains(where: { line in
-                            return line.shortName.localizedCaseInsensitiveContains(searchText)
-                        }) {
-                        if mapViewModel.onlyShowAccessibleStops && stop.isADACompliant ||
-                            mapViewModel.onlyShowAccessibleStops == false {
-                            StopRow(stop: stop)
-                        }
-                    }
-                }
-                .overlay(
-                    GeometryReader { geometry in
-                        Color.clear
-                            .onChange(of: scrollOffset) { _ in
-                                scrollViewProxy.scrollTo(scrollOffset, anchor: .top)
+                ScrollViewReader { scrollViewProxy in
+                    List(mapViewModel.searchStops, id: \.self) { stop in
+                        if mapViewModel.searchText.isEmpty ||
+                            stop.fullName.localizedCaseInsensitiveContains(mapViewModel.searchText) ||
+                            stop.lines.contains(where: { line in
+                                return line.shortName.localizedCaseInsensitiveContains(mapViewModel.searchText)
+                            }) {
+                            if mapViewModel.onlyShowAccessibleStops && stop.isADACompliant ||
+                                mapViewModel.onlyShowAccessibleStops == false {
+                                StopRow(stop: stop)
                             }
-                    }
-                )
-                .gesture(
-                    DragGesture()
-                        .onChanged { value in
-                            scrollOffset -= value.translation.height
-                            UIApplication.shared.endEditing()
                         }
-                )
+                    }
+                    .overlay(
+                        GeometryReader { geometry in
+                            Color.clear
+                                .onChange(of: scrollOffset) { _ in
+                                    scrollViewProxy.scrollTo(scrollOffset, anchor: .top)
+                                    isKeyboardVisible = true
+                                }
+                        }
+                    )
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                scrollOffset -= value.translation.height
+                                UIApplication.shared.endEditing()
+                            }
+                    )
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification)) { text in
+                if mapViewModel.searchText.isEmpty || mapViewModel.searchBarFiltersNearbyStops {
+                    mapViewModel.searchStops = userRadialRegion.getTerminals()
+                }
+                else {
+                    mapViewModel.searchStops = Terminal.allCases
+                }
             }
         }
     }
