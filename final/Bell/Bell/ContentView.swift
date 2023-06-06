@@ -17,7 +17,6 @@ extension UIApplication {
 }
 
 struct ContentView: View {
-    @State private var sheetHeightOffset: CGFloat = 0
     @State private var isKeyboardVisible: Bool = false
     @StateObject var mapViewModel = MapViewModel()
     @State private var isCenterCloseToUserLocation = false
@@ -26,12 +25,19 @@ struct ContentView: View {
     
     let initialSheetHeightOffset: CGFloat = UIScreen.main.bounds.height * 0.4;
     let sheetGrabOffset: Double = 0.18;
-    let sheetHideHeight: Double = UIScreen.main.bounds.height * 0.8;
+    let sheetHideHeight: Double = UIScreen.main.bounds.height * 0.81;
     
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottomLeading) {
                 MapView()
+                    .onTapGesture {
+                        UIApplication.shared.endEditing()
+                        
+                        if mapViewModel.sheetHeightOffset < initialSheetHeightOffset {
+                            mapViewModel.sheetHeightOffset = initialSheetHeightOffset
+                        }
+                    }
                     .environmentObject(mapViewModel)
                     .edgesIgnoringSafeArea(.all)
                     .alert(isPresented: locationServicesUnavailable(), content: {
@@ -43,22 +49,23 @@ struct ContentView: View {
                         )
                     })
                 VStack {
-                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
+                    CustomSheetView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHideHeight: sheetHideHeight, isKeyboardVisible: $isKeyboardVisible)
                         .environmentObject(mapViewModel)
                         .transition(.move(edge: .bottom))
                         .animation(.easeInOut)
-                        .offset(y: sheetHeightOffset)
+                        .offset(y: mapViewModel.sheetHeightOffset)
                         .gesture(
                             DragGesture(coordinateSpace: .local)
                                 .onChanged { value in
                                     UIApplication.shared.endEditing()
+                                    print(mapViewModel.sheetHeightOffset)
                                     if value.location.y >= geo.size.height * sheetGrabOffset {
-                                        sheetHeightOffset = value.location.y - geo.size.height * sheetGrabOffset
+                                        mapViewModel.sheetHeightOffset = value.location.y - geo.size.height * sheetGrabOffset
                                     }
                                 }
                                 .onEnded { value in
                                     if value.location.y > sheetHideHeight {
-                                        sheetHeightOffset = sheetHideHeight
+                                        mapViewModel.sheetHeightOffset = sheetHideHeight
                                     }
                                 }
                         )
@@ -67,7 +74,7 @@ struct ContentView: View {
             }
             .edgesIgnoringSafeArea(.bottom)
             .onAppear {
-                sheetHeightOffset = initialSheetHeightOffset
+                mapViewModel.sheetHeightOffset = initialSheetHeightOffset
             }
         }
     }
@@ -83,7 +90,6 @@ struct ContentView: View {
 struct CustomSheetView: View {
     var initialSheetHeightOffset: CGFloat
     var sheetHideHeight: CGFloat
-    @Binding var sheetHeightOffset: CGFloat
     @Binding var isKeyboardVisible: Bool
     
     @EnvironmentObject var mapViewModel: MapViewModel
@@ -101,10 +107,10 @@ struct CustomSheetView: View {
                     }
                 }) {
                     if mapViewModel.isCenterCloseToUserLocation {
-                        UpAndSettingsButtonView(systemImageName: "location.fill")
+                        CircleButtonView(systemImageName: "location.fill")
                     }
                     else {
-                        UpAndSettingsButtonView(systemImageName: "location")
+                        CircleButtonView(systemImageName: "location")
                     }
                 }
                 .background(Color.blue)
@@ -112,22 +118,22 @@ struct CustomSheetView: View {
                 .padding(20)
                 Spacer()
                 Button(action: {
-                    if sheetHeightOffset < sheetHideHeight {
+                    if mapViewModel.sheetHeightOffset < sheetHideHeight {
                         //if the sheet isn't being hidden, we navigate to the settings page
                         presentSettingsView.toggle()
                     }
                     else {
                         //otherwise, we simply move the sheet back up
-                        sheetHeightOffset = initialSheetHeightOffset
+                        mapViewModel.sheetHeightOffset = initialSheetHeightOffset
                     }
                 }) {
-                    if sheetHeightOffset < sheetHideHeight {
+                    if mapViewModel.sheetHeightOffset < sheetHideHeight {
                         //if the sheet isn't being hidden, we show the settings icon
-                        UpAndSettingsButtonView(systemImageName: "gear")
+                        CircleButtonView(systemImageName: "gear")
                     }
                     else {
                         //otherwise, we show an up arrow
-                        UpAndSettingsButtonView(systemImageName: "arrow.up.circle")
+                        CircleButtonView(systemImageName: "arrow.up.circle")
                     }
                 }
                 .popover(isPresented: $presentSettingsView, arrowEdge: .top) {
@@ -144,7 +150,7 @@ struct CustomSheetView: View {
                     .fill(.gray)
                     .frame(width: 50, height: 5)
                     .padding(.top)
-                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, sheetHeightOffset: $sheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
+                NearbyListView(initialSheetHeightOffset: initialSheetHeightOffset, isKeyboardVisible: $isKeyboardVisible)
                     .environmentObject(mapViewModel)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -162,6 +168,8 @@ struct SettingsView: View {
             VStack {
                 Toggle("Only show accessible stops", isOn: $mapViewModel.onlyShowAccessibleStops)
                     .padding(20)
+                Toggle("Limit search bar to filter nearby stops", isOn: $mapViewModel.searchBarFiltersNearbyStops)
+                    .padding(20)
                 Spacer()
             }
             .navigationBarTitle("Settings")
@@ -169,7 +177,7 @@ struct SettingsView: View {
     }
 }
 
-struct UpAndSettingsButtonView: View {
+struct CircleButtonView: View {
     var systemImageName: String
     
     var body: some View {
@@ -183,15 +191,11 @@ struct UpAndSettingsButtonView: View {
 
 struct NearbyListView: View {
     var initialSheetHeightOffset: CGFloat
-    @Binding var sheetHeightOffset: CGFloat
+
     @Binding var isKeyboardVisible: Bool
-    
-    @EnvironmentObject var mapViewModel: MapViewModel
-    
-    @State private var firstStopIndex: Double = 0.0
+
     @State private var searchText = ""
-    @State private var scrollOffset: CGFloat = 0.0
-    
+
     var userRadius: Double = 0.25 //Miles
     var userRadialRegion: RadialRegion {
         //Only use the current user pin location if the user hasn't selected a stop yet
@@ -199,68 +203,107 @@ struct NearbyListView: View {
             return RadialRegion(latitude: mapViewModel.view.region.center.latitude, longitude: mapViewModel.view.region.center.longitude, radiusInMiles: userRadius)
         }
         else {
-//            print("using prev lat long")
-//            print("prevLatitude: \(mapViewModel.userPinLocationWhenTerminalSelected.latitude) | prevLongitude: \(mapViewModel.userPinLocationWhenTerminalSelected.longitude)")
+    //            print("using prev lat long")
+    //            print("prevLatitude: \(mapViewModel.userPinLocationWhenTerminalSelected.latitude) | prevLongitude: \(mapViewModel.userPinLocationWhenTerminalSelected.longitude)")
             return RadialRegion(latitude: mapViewModel.userPinLocationWhenTerminalSelected.latitude, longitude: mapViewModel.userPinLocationWhenTerminalSelected.longitude, radiusInMiles: userRadius)
         }
     }
-    
+
+    @EnvironmentObject var mapViewModel: MapViewModel
+
     var body: some View {
         NavigationView {
+            if searchText.isEmpty {
+                StopList(stops: userRadialRegion.getTerminals(), searchText: $searchText, isKeyboardVisible: $isKeyboardVisible)
+                    .environmentObject(mapViewModel)
+            }
+            else {
+                if mapViewModel.searchBarFiltersNearbyStops {
+                    StopList(stops: userRadialRegion.getTerminals(), searchText: $searchText, isKeyboardVisible: $isKeyboardVisible)
+                        .environmentObject(mapViewModel)
+                }
+                else {
+                    StopList(stops: Terminal.allCases, searchText: $searchText, isKeyboardVisible: $isKeyboardVisible)
+                        .environmentObject(mapViewModel)
+                }
+            }
+        }
+    }
+}
+
+struct StopList: View {
+    var stops: [Terminal]
+    @Binding var searchText: String
+    @Binding var isKeyboardVisible: Bool
+    
+    @EnvironmentObject var mapViewModel: MapViewModel
+    
+    @State private var firstStopIndex: Double = 0.0
+    
+    @State private var scrollOffset: CGFloat = 0.0
+    
+    var body: some View {
+        ScrollViewReader { scrollViewProxy in
             VStack {
                 TextField("Line or destination", text: $searchText)
-                    .onTapGesture {
-                        isKeyboardVisible = true
-                        sheetHeightOffset = 0
-                    }
                     .padding(8)
                     .background(Color(.systemGray6))
                     .cornerRadius(8)
                     .padding(.horizontal, 20)
-                    .background(Color.clear)
-                
-                ScrollViewReader { scrollViewProxy in
-                    List(userRadialRegion.getTerminals(), id: \.self) { stop in
-                        if searchText.isEmpty ||
-                                stop.fullName.localizedCaseInsensitiveContains(searchText) ||
-                                stop.lines.contains(where: { line in
-                                    return line.shortName.localizedCaseInsensitiveContains(searchText)
-                                }) {
-                            if mapViewModel.onlyShowAccessibleStops && stop.isADACompliant ||
-                                    mapViewModel.onlyShowAccessibleStops == false {
-                                NavigationLink(destination: StopView(stop: stop).environmentObject(mapViewModel)) {
-                                    HStack {
-                                        Text(stop.fullName)
-                                            .listRowBackground(Color.clear)
-                                        if stop.isADACompliant {
-                                            Image(systemName: "figure.roll")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .frame(width: 24, height: 24)
-                                                .background(Color.clear)
-                                        }
-                                        Spacer()
-                                    }
-                                }
-                            }
+                    .onTapGesture {
+                        mapViewModel.sheetHeightOffset = 1
+                        isKeyboardVisible = true
+                    }
+                List(stops, id: \.self) { stop in
+                    if searchText.isEmpty ||
+                        stop.fullName.localizedCaseInsensitiveContains(searchText) ||
+                        stop.lines.contains(where: { line in
+                            return line.shortName.localizedCaseInsensitiveContains(searchText)
+                        }) {
+                        if mapViewModel.onlyShowAccessibleStops && stop.isADACompliant ||
+                            mapViewModel.onlyShowAccessibleStops == false {
+                            StopRow(stop: stop)
                         }
                     }
-                    .overlay(
-                        GeometryReader { geometry in
-                            Color.clear
-                                .onChange(of: scrollOffset) { _ in
-                                    scrollViewProxy.scrollTo(scrollOffset, anchor: .top)
-                                }
-                        }
-                    )
-                    .gesture(
-                        DragGesture()
-                            .onChanged { value in
-                                scrollOffset -= value.translation.height
-                                UIApplication.shared.endEditing()
-                            }
-                    )
                 }
+                .overlay(
+                    GeometryReader { geometry in
+                        Color.clear
+                            .onChange(of: scrollOffset) { _ in
+                                scrollViewProxy.scrollTo(scrollOffset, anchor: .top)
+                            }
+                    }
+                )
+                .gesture(
+                    DragGesture()
+                        .onChanged { value in
+                            scrollOffset -= value.translation.height
+                            UIApplication.shared.endEditing()
+                        }
+                )
+            }
+        }
+    }
+}
+
+struct StopRow: View {
+    var stop: Terminal
+    
+    @EnvironmentObject var mapViewModel: MapViewModel
+    
+    var body: some View {
+        NavigationLink(destination: StopView(stop: stop).environmentObject(mapViewModel)) {
+            HStack {
+                Text(stop.fullName)
+                    .listRowBackground(Color.clear)
+                if stop.isADACompliant {
+                    Image(systemName: "figure.roll")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                        .background(Color.clear)
+                }
+                Spacer()
             }
         }
     }
@@ -363,11 +406,7 @@ struct TrainButtonRow: View {
                 
                 if let annotation = train.annotation {
                     DispatchQueue.main.async {
-                        var isMoving = true
-                        
                         @MainActor func performMoveCoordinate() {
-                            guard isMoving else { return }
-
                             if let nextTerminal = annotation.nextTerminal {
                                 annotation.moveCoordinate(towards: CLLocationCoordinate2D(latitude: nextTerminal.latitude, longitude: nextTerminal.longitude))
 

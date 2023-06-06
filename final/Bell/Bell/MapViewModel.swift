@@ -12,6 +12,7 @@ class MapViewModel: ObservableObject {
     @Published var view = MKMapView()
     @Published var location: Location = Location()
     
+    @Published var sheetHeightOffset: CGFloat = 0
     @Published var isCenterCloseToUserLocation: Bool = false
     
     @Published var userPinAnnotation: MKAnnotation = MKPointAnnotation()
@@ -21,7 +22,10 @@ class MapViewModel: ObservableObject {
     @Published var selectedTerminal: Terminal? = nil
     @Published var userPinLocationWhenTerminalSelected: CLLocationCoordinate2D = CLLocationCoordinate2D()
     
+    //Settings
+    
     @Published var onlyShowAccessibleStops: Bool = false
+    @Published var searchBarFiltersNearbyStops: Bool = false
     
     var lineOverlays: [MKPolyline] = []
 
