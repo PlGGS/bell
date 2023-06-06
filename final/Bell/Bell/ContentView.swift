@@ -325,6 +325,8 @@ struct TrainButtonRow: View {
             if let annotation = train.annotation {
                 let trainLocation = CLLocationCoordinate2D(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
                 
+                print("\(lineName) line run #\(train.runNumber!) started out at \(train.latitude!), \(train.longitude!)")
+                
                 mapViewModel.placeDotAnnotation(trainLocation)
                 mapViewModel.moveMap(to: trainLocation)
             }
@@ -347,12 +349,14 @@ struct TrainButtonRow: View {
             }
         }
         .task {
-            if let closestEta = await trdata.getTrainEtas(train: train) {
+            if let closestEta = await trdata.getClosestTerminal(train: train) {
                 let id = Int(closestEta.nextParentTerminalID ?? "?????") ?? 0
                 train.nextTerminal = Terminal(rawValue: id)
                 
                 train.annotation = mapViewModel.createTrainAnnotation(train: train)
                 mapViewModel.placeTrainAnnotation(train: train)
+                
+                print("\(train.lineName!) line run #\(train.runNumber!) says it started at \(train.latitude ?? "the station"), \(train.longitude ?? "the station")")
                 
                 if let annotation = train.annotation {
                     DispatchQueue.main.async {
