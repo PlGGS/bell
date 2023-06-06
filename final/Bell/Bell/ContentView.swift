@@ -167,8 +167,8 @@ struct SettingsView: View {
             VStack {
                 Toggle("Only show accessible stops", isOn: $mapViewModel.onlyShowAccessibleStops)
                     .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                Toggle("Limit search bar to filter nearby stops", isOn: $mapViewModel.searchBarFiltersNearbyStops)
-                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+//                Toggle("Limit search bar to filter nearby stops", isOn: $mapViewModel.searchBarFiltersNearbyStops)
+//                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
                 VStack {
                     Slider(value: $mapViewModel.userRadialRegionRadius, in: 0.25...10.0, step: 0.05) {
                         
@@ -205,7 +205,6 @@ struct NearbyListView: View {
     
     @Binding var isKeyboardVisible: Bool
     
-    @State private var stops: [Terminal] = []
     @State private var firstStopIndex: Double = 0.0
     @State private var scrollOffset: CGFloat = 0.0
     
@@ -234,7 +233,7 @@ struct NearbyListView: View {
                         isKeyboardVisible = true
                     }
                 ScrollViewReader { scrollViewProxy in
-                    List(mapViewModel.searchStops, id: \.self) { stop in
+                    List(userRadialRegion.getTerminals(), id: \.self) { stop in
                         if mapViewModel.searchText.isEmpty ||
                             stop.fullName.localizedCaseInsensitiveContains(mapViewModel.searchText) ||
                             stop.lines.contains(where: { line in
@@ -264,14 +263,22 @@ struct NearbyListView: View {
                     )
                 }
             }
-            .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification)) { text in
-                if mapViewModel.searchText.isEmpty || mapViewModel.searchBarFiltersNearbyStops {
-                    mapViewModel.searchStops = userRadialRegion.getTerminals()
-                }
-                else {
-                    mapViewModel.searchStops = Terminal.allCases
-                }
-            }
+//            .onAppear {
+//                mapViewModel.searchStops = userRadialRegion.getTerminals()
+//            }
+//            .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification)) { text in
+//                if mapViewModel.searchText.isEmpty {
+//                    mapViewModel.searchStops = userRadialRegion.getTerminals()
+//                }
+//                else {
+//                    if mapViewModel.searchBarFiltersNearbyStops {
+//                        mapViewModel.searchStops = userRadialRegion.getTerminals()
+//                    }
+//                    else {
+//                        mapViewModel.searchStops = Terminal.allCases
+//                    }
+//                }
+//            }
         }
     }
 }
