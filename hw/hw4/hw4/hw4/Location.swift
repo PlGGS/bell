@@ -12,7 +12,7 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var manager: CLLocationManager? = CLLocationManager()
     
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
-    @Published var areLocationServicesEnabled = false {
+    @Published var areLocationServicesEnabled: Bool = false {
         didSet {
             if areLocationServicesEnabled {
                 manager = CLLocationManager()
@@ -25,7 +25,7 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
         }
     }
-    @Published var isUpdatingLocation = false {
+    @Published var isUpdatingLocation: Bool = false {
         didSet {
             if let locationManager = manager {
                 if isUpdatingLocation {
@@ -48,7 +48,7 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
         }
     }
-    @Published var isUpdatingHeading = false {
+    @Published var isUpdatingHeading: Bool = false {
         didSet {
             if let locationManager = manager {
                 if isUpdatingHeading {
