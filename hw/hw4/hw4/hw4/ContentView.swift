@@ -102,8 +102,8 @@ struct LabA: View {
     
     var body: some View {
         VStack {
-            Toggle("Location Services", isOn: $location.areLocationServicesEnabled)
-            Toggle("Location Updates", isOn: $location.isUpdatingLocation)
+            Toggle("Location Services: " + ((location.areLocationServicesEnabled) ? "Enabled" : "Disabled"), isOn: $location.areLocationServicesEnabled)
+            Toggle("Location Updates: " + ((location.isUpdatingLocation) ? "Enabled" : "Disabled"), isOn: $location.isUpdatingLocation)
             if let locationManager = location.manager {
                 if let loc = locationManager.location {
                     Label(String("\(loc.coordinate.latitude), \(loc.coordinate.longitude)"), systemImage: "info.circle")
@@ -137,7 +137,13 @@ struct LabB: View {
     
     var body: some View {
         VStack {
-            
+            Toggle("Location Services: " + ((location.areLocationServicesEnabled) ? "Enabled" : "Disabled"), isOn: $location.areLocationServicesEnabled)
+            Toggle("Heading Updates: " + ((location.isUpdatingHeading) ? "Enabled" : "Disabled"), isOn: $location.isUpdatingHeading)
+            if let locationManager = location.manager {
+                let heading = (location.isUpdatingHeading) ? String(format: "%.4fº", locationManager.heading ?? "Location Services Disabled") : "Disabled"
+                Label("Heading: " + heading, systemImage: "info.circle")
+                    .padding(8)
+            }
         }
         .navigationBarTitle("Lab B")
         .padding(20)

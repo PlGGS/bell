@@ -18,9 +18,11 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
             if areLocationServicesEnabled {
                 manager = CLLocationManager()
                 isUpdatingLocation = true
+                isUpdatingHeading = true
             } else {
                 manager = nil
                 isUpdatingLocation = false
+                isUpdatingHeading = false
             }
         }
     }
@@ -47,7 +49,22 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
         }
     }
-    
+    @Published var isUpdatingHeading = false {
+        didSet {
+            if let locationManager = manager {
+                if isUpdatingHeading {
+                    locationManager.startUpdatingHeading()
+                } else {
+                    locationManager.stopUpdatingHeading()
+                }
+            }
+            else {
+                if isUpdatingHeading {
+                    isUpdatingHeading = false
+                }
+            }
+        }
+    }
     override init() {
         super.init()
         
@@ -66,13 +83,13 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
             case .authorizedAlways, .authorizedWhenInUse:
                 areLocationServicesEnabled = true
                 isUpdatingLocation = true
+                isUpdatingHeading = true
             case .restricted, .denied:
                 break
             @unknown default:
                 isUpdatingLocation = false
+                isUpdatingHeading = false
         }
-        
-        authorizationStatus = locationManager.authorizationStatus
         
         return locationManager.authorizationStatus
     }
@@ -81,12 +98,17 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
         isUpdatingLocation = true
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        isUpdatingHeading = true
+    }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         isUpdatingLocation = false
+        isUpdatingHeading = false
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        _ = getlocationAuthorization()
+        authorizationStatus = getlocationAuthorization()
     }
     
     func openSettings() {
