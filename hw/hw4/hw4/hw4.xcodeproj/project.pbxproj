@@ -14,6 +14,8 @@
 		255E6FAB2A22E8840044F3C3 /* hw4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E6FAA2A22E8840044F3C3 /* hw4Tests.swift */; };
 		255E6FB52A22E8840044F3C3 /* hw4UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E6FB42A22E8840044F3C3 /* hw4UITests.swift */; };
 		255E6FB72A22E8840044F3C3 /* hw4UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E6FB62A22E8840044F3C3 /* hw4UITestsLaunchTests.swift */; };
+		256302232A32E31F00D44A48 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256302222A32E31F00D44A48 /* Location.swift */; };
+		256302252A333F4100D44A48 /* LocationAccuracy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256302242A333F4100D44A48 /* LocationAccuracy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		255E6FB02A22E8840044F3C3 /* hw4UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hw4UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		255E6FB42A22E8840044F3C3 /* hw4UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hw4UITests.swift; sourceTree = "<group>"; };
 		255E6FB62A22E8840044F3C3 /* hw4UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hw4UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		256302222A32E31F00D44A48 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		256302242A333F4100D44A48 /* LocationAccuracy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAccuracy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 			children = (
 				255E6F982A22E8830044F3C3 /* hw4App.swift */,
 				255E6F9A2A22E8830044F3C3 /* ContentView.swift */,
+				256302222A32E31F00D44A48 /* Location.swift */,
+				256302242A333F4100D44A48 /* LocationAccuracy.swift */,
 				255E6F9C2A22E8840044F3C3 /* Assets.xcassets */,
 				255E6F9E2A22E8840044F3C3 /* hw4.entitlements */,
 				255E6F9F2A22E8840044F3C3 /* Preview Content */,
@@ -260,6 +266,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				255E6F9B2A22E8830044F3C3 /* ContentView.swift in Sources */,
+				256302252A333F4100D44A48 /* LocationAccuracy.swift in Sources */,
+				256302232A32E31F00D44A48 /* Location.swift in Sources */,
 				255E6F992A22E8830044F3C3 /* hw4App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +425,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"hw4/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "hw4 needs your location to pull relavent information.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -453,6 +462,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"hw4/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "hw4 needs your location to pull relavent information.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
