@@ -8,12 +8,6 @@
 import SwiftUI
 import MapKit
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-
 struct ContentView: View {
     @StateObject var location: Location = Location()
     
@@ -156,7 +150,9 @@ struct LabC: View {
     
     var body: some View {
         VStack {
-            
+            Toggle("Location Services: " + ((location.areLocationServicesEnabled) ? "Enabled" : "Disabled"), isOn: $location.areLocationServicesEnabled)
+            Label("Reverse Geocoded Address: " + ((location.areLocationServicesEnabled) ? location.reverseGeocodedAddress : "Unavailable"), systemImage: "info.circle")
+                .padding(8)
         }
         .navigationBarTitle("Lab C")
         .padding(20)

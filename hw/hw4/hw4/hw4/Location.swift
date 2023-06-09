@@ -10,7 +10,6 @@ import MapKit
 
 class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var manager: CLLocationManager? = CLLocationManager()
-    @Published var location: CLLocation? = CLLocation()
     
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     @Published var areLocationServicesEnabled = false {
@@ -65,12 +64,20 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
         }
     }
+    @Published var reverseGeocodedAddress: String = ""
+    
     override init() {
         super.init()
         
         if CLLocationManager.locationServicesEnabled() {
             manager = CLLocationManager()
             manager!.delegate = self
+            
+            if let location = manager!.location {
+                getReverseGeocodedAddress(location) { address in
+                    self.reverseGeocodedAddress = address
+                }
+            }
         }
     }
     
@@ -96,6 +103,30 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         isUpdatingLocation = true
+        
+        if let location = locations.first {
+            getReverseGeocodedAddress(location) { address in
+                self.reverseGeocodedAddress = address
+            }
+        }
+    }
+    
+    func getReverseGeocodedAddress(_ location: CLLocation, completion: @escaping (String) -> Void) {
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error {
+                completion("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placemark = placemarks?.first {
+                let address = "\(placemark.thoroughfare ?? ""), \(placemark.locality ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.country ?? "")"
+                completion(address)
+            } else {
+                completion("Unavailable")
+            }
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
